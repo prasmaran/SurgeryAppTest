@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/patientHomeFragment">
+    <fragment
+        android:id="@+id/patientHomeFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.PatientHomeFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_patient_home" >
+    </fragment>
+    <fragment
+        android:id="@+id/patientProgressBooksFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.PatientProgressBooksFragment"
+        android:label="Progress Book"
+        tools:layout="@layout/fragment_patient_progress_books" />
+    <fragment
+        android:id="@+id/patientAppointmentFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.PatientAppointmentFragment"
+        android:label="Appointments"
+        tools:layout="@layout/fragment_patient_appointment" />
+    <fragment
+        android:id="@+id/patientProfileFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.PatientProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_patient_profile" />
+</navigation>
