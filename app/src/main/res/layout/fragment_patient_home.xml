@@ -33,25 +33,209 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/no_internet_connection"
         android:textSize="@dimen/text_18sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/error_Image_View" />
 
-    <RatingBar
-        android:id="@+id/pain_scale_rating"
-        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+    <androidx.constraintlayout.helper.widget.Flow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="10"
-        android:progressBackgroundTint="@color/darkGray"
-        android:progressTint="@color/red"
-        android:stepSize="1"
-        android:rating="1"
-        android:isIndicator="false"
-        app:layout_constraintBottom_toTopOf="@+id/error_Image_View"
+        android:orientation="horizontal"
+        app:constraint_referenced_ids="cardViewGeneralInfo, cardViewEmergency
+                                       ,cardViewNotification, cardViewProgressBook"
+        app:flow_horizontalGap="@dimen/margin_20"
+        app:flow_maxElementsWrap="2"
+        app:flow_verticalGap="@dimen/margin_20"
+        app:flow_wrapMode="aligned"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewGeneralInfo"
+        android:layout_width="@dimen/margin_130"
+        android:layout_height="@dimen/margin_150"
+        tools:ignore="MissingConstraints"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/margin_10">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/info_image"
+                android:layout_width="@dimen/margin_80"
+                android:layout_height="@dimen/margin_80"
+                android:src="@drawable/ic_info"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="@dimen/margin_5"
+                app:tint="@color/greenDark" />
+
+            <TextView
+                android:id="@+id/info_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/general_info"
+                android:textSize="@dimen/text_13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/info_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewEmergency"
+        android:layout_width="@dimen/margin_130"
+        android:layout_height="@dimen/margin_150"
+        tools:ignore="MissingConstraints"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/margin_10">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/emergency_image"
+                android:layout_width="@dimen/margin_80"
+                android:layout_height="@dimen/margin_80"
+                android:src="@drawable/ic_phone"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="@dimen/margin_5"
+                app:tint="@color/greenDark" />
+
+            <TextView
+                android:id="@+id/emergency_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/emergency"
+                android:textSize="@dimen/text_13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emergency_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewNotification"
+        android:layout_width="@dimen/margin_130"
+        android:layout_height="@dimen/margin_150"
+        tools:ignore="MissingConstraints"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/margin_10">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/notification_image"
+                android:layout_width="@dimen/margin_80"
+                android:layout_height="@dimen/margin_80"
+                android:src="@drawable/ic_notification"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="@dimen/margin_5"
+                app:tint="@color/greenDark" />
+
+            <TextView
+                android:id="@+id/notification_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/notification"
+                android:textSize="@dimen/text_13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/notification_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewProgressBook"
+        android:layout_width="@dimen/margin_130"
+        android:layout_height="@dimen/margin_150"
+        tools:ignore="MissingConstraints"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/margin_10">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/progress_book_image"
+                android:layout_width="@dimen/margin_80"
+                android:layout_height="@dimen/margin_80"
+                android:src="@drawable/ic_progress_book"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="@dimen/margin_5"
+                app:tint="@color/greenDark" />
+
+            <TextView
+                android:id="@+id/progress_book_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/progress_book"
+                android:textSize="@dimen/text_13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progress_book_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <!-- For later use -->
+<!--    <RatingBar-->
+<!--        android:id="@+id/pain_scale_rating"-->
+<!--        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:numStars="10"-->
+<!--        android:progressBackgroundTint="@color/darkGray"-->
+<!--        android:progressTint="@color/red"-->
+<!--        android:stepSize="1"-->
+<!--        android:rating="1"-->
+<!--        android:isIndicator="false"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/error_Image_View"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
