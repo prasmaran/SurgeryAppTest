@@ -14,20 +14,22 @@ import kotlinx.android.synthetic.main.fragment_patient_home.view.*
 
 class PatientHomeFragment : Fragment() {
 
+    private lateinit var mView: View
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_patient_home, container, false)
+        mView = inflater.inflate(R.layout.fragment_patient_home, container, false)
 
         // Pain scale rating for image uploading
         // https://awesomeopensource.com/project/YuganshT79/Smiley-Rating
-        view.pain_scale_rating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-            view.error_Text_View.text = "$rating"
-        }
+        //view.pain_scale_rating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+        //    view.error_Text_View.text = "$rating"
+        //}
 
-        return view
+        return mView
     }
 
 

@@ -34,21 +34,22 @@ class MainActivityViewModel @Inject constructor(
                 val response = repository.remoteDataSource.getAllProgressEntry()
                 allProgressEntryResponse.value = handleAllProgressEntryResponse(response)
             } catch (e: Exception){
-                allProgressEntryResponse.value = NetworkResult.Error("Data not found")
+                allProgressEntryResponse.value = NetworkResult.Error(e.message.toString())
+                println("Error : ${e.message.toString()}")
             }
         } else {
             allProgressEntryResponse.value = NetworkResult.Error("No Internet Connection")
         }
     }
 
-    private fun handleAllProgressEntryResponse(response: Response<AllProgressBookEntry>): NetworkResult<AllProgressBookEntry>? {
+    private fun handleAllProgressEntryResponse(response: Response<AllProgressBookEntry>): NetworkResult<AllProgressBookEntry> {
 
         return when {
             response.message().toString().contains("timeout") -> {
                 NetworkResult.Error("Timeout")
             }
             response.body()!!.result.isNullOrEmpty()-> {
-                NetworkResult.Error("Data not found")
+                NetworkResult.Error("Error: ${response.message()}")
             }
             response.isSuccessful -> {
                 val data = response.body()

@@ -14,7 +14,7 @@ class Adapter : RecyclerView.Adapter<Adapter.MyViewHolder>() {
     // Need to create a base adapter to cater all]
     // network response into Rv
     // Follow Jimmy's Base adapter method
-    private var result = emptyList<AllProgressBookEntryItem>()
+    private var progressEntryItems = emptyList<AllProgressBookEntryItem>()
 
     class MyViewHolder(private val binding: ProgressEntryRowLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,16 +39,16 @@ class Adapter : RecyclerView.Adapter<Adapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: Adapter.MyViewHolder, position: Int) {
-        val currentResult = result[position]
-        holder.bind(currentResult)
+        val currentProgressEntryItem = progressEntryItems[position]
+        holder.bind(currentProgressEntryItem)
     }
 
-    override fun getItemCount(): Int = result.size
+    override fun getItemCount(): Int = progressEntryItems.size
 
     fun setData(newData : AllProgressBookEntry){
-        val diffUtils = CustomDiffUtils(result,newData.result)
+        val diffUtils = CustomDiffUtils(progressEntryItems,newData.result)
         val diffUtilsResult = DiffUtil.calculateDiff(diffUtils)
-        result = newData.result
+        progressEntryItems = newData.result
         diffUtilsResult.dispatchUpdatesTo(this)
     }
 
