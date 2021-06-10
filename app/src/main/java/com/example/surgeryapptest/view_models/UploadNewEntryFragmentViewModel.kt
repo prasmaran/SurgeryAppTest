@@ -8,48 +8,61 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.surgeryapptest.model.network.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.NetworkUploadNewEntryResponse
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
+class UploadNewEntryFragmentViewModel @Inject constructor(
     private val repository: Repository,
     application: Application
 ) : AndroidViewModel(application) {
 
-    var allProgressEntryResponse: MutableLiveData<NetworkResult<AllProgressBookEntry>> = MutableLiveData()
+    var uploadedNewEntryResponse: MutableLiveData<NetworkResult<NetworkUploadNewEntryResponse>> = MutableLiveData()
 
-    fun getAllProgressEntry() = viewModelScope.launch {
-        getAllProgressEntrySafeCall()
+
+    fun uploadNewWoundEntry(image: MultipartBody.Part, description: RequestBody, painrate: RequestBody, fluid_drain: RequestBody) =
+        viewModelScope.launch {
+        getAllProgressEntrySafeCall(image, description, painrate, fluid_drain)
     }
 
-    private suspend fun getAllProgressEntrySafeCall() {
-        allProgressEntryResponse.value = NetworkResult.Loading()
+    private suspend fun getAllProgressEntrySafeCall(
+        image: MultipartBody.Part,
+        description: RequestBody,
+        painrate: RequestBody,
+        fluid_drain: RequestBody
+    ) {
+        uploadedNewEntryResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()){
             try {
-                val response = repository.remoteDataSource.getAllProgressEntry()
-                allProgressEntryResponse.value = handleAllProgressEntryResponse(response)
+                val response = repository.remoteDataSource.uploadNewEntry(image, description, painrate, fluid_drain)
+                uploadedNewEntryResponse.value = handleAllProgressEntryResponse(response)
             } catch (e: Exception){
-                allProgressEntryResponse.value = NetworkResult.Error(e.message.toString())
+                uploadedNewEntryResponse.value = NetworkResult.Error(e.message.toString())
                 println("Error : ${e.message.toString()}")
             }
         } else {
-            allProgressEntryResponse.value = NetworkResult.Error("No Internet Connection")
+            uploadedNewEntryResponse.value = NetworkResult.Error("No Internet Connection")
         }
     }
 
-    private fun handleAllProgressEntryResponse(response: Response<AllProgressBookEntry>): NetworkResult<AllProgressBookEntry> {
+    private fun handleAllProgressEntryResponse(response: Response<NetworkUploadNewEntryResponse>): NetworkResult<NetworkUploadNewEntryResponse> {
 
         return when {
             response.message().toString().contains("timeout") -> {
                 NetworkResult.Error("Timeout")
             }
-            response.body()!!.result.isNullOrEmpty()-> {
-                NetworkResult.Error("Error: ${response.message()}")
+            response.body()!!.success.toString().contains("false")-> {
+                NetworkResult.Error("Error: ${response.body()!!.success}")
+            }
+            response.body()!!.message.toString().contains("Please")-> {
+                NetworkResult.Error("Please upload an image!")
             }
             response.isSuccessful -> {
                 val data = response.body()

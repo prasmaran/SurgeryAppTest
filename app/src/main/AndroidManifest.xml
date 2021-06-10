@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.surgeryapptest">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="true" />
@@ -20,8 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SurgeryAppTest"
         android:usesCleartextTraffic="true"
+        android:installLocation="preferExternal"
         tools:targetApi="m">
-        <!--        <activity android:name=".ui.activity.LoginActivity"></activity>-->
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,5 +33,19 @@
             </intent-filter>
         </activity>
     </application>
+
+<!--    <queries>-->
+<!--        <provider-->
+<!--            android:authorities="com.example.surgeryapptest.ui.fragments.fileprovider"-->
+<!--            android:name="androidx.core.content.FileProvider"-->
+<!--            android:exported="false"-->
+<!--            android:grantUriPermissions="true">-->
+
+<!--            <meta-data-->
+<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
+<!--                android:resource="@xml/fileprovider"-->
+<!--                />-->
+<!--        </provider>-->
+<!--    </queries>-->
 
 </manifest>

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.utils.adapter.Adapter
@@ -42,7 +44,10 @@ class PatientProgressBooksFragment : Fragment() {
 
     private fun fabUploadImage(){
         mView.floatingActionButton.setOnClickListener {
-            println("FAB has been clicked to upload image from phone ...")
+            //println("FAB has been clicked to upload image from phone ...")
+            //findNavController().navigate(R.id.uploadNewEntryFragment)
+            val action = PatientProgressBooksFragmentDirections.actionPatientProgressBooksFragmentToUploadNewEntryFragment()
+            findNavController().navigate(action)
         }
     }
 
