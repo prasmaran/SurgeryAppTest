@@ -14,7 +14,15 @@
         android:id="@+id/patientProgressBooksFragment"
         android:name="com.example.surgeryapptest.ui.fragments.PatientProgressBooksFragment"
         android:label="Progress Book"
-        tools:layout="@layout/fragment_patient_progress_books" />
+        tools:layout="@layout/fragment_patient_progress_books" >
+        <action
+            android:id="@+id/action_patientProgressBooksFragment_to_uploadNewEntryFragment"
+            app:destination="@id/uploadNewEntryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/patientAppointmentFragment"
         android:name="com.example.surgeryapptest.ui.fragments.PatientAppointmentFragment"
@@ -25,4 +33,9 @@
         android:name="com.example.surgeryapptest.ui.fragments.PatientProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_patient_profile" />
+    <fragment
+        android:id="@+id/uploadNewEntryFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.UploadNewEntryFragment"
+        android:label="Upload New Entry"
+        tools:layout="@layout/fragment_upload_new_entry" />
 </navigation>

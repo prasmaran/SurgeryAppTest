@@ -48,6 +48,10 @@
     <dimen name="margin_175">175dp</dimen>
     <dimen name="margin_180">180dp</dimen>
     <dimen name="margin_200">200dp</dimen>
+    <dimen name="margin_250">250dp</dimen>
+    <dimen name="margin_300">300dp</dimen>
+    <dimen name="margin_350">350dp</dimen>
+    <dimen name="margin_400">400dp</dimen>
 
     <!-- for text sizes   -->
     <dimen name="text_10sp">10sp</dimen>

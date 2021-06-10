@@ -184,7 +184,10 @@
         android:layout_height="@dimen/margin_150"
         tools:ignore="MissingConstraints"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="@dimen/margin_10">
+        app:cardCornerRadius="@dimen/margin_10"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

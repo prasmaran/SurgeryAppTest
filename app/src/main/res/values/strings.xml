@@ -11,4 +11,13 @@
     <string name="notification">Notification</string>
     <string name="emergency">Emergency</string>
     <string name="progress_book">Progress Book</string>
+    <string name="patient_appointment">Patient Appointment</string>
+    <string name="gallery">Gallery</string>
+    <string name="capture">Capture</string>
+    <string name="upload_your_new_wound_image">Upload your new wound image</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="fluid_drain">1. Did fluid drain from wound?</string>
+    <string name="submit">Submit</string>
+    <string name="pain_rate">2. Rate your pain</string>
 </resources>

@@ -76,11 +76,11 @@
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/text_12sp"
                     android:gravity="center_vertical"
-                    android:drawableStart="@drawable/ic_note"
                     android:drawablePadding="@dimen/margin_5"
                     app:layout_constraintEnd_toEndOf="@+id/wound_title_textView"
                     app:layout_constraintStart_toStartOf="@+id/wound_title_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/wound_title_textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/wound_title_textView"
+                    app:drawableStartCompat="@drawable/ic_note" />
 
                 <TextView
                     android:id="@+id/wound_entry_date"
