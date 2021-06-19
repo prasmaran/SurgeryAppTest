@@ -17,4 +17,7 @@
     <color name="yellow">#FFC114</color>
     <color name="green">#00C980</color>
     <color name="greenDark">#026843</color>
+    <color name="darkBlue">#041055</color>
+
+    <color name="actionBarBackgroundColour">@color/colorPrimary</color>
 </resources>

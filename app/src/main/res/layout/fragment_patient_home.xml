@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/patientHomeFragmentLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +10,8 @@
     tools:context=".ui.fragments.PatientHomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+
 
     <ImageView
         android:id="@+id/error_Image_View"
@@ -71,13 +74,13 @@
                 android:id="@+id/info_image"
                 android:layout_width="@dimen/margin_80"
                 android:layout_height="@dimen/margin_80"
-                android:src="@drawable/ic_info"
+                android:src="@drawable/ic_information"
                 android:scaleType="fitXY"
+                android:padding="@dimen/margin_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="@dimen/margin_5"
-                app:tint="@color/greenDark" />
+                android:layout_margin="@dimen/margin_5"/>
 
             <TextView
                 android:id="@+id/info_text"
@@ -112,13 +115,13 @@
                 android:id="@+id/emergency_image"
                 android:layout_width="@dimen/margin_80"
                 android:layout_height="@dimen/margin_80"
-                android:src="@drawable/ic_phone"
+                android:src="@drawable/ic_phone_call"
                 android:scaleType="fitXY"
+                android:padding="@dimen/margin_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="@dimen/margin_5"
-                app:tint="@color/greenDark" />
+                android:layout_margin="@dimen/margin_5"/>
 
             <TextView
                 android:id="@+id/emergency_text"
@@ -155,11 +158,11 @@
                 android:layout_height="@dimen/margin_80"
                 android:src="@drawable/ic_notification"
                 android:scaleType="fitXY"
+                android:padding="@dimen/margin_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="@dimen/margin_5"
-                app:tint="@color/greenDark" />
+                android:layout_margin="@dimen/margin_5"/>
 
             <TextView
                 android:id="@+id/notification_text"
@@ -197,13 +200,14 @@
                 android:id="@+id/progress_book_image"
                 android:layout_width="@dimen/margin_80"
                 android:layout_height="@dimen/margin_80"
-                android:src="@drawable/ic_progress_book"
+                android:src="@drawable/ic_note"
                 android:scaleType="fitXY"
+                android:padding="@dimen/margin_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_margin="@dimen/margin_5"
-                app:tint="@color/greenDark" />
+                 />
 
             <TextView
                 android:id="@+id/progress_book_text"

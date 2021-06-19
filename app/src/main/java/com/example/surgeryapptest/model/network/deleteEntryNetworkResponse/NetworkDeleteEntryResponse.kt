@@ -1,8 +1,9 @@
-package com.example.surgeryapptest.model.network
+package com.example.surgeryapptest.model.network.deleteEntryNetworkResponse
+
 
 import com.google.gson.annotations.SerializedName
 
-data class NetworkUploadNewEntryResponse(
+data class NetworkDeleteEntryResponse(
     @SerializedName("message")
     val message: String,
     @SerializedName("success")

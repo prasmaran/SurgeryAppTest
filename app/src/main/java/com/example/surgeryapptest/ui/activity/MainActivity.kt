@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.surgeryapptest.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -47,9 +50,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
-
-
 
 }
  

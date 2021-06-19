@@ -7,8 +7,7 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.surgeryapptest.model.network.AllProgressBookEntry
-import com.example.surgeryapptest.model.network.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.uploadNewImageResponse.NetworkUploadNewEntryResponse
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,26 +23,54 @@ class UploadNewEntryFragmentViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
-    var uploadedNewEntryResponse: MutableLiveData<NetworkResult<NetworkUploadNewEntryResponse>> = MutableLiveData()
+    var uploadedNewEntryResponse: MutableLiveData<NetworkResult<NetworkUploadNewEntryResponse>> =
+        MutableLiveData()
 
-
-    fun uploadNewWoundEntry(image: MultipartBody.Part, description: RequestBody, painrate: RequestBody, fluid_drain: RequestBody) =
+    fun uploadNewWoundEntry(
+        image: MultipartBody.Part,
+        title: RequestBody,
+        description: RequestBody,
+        fluid_drain: RequestBody,
+        painrate: RequestBody,
+        redness: RequestBody,
+        swelling: RequestBody,
+        odour: RequestBody,
+        fever: RequestBody,
+    ) =
         viewModelScope.launch {
-        getAllProgressEntrySafeCall(image, description, painrate, fluid_drain)
-    }
+            getAllProgressEntrySafeCall(
+                image,
+                title,
+                description,
+                fluid_drain,
+                painrate,
+                redness,
+                swelling,
+                odour,
+                fever
+            )
+        }
 
     private suspend fun getAllProgressEntrySafeCall(
         image: MultipartBody.Part,
+        title: RequestBody,
         description: RequestBody,
+        fluid_drain: RequestBody,
         painrate: RequestBody,
-        fluid_drain: RequestBody
+        redness: RequestBody,
+        swelling: RequestBody,
+        odour: RequestBody,
+        fever: RequestBody,
     ) {
         uploadedNewEntryResponse.value = NetworkResult.Loading()
-        if (hasInternetConnection()){
+        if (hasInternetConnection()) {
             try {
-                val response = repository.remoteDataSource.uploadNewEntry(image, description, painrate, fluid_drain)
+                val response = repository.remoteDataSource.uploadNewEntry(
+                    image, title, description, fluid_drain, painrate,
+                    redness, swelling, odour, fever
+                )
                 uploadedNewEntryResponse.value = handleAllProgressEntryResponse(response)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 uploadedNewEntryResponse.value = NetworkResult.Error(e.message.toString())
                 println("Error : ${e.message.toString()}")
             }
@@ -58,15 +85,15 @@ class UploadNewEntryFragmentViewModel @Inject constructor(
             response.message().toString().contains("timeout") -> {
                 NetworkResult.Error("Timeout")
             }
-            response.body()!!.success.toString().contains("false")-> {
+            response.body()!!.success.toString().contains("false") -> {
                 NetworkResult.Error("Error: ${response.body()!!.success}")
             }
-            response.body()!!.message.toString().contains("Please")-> {
+            response.body()!!.message.toString().contains("Please") -> {
                 NetworkResult.Error("Please upload an image!")
             }
             response.isSuccessful -> {
                 val data = response.body()
-                println("Received data: /n $data")
+                println("Received data: \n $data")
                 NetworkResult.Success(data!!)
             }
             else -> {

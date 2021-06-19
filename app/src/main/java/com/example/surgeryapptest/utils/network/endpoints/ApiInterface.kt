@@ -1,35 +1,60 @@
 package com.example.surgeryapptest.utils.network.endpoints
 
-import com.example.surgeryapptest.model.network.AllProgressBookEntry
-import com.example.surgeryapptest.model.network.AllProgressBookEntryItem
-import com.example.surgeryapptest.model.network.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
+import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem
+import com.example.surgeryapptest.model.network.updateWoundImageResponse.NetworkUpdateEntryResponse
+import com.example.surgeryapptest.model.network.uploadNewImageResponse.NetworkUploadNewEntryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
 
 interface ApiInterface {
 
     // To receive all the progress entry data
-    @GET("/books/progress")
+    @GET("/books/progress/getAll")
     suspend fun getAllProgressEntry() : Response<AllProgressBookEntry>
 
     // To receive one progress entry by ID
-    @GET("/books/progress/{entryID}")
+    @GET("/books/progress/{entryid}")
     suspend fun getOneProgressEntry() : Response<AllProgressBookEntryItem>
 
     // To upload new wound image
     @Multipart
-    @POST("/upload/newform")
+    @POST("/books/progress/upload")
     suspend fun uploadNewEntry(
         @Part image: MultipartBody.Part,
+        @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
+        @Part("fluid_drain") fluid_drain: RequestBody,
         @Part("painrate") painrate: RequestBody,
-        @Part("fluid_drain") fluid_drain: RequestBody
+        @Part("redness") redness: RequestBody,
+        @Part("swelling") swelling: RequestBody,
+        @Part("odour") odour: RequestBody,
+        @Part("fever") fever: RequestBody,
     ) : Response<NetworkUploadNewEntryResponse>
+
+    // To edit selected image entry
+    @Multipart
+    @PUT("/books/progress/edit")
+    suspend fun updateUploadedEntry(
+        @Part("entryID") entryID: RequestBody,
+        @Part("title") title: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("fluid_drain") fluid_drain: RequestBody,
+        @Part("painrate") painrate: RequestBody,
+        @Part("redness") redness: RequestBody,
+        @Part("swelling") swelling: RequestBody,
+        @Part("odour") odour: RequestBody,
+        @Part("fever") fever: RequestBody,
+    ) : Response<NetworkUpdateEntryResponse>
+
+    @Multipart
+    @PUT("/books/progress/delete")
+    suspend fun deleteUploadedEntry(
+        @Part("entryID") entryID: RequestBody
+    ) : Response<NetworkDeleteEntryResponse>
 
 
 }

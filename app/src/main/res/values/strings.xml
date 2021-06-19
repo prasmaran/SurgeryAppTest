@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SurgeryAppTest</string>
+    <string name="app_name">SurgeryApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="patient_dashboard">Home</string>
@@ -7,6 +7,8 @@
     <string name="patient_appointments">Appointments</string>
     <string name="patient_profile">Profile</string>
     <string name="no_internet_connection">No Internet Connection</string>
+
+    <!-- Patient Home Dashboard -->
     <string name="general_info">General Info</string>
     <string name="notification">Notification</string>
     <string name="emergency">Emergency</string>
@@ -14,10 +16,32 @@
     <string name="patient_appointment">Patient Appointment</string>
     <string name="gallery">Gallery</string>
     <string name="capture">Capture</string>
+
+    <!-- Patient Upload New Image -->
     <string name="upload_your_new_wound_image">Upload your new wound image</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="fluid_drain">1. Did fluid drain from wound?</string>
     <string name="submit">Submit</string>
     <string name="pain_rate">2. Rate your pain</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="not_sure">Not sure</string>
+    <string name="worse">Worse</string>
+    <string name="same">Same</string>
+    <string name="better">Better</string>
+    <string name="unsure">Unsure</string>
+    <string name="none">None</string>
+
+    <!-- General -->
+    <string name="cancel">Cancel</string>
+
+    <!-- Details Activity -->
+    <string name="entry_detail">Wound Image Details</string>
+    <string name="edit">Edit</string>
+    <string name="no_feedback">No feedback from any doctors</string>
+    <string name="no_appointment">No appointments at this moment</string>
+    <string name="prasanth_manimaran">Prasanth Manimaran</string>
+
+
 </resources>

@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.surgeryapptest.model.network.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -53,7 +53,7 @@ class MainActivityViewModel @Inject constructor(
             }
             response.isSuccessful -> {
                 val data = response.body()
-                println("Received data: /n $data")
+                println("Received data: \n $data")
                 NetworkResult.Success(data!!)
             }
             else -> {

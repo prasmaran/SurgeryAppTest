@@ -1,16 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGray"
+    android:background="@color/mediumGray"
     tools:context=".ui.fragments.PatientProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/user_profile_icon"
+        android:layout_width="@dimen/margin_100"
+        android:layout_height="@dimen/margin_100"
+        android:layout_marginTop="@dimen/margin_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_user_icon"/>
+
     <TextView
+        android:id="@+id/user_name_tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="@string/prasanth_manimaran"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textSize="@dimen/text_18sp"
+        android:background="@drawable/rounded_bg_primary"
+        android:fontFamily="@font/poppins_semibold"
+        android:layout_margin="@dimen/margin_20"
+        app:layout_constraintTop_toBottomOf="@id/user_profile_icon"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_bg"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:text="Sign Out"
+        android:textAllCaps="false"
+        android:padding="@dimen/margin_10"
+        android:textSize="@dimen/text_18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

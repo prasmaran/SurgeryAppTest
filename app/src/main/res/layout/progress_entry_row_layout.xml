@@ -6,12 +6,12 @@
     <data>
         <variable
             name="result"
-            type="com.example.surgeryapptest.model.network.AllProgressBookEntryItem" />
-
+            type="com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progressEntryRowLayout"
+        onProgressEntryImageClickListener="@{result}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_5"
@@ -27,13 +27,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:strokeColor="@color/mediumGray"
+            app:cardBackgroundColor="@color/lightGray"
             app:strokeWidth="@dimen/margin_1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
-
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/wound_image_view"
@@ -80,7 +79,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/wound_title_textView"
                     app:layout_constraintStart_toStartOf="@+id/wound_title_textView"
                     app:layout_constraintTop_toBottomOf="@+id/wound_title_textView"
-                    app:drawableStartCompat="@drawable/ic_note" />
+                    app:drawableStartCompat="@drawable/ic_note2" />
 
                 <TextView
                     android:id="@+id/wound_entry_date"
