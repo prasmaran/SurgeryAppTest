@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/woundDetailsFragmentLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGray"
+    tools:context=".ui.fragments.progressEntryDetails.WoundDetailsFragment">
+
+    <ImageView
+        android:id="@+id/detail_wound_image"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_250"
+        android:background="@drawable/rounded_bg_primary"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mountains"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_wound_image">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/new_wound_image"-->
+            <!--                android:layout_width="@dimen/margin_230"-->
+            <!--                android:layout_height="@dimen/margin_250"-->
+            <!--                android:scaleType="centerCrop"-->
+            <!--                android:src="@drawable/upload_instruction"-->
+            <!--                android:background="@drawable/rounded_bg"-->
+            <!--                android:padding="@dimen/margin_2"-->
+            <!--                android:layout_marginTop="@dimen/margin_50"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/upload_instruction"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/poppins_semibold"-->
+            <!--                android:textSize="@dimen/text_12sp"-->
+            <!--                android:text="@string/upload_your_new_wound_image"-->
+            <!--                android:layout_marginTop="@dimen/margin_10"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/new_wound_image" />-->
+
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:max="100"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/flow"
+                app:layout_constraintTop_toBottomOf="@+id/uploaded_rgFever"
+                tools:progress="25" />
+
+            <EditText
+                android:id="@+id/uploaded_entry_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_input"
+                android:ellipsize="end"
+                android:enabled="false"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/title"
+                android:inputType="text"
+                android:padding="@dimen/margin_10"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/uploaded_entry_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_input"
+                android:enabled="false"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/description"
+                android:inputType="textMultiLine"
+                android:maxHeight="@dimen/margin_100"
+                android:maxLines="3"
+                android:minHeight="@dimen/margin_50"
+                android:minLines="1"
+                android:padding="@dimen/margin_10"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/uploaded_entry_title" />
+
+            <TextView
+                android:id="@+id/ques_fluid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/fluid_drain"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14sp"
+                app:layout_constraintTop_toBottomOf="@id/uploaded_entry_description" />
+
+            <RadioGroup
+                android:id="@+id/uploaded_rgFluidDrainage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toBottomOf="@+id/ques_fluid">
+
+                <RadioButton
+                    android:id="@+id/rb_fluid_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/rb_fluid_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/no" />
+
+                <RadioButton
+                    android:id="@+id/rb_fluid_notSure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/not_sure" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/ques_pain_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/pain_rate"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14sp"
+                app:layout_constraintTop_toBottomOf="@id/uploaded_rgFluidDrainage" />
+
+            <com.hsalf.smilerating.SmileRating
+                android:id="@+id/uploaded_rating_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:clickable="false"
+                app:layout_constraintTop_toBottomOf="@id/ques_pain_rate" />
+
+
+            <TextView
+                android:id="@+id/ques_redness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="3. Is there any redness around wound?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14sp"
+                app:layout_constraintTop_toBottomOf="@id/uploaded_rating_bar" />
+
+            <RadioGroup
+                android:id="@+id/uploaded_rgRedness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintTop_toBottomOf="@+id/ques_redness">
+
+                <RadioButton
+                    android:id="@+id/rb_redness_worse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/worse" />
+
+                <RadioButton
+                    android:id="@+id/rb_redness_same"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/same" />
+
+                <RadioButton
+                    android:id="@+id/rb_redness_better"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/better" />
+
+                <RadioButton
+                    android:id="@+id/rb_redness_unsure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/unsure" />
+
+                <RadioButton
+                    android:id="@+id/rb_redness_none"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/none" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/ques_swelling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="4. Is there any swelling?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14sp"
+                app:layout_constraintTop_toBottomOf="@id/uploaded_rgRedness" />
+
+            <RadioGroup
+                android:id="@+id/uploaded_rgSwelling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintTop_toBottomOf="@+id/ques_swelling">
+
+                <RadioButton
+                    android:id="@+id/rb_swelling_worse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/worse" />
+
+                <RadioButton
+                    android:id="@+id/rb_swelling_same"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/same" />
+
+                <RadioButton
+                    android:id="@+id/rb_swelling_better"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/better" />
+
+                <RadioButton
+                    android:id="@+id/rb_swelling_unsure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/unsure" />
+
+                <RadioButton
+                    android:id="@+id/rb_swelling_none"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/none" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/ques_odour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="5. Is there odour from the wound?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14sp"
+                app:layout_constraintTop_toBottomOf="@id/uploaded_rgSwelling" />
+
+            <RadioGroup
+                android:id="@+id/uploaded_rgOdour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toBottomOf="@+id/ques_odour">
+
+                <RadioButton
+                    android:id="@+id/rb_odour_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/rb_odour_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/no" />
+
+                <RadioButton
+                    android:id="@+id/rb_odour_not_sure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/not_sure" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/ques_fever"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="6. Do you have fever?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14sp"
+                app:layout_constraintTop_toBottomOf="@id/uploaded_rgOdour" />
+
+            <RadioGroup
+                android:id="@+id/uploaded_rgFever"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintTop_toBottomOf="@+id/ques_fever">
+
+                <RadioButton
+                    android:id="@+id/rb_fever_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/no" />
+
+                <RadioButton
+                    android:id="@+id/rb_fever_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Yes but did not take the temperature" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/update_btn"
+                android:layout_width="@dimen/margin_100"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Update"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/delete_btn"
+                android:layout_width="@dimen/margin_100"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:text="Delete"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/save_btn"
+                android:layout_width="@dimen/margin_100"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:text="Save"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                app:constraint_referenced_ids="update_btn,save_btn,delete_btn "
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                tools:layout_editor_absoluteX="20dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

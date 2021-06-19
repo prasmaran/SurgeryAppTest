@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
 import com.example.surgeryapptest.view_models.MainActivityViewModel
 import kotlinx.android.synthetic.main.fragment_patient_home.*
 import kotlinx.android.synthetic.main.fragment_patient_home.view.*
@@ -19,11 +20,6 @@ class PatientHomeFragment : Fragment() {
 
     private lateinit var mView: View
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Initialize the view models here
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +28,10 @@ class PatientHomeFragment : Fragment() {
         mView = inflater.inflate(R.layout.fragment_patient_home, container, false)
 
         navigateToProgressBook()
+        navigateToGeneralInfo()
+        navigateToEmergencyCall()
+        navigateToNotification()
+
         return mView
     }
 
@@ -41,5 +41,25 @@ class PatientHomeFragment : Fragment() {
         }
     }
 
+    private fun navigateToNotification() {
+        mView.cardViewNotification.setOnClickListener {
+            mView.patientHomeFragmentLayout
+                .showSnackBar("This feature has not been implemented yet")
+        }
+    }
+
+    private fun navigateToEmergencyCall() {
+        mView.cardViewEmergency.setOnClickListener {
+            mView.patientHomeFragmentLayout
+                .showSnackBar("This feature has not been implemented yet")
+        }
+    }
+
+    private fun navigateToGeneralInfo() {
+        mView.cardViewGeneralInfo.setOnClickListener {
+            mView.patientHomeFragmentLayout
+                .showSnackBar("This feature has not been implemented yet")
+        }
+    }
 
 }

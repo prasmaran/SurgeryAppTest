@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.model.network
+package com.example.surgeryapptest.model.network.getAllProgressBook
 
 
 import com.google.gson.annotations.SerializedName

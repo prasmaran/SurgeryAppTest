@@ -3,7 +3,6 @@ package com.example.surgeryapptest.utils.diffUtils
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.surgeryapptest.model.network.AllProgressBookEntryItem
 
 class CustomDiffUtils constructor(private val mOldList: List<Any>, private val mNewList: List<Any>):
     DiffUtil.Callback() {

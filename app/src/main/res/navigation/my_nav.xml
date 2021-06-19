@@ -22,6 +22,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_patientProgressBooksFragment_to_woundDetailsActivity"
+            app:destination="@id/woundDetailsActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/patientAppointmentFragment"
@@ -37,5 +44,18 @@
         android:id="@+id/uploadNewEntryFragment"
         android:name="com.example.surgeryapptest.ui.fragments.UploadNewEntryFragment"
         android:label="Upload New Entry"
-        tools:layout="@layout/fragment_upload_new_entry" />
+        tools:layout="@layout/fragment_upload_new_entry" >
+        <action
+            android:id="@+id/action_uploadNewEntryFragment_to_patientProgressBooksFragment"
+            app:destination="@id/patientProgressBooksFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/woundDetailsActivity"
+        android:name="com.example.surgeryapptest.ui.activity.WoundDetailsActivity"
+        android:label="Wound Image Details"
+        tools:layout="@layout/activity_wound_details" >
+        <argument
+            android:name="result"
+            app:argType="com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem" />
+    </activity>
 </navigation>

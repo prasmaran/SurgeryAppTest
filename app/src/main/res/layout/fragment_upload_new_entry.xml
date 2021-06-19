@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:background="@color/lightGray"
     android:fitsSystemWindows="true"
     android:fillViewport="true"
     android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -19,11 +19,12 @@
 
         <ImageView
             android:id="@+id/new_wound_image"
-            android:layout_width="@dimen/margin_200"
+            android:layout_width="@dimen/margin_230"
             android:layout_height="@dimen/margin_250"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/upload_instruction"
             android:background="@drawable/rounded_bg"
+            android:padding="@dimen/margin_2"
             android:layout_marginTop="@dimen/margin_50"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,9 +61,11 @@
         <ProgressBar
             android:id="@+id/progress_bar"
             style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/upload_instruction"
+            app:layout_constraintTop_toBottomOf="@+id/rgFever"
+            app:layout_constraintBottom_toTopOf="@id/submit_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="5dp"
+            android:layout_marginTop="@dimen/margin_5"
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
             android:max="100"
@@ -76,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
             app:constraint_referenced_ids="pick_from_gallery_btn, camera_btn"
-            app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+            app:layout_constraintTop_toBottomOf="@+id/upload_instruction"
             tools:layout_editor_absoluteX="20dp" />
 
         <EditText
@@ -94,7 +97,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/flow"
-            android:background="@drawable/colored_border_edit_text"/>
+            android:background="@drawable/custom_input"/>
 
         <EditText
             android:id="@+id/new_entry_description"
@@ -114,7 +117,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/new_entry_title"
-            android:background="@drawable/colored_border_edit_text"/>
+            android:background="@drawable/custom_input"/>
 
         <TextView
             android:id="@+id/ques_fluid"
@@ -123,6 +126,7 @@
             android:text="@string/fluid_drain"
             android:fontFamily="@font/poppins_semibold"
             android:textSize="@dimen/text_14sp"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
@@ -144,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Yes"
+                android:text="@string/yes"
                 />
             <RadioButton
                 android:id="@+id/rb_fluid_no"
@@ -152,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
                 android:fontFamily="@font/poppins_regular"
-                android:text="No"
+                android:text="@string/no"
                 />
             <RadioButton
                 android:id="@+id/rb_fluid_notSure"
@@ -160,8 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Not sure"
-
+                android:text="@string/not_sure"
                 />
         </RadioGroup>
 
@@ -172,6 +175,7 @@
             android:text="@string/pain_rate"
             android:fontFamily="@font/poppins_semibold"
             android:textSize="@dimen/text_14sp"
+            android:textColor="@color/black"
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_20"
             app:layout_constraintTop_toBottomOf="@id/rgFluidDrainage"/>
@@ -185,6 +189,237 @@
             android:layout_marginEnd="@dimen/margin_20"
             app:layout_constraintTop_toBottomOf="@id/ques_pain_rate"/>
 
+
+        <TextView
+            android:id="@+id/ques_redness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3. Is there any redness around wound?"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/text_14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@id/rating_bar"/>
+
+        <RadioGroup
+            android:id="@+id/rgRedness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@+id/ques_redness">
+
+            <RadioButton
+                android:id="@+id/rb_redness_worse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/worse"
+                />
+            <RadioButton
+                android:id="@+id/rb_redness_same"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/same"
+                />
+            <RadioButton
+                android:id="@+id/rb_redness_better"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/better"
+                />
+            <RadioButton
+                android:id="@+id/rb_redness_unsure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/unsure"
+                />
+            <RadioButton
+                android:id="@+id/rb_redness_none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/none"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/ques_swelling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4. Is there any swelling?"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/text_14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@id/rgRedness"/>
+
+        <RadioGroup
+            android:id="@+id/rgSwelling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@+id/ques_swelling">
+
+            <RadioButton
+                android:id="@+id/rb_swelling_worse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/worse"
+                />
+            <RadioButton
+                android:id="@+id/rb_swelling_same"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/same"
+                />
+            <RadioButton
+                android:id="@+id/rb_swelling_better"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/better"
+                />
+            <RadioButton
+                android:id="@+id/rb_swelling_unsure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/unsure"
+                />
+            <RadioButton
+                android:id="@+id/rb_swelling_none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/none"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/ques_odour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5. Is there odour from the wound?"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/text_14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@id/rgSwelling"/>
+
+        <RadioGroup
+            android:id="@+id/rgOdour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@+id/ques_odour">
+
+            <RadioButton
+                android:id="@+id/rb_odour_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/yes"
+                />
+            <RadioButton
+                android:id="@+id/rb_odour_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/no"
+                />
+            <RadioButton
+                android:id="@+id/rb_odour_not_sure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/not_sure"
+                />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/ques_fever"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6. Do you have fever?"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/text_14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@id/rgOdour"/>
+
+        <RadioGroup
+            android:id="@+id/rgFever"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@+id/ques_fever">
+
+            <RadioButton
+                android:id="@+id/rb_fever_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/no"
+                />
+            <RadioButton
+                android:id="@+id/rb_fever_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Yes but did not take the temperature"
+                />
+<!--            <EditText-->
+<!--                android:id="@+id/rb_fever_ediText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="0.33"-->
+<!--                android:inputType="numberDecimal"-->
+<!--                android:textSize="@dimen/text_12sp"-->
+<!--                android:fontFamily="@font/poppins_regular"-->
+<!--                android:hint="Fever temperature in °C"-->
+<!--                />-->
+
+        </RadioGroup>
+
         <Button
             android:id="@+id/submit_btn"
             android:layout_width="wrap_content"
@@ -193,14 +428,50 @@
             android:fontFamily="@font/poppins_regular"
             android:text="@string/submit"
             android:textColor="@color/black"
-            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_20"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/that_is_all_tv"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="That is all"-->
+<!--            android:textSize="@dimen/text_10sp"-->
+<!--            android:gravity="center"-->
+<!--            android:fontFamily="@font/poppins_semibold"-->
+<!--            tools:ignore="HardcodedText,MissingConstraints"-->
+<!--            />-->
+<!--        <View-->
+<!--            android:id="@+id/separator1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@color/mediumGray"-->
+<!--            tools:ignore="MissingConstraints" />-->
+<!--        <View-->
+<!--            android:id="@+id/separator2"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@color/mediumGray"-->
+<!--            tools:ignore="MissingConstraints" />-->
+
+        <!--Flow for T&C-->
+<!--        <androidx.constraintlayout.helper.widget.Flow-->
+<!--            android:id="@+id/form_separator"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:constraint_referenced_ids="separator1, that_is_all_tv, separator2"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:layout_marginTop="@dimen/margin_10"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/rgFever"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </androidx.core.widget.NestedScrollView>

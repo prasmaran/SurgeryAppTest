@@ -26,7 +26,7 @@ class AppUtils {
 
         // Snack bar message function
         fun View.showSnackBar(msg: String) {
-            Snackbar.make(this, msg, Snackbar.LENGTH_SHORT).also { snackbar ->
+            Snackbar.make(this, msg, Snackbar.LENGTH_LONG).also { snackbar ->
                 snackbar.setAction("OKAY") {
                     snackbar.dismiss()
                 }

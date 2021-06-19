@@ -1,68 +1,78 @@
 package com.example.surgeryapptest.ui.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.model.domain_model.UploadNewEntryRequestBody
 import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.getFileName
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
-import com.example.surgeryapptest.view_models.MainActivityViewModel
 import com.example.surgeryapptest.view_models.UploadNewEntryFragmentViewModel
+import com.hsalf.smilerating.BaseRating
 import com.hsalf.smilerating.SmileRating
 import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-class UploadNewEntryFragment () :
-    Fragment(), SmileRating.OnSmileySelectionListener, SmileRating.OnRatingSelectedListener, UploadNewEntryRequestBody.UploadCallback {
+class UploadNewEntryFragment :
+    Fragment(), SmileRating.OnSmileySelectionListener, SmileRating.OnRatingSelectedListener,
+    UploadNewEntryRequestBody.UploadCallback {
 
     companion object {
         private const val GALLERY_PERMISSION = 1
         private const val CAMERA_PERMISSION = 2
         private const val REQUEST_CODE_IMAGE_PICKER = 1000
         private const val REQUEST_CODE_CAMERA = 2000
+        private const val FILE_NAME = "woundImage"
     }
 
     private lateinit var uploadNewEntryViewModel: UploadNewEntryFragmentViewModel
     private lateinit var mView: View
+    private lateinit var photoFile: File
 
     // Uploaded info for new entry
     private var selectedImageUri: Uri? = null
-    private var painRating : String = ""
-    private var title : String = ""
-    private var description : String = ""
-    private var fluidDrained : String = ""
-    private var redness : String = ""
-    private var swelling : String = ""
-
-    // Radio group and radio button
-
+    private var painRating: String = ""
+    private var title: String = ""
+    private var description: String = ""
+    private var fluidDrained: String = ""
+    private var redness: String = ""
+    private var swelling: String = ""
+    private var odour: String = ""
+    private var fever: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize the view models here
-        uploadNewEntryViewModel = ViewModelProvider(requireActivity()).get(UploadNewEntryFragmentViewModel::class.java)
+        uploadNewEntryViewModel =
+            ViewModelProvider(requireActivity()).get(UploadNewEntryFragmentViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -80,27 +90,37 @@ class UploadNewEntryFragment () :
             captureNewImage()
         }
 
+        // Setup the pain rating slider
         mView.rating_bar.setOnSmileySelectionListener(this)
         mView.rating_bar.setOnRatingSelectedListener(this)
+        //mView.rating_bar.selectedSmile = BaseRating.GREAT
 
         formInputListener()
         radioBtnListeners()
 
         mView.submit_btn.setOnClickListener {
-            val isAllFieldFilled = validateFormEntry(selectedImageUri.toString(),painRating, description, title)
+            val isAllFieldFilled =
+                validateFormEntry(
+                    selectedImageUri.toString(),
+                    title,
+                    description,
+                    fluidDrained,
+                    painRating,
+                    redness,
+                    swelling,
+                    odour,
+                    fever
+                )
             if (isAllFieldFilled) {
-                println("You have entered the following details" +
-                        "\n$selectedImageUri" + "\n$title" +"\n$painRating" + "\n$description" + "\n$fluidDrained")
-
+                //println(
+                //    "You have entered the following details\n$selectedImageUri\n$title\n$painRating\n$description\n$fluidDrained"
+                //)
                 if (selectedImageUri != null) {
                     mView.progress_bar.visibility = View.VISIBLE
-                    uploadImage()
+                    createAlertDialog()
                 } else {
-                    AppUtils.showToast(requireContext(),"Please upload an image!")
+                    AppUtils.showToast(requireContext(), "Please upload an image!")
                 }
-
-                //AppUtils.showToast(requireContext(), "You have entered the following details" +
-                //        "\n$selectedImageUri" + "\n$title" +"\n$painRating" + "\n$description" + "\n$fluidDrained" )
             }
         }
 
@@ -109,12 +129,19 @@ class UploadNewEntryFragment () :
 
     private fun validateFormEntry(
         selectedImageUri: String,
-        painRating: String,
+        title: String,
         description: String,
-        title: String
-    ) : Boolean {
+        fluid: String,
+        painRating: String,
+        redness: String,
+        swelling: String,
+        odour: String,
+        fever: String
+    ): Boolean {
         when {
-            (selectedImageUri.isNullOrBlank()) or painRating.isEmpty() or description.isEmpty() or title.isEmpty() -> {
+            painRating.isEmpty() or description.isEmpty() or title.isEmpty() or
+                    redness.isEmpty() or fluid.isEmpty() or swelling.isEmpty() or
+                    odour.isEmpty() or fever.isEmpty() -> {
                 mView.uploadFragmentLayout.showSnackBar("Fill in all the fields")
                 return false
             }
@@ -122,7 +149,8 @@ class UploadNewEntryFragment () :
         }
     }
 
-    private fun formInputListener(){
+    // Input listeners
+    private fun formInputListener() {
         mView.new_entry_title.addTextChangedListener {
             it?.let {
                 if (it.isNotEmpty()) {
@@ -139,39 +167,69 @@ class UploadNewEntryFragment () :
         }
     }
 
-    private fun radioBtnListeners(){
-        mView.rgFluidDrainage.setOnCheckedChangeListener { group, checkedId ->
-            var rbFluid = mView.findViewById<RadioButton>(checkedId)
+    // Radio button listeners
+    private fun radioBtnListeners() {
+        mView.rgFluidDrainage.setOnCheckedChangeListener { _, checkedId ->
+            val rbFluid = mView.findViewById<RadioButton>(checkedId)
             fluidDrained = rbFluid.text.toString()
+        }
+        mView.rgRedness.setOnCheckedChangeListener { _, checkedId ->
+            val rbRedness = mView.findViewById<RadioButton>(checkedId)
+            redness = rbRedness.text.toString()
+        }
+        mView.rgSwelling.setOnCheckedChangeListener { _, checkedId ->
+            val rbSwelling = mView.findViewById<RadioButton>(checkedId)
+            swelling = rbSwelling.text.toString()
+        }
+        mView.rgOdour.setOnCheckedChangeListener { _, checkedId ->
+            val rbOdour = mView.findViewById<RadioButton>(checkedId)
+            odour = rbOdour.text.toString()
+        }
+        mView.rgFever.setOnCheckedChangeListener { _, checkedId ->
+            val rbFever = mView.findViewById<RadioButton>(checkedId)
+            fever = rbFever.text.toString()
         }
     }
 
-    private fun uploadImage(){
-        // Get actual path of the image: App specific temp storage
+    // Upload image to backend
+    // Get actual path of the image: App specific temp storage
+    private fun uploadImage() {
         // No need an special permissions
         var contentResolver = requireActivity().contentResolver
-        val parcelFileDescriptor = contentResolver.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
+        val parcelFileDescriptor =
+            contentResolver.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
         val file = File(activity?.externalCacheDir, contentResolver.getFileName(selectedImageUri!!))
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val outputStream = FileOutputStream(file)
         inputStream.copyTo(outputStream)
 
+        // Initialize the progress bar with value 0
         mView.progress_bar.progress = 0
         val body = UploadNewEntryRequestBody(file, "image", this)
 
+        // Pass the values as parameter
+        // to be sent to backend
         uploadNewEntryViewModel.uploadNewWoundEntry(
             MultipartBody.Part.createFormData("image", file.name, body),
+            RequestBody.create(MediaType.parse("multipart/form-data"), title),
             RequestBody.create(MediaType.parse("multipart/form-data"), description),
+            RequestBody.create(MediaType.parse("multipart/form-data"), fluidDrained),
             RequestBody.create(MediaType.parse("multipart/form-data"), painRating),
-            RequestBody.create(MediaType.parse("multipart/form-data"), fluidDrained)
+            RequestBody.create(MediaType.parse("multipart/form-data"), redness),
+            RequestBody.create(MediaType.parse("multipart/form-data"), swelling),
+            RequestBody.create(MediaType.parse("multipart/form-data"), odour),
+            RequestBody.create(MediaType.parse("multipart/form-data"), fever),
         )
         uploadNewEntryViewModel.uploadedNewEntryResponse.observe(viewLifecycleOwner, { response ->
-            when(response) {
+            when (response) {
                 is NetworkResult.Success -> {
                     mView.progress_bar.progress = 100
-                    mView.uploadFragmentLayout.showSnackBar("Your new entry has been uploaded ...")
-//                    hideShimmerEffect()
-//                    response.data?.let { mAdapter.setData(it) }
+                    mView.uploadFragmentLayout.showSnackBar("Your image has been uploaded")
+                    // Navigate back after 1 sec
+                    findNavController().navigateUp()
+                    findNavController().navigate(R.id.patientProgressBooksFragment)
+//                    val action = UploadNewEntryFragmentDirections.actionUploadNewEntryFragmentToPatientProgressBooksFragment()
+//                    findNavController().navigate(action)
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(
@@ -181,7 +239,7 @@ class UploadNewEntryFragment () :
                     ).show()
                 }
                 is NetworkResult.Loading -> {
-                    //showShimmerEffect()
+                    //TODO: Add loading fragment here
                 }
             }
         })
@@ -196,6 +254,14 @@ class UploadNewEntryFragment () :
             == PackageManager.PERMISSION_GRANTED
         ) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            // For content sharing in a more secure way
+            photoFile = getPhotoFile(FILE_NAME)
+            val fileProvider = FileProvider.getUriForFile(
+                requireContext(),
+                "com.example.surgeryapptest.fileprovider",
+                photoFile
+            )
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
             startActivityForResult(intent, REQUEST_CODE_CAMERA)
         } else {
             ActivityCompat.requestPermissions(
@@ -216,26 +282,55 @@ class UploadNewEntryFragment () :
         }
     }
 
+    private fun getPhotoFile(fileName: String): File {
+        val storageDirectory = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(fileName, ".jpg", storageDirectory)
+    }
+
+    // Testing
+    private fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path.toString())
+    }
+
+    //TODO: Move to AppUtils later on
+    private fun createAlertDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Confirm submit?")
+        builder.setMessage("\nAre you sure you want to submit a new image entry?")
+        builder.setIcon(R.drawable.ic_confirm)
+
+        builder.setPositiveButton(R.string.yes) { _, _ ->
+            uploadImage()
+        }
+        builder.setNegativeButton(R.string.cancel) { _, _ ->
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE_IMAGE_PICKER -> {
                     selectedImageUri = data?.data
-                    //println("SelectedImageURI: $selectedImageUri")
+                    println("Gallery SelectedImageURI: $selectedImageUri")
                     mView.new_wound_image.setImageURI(selectedImageUri)
                 }
                 REQUEST_CODE_CAMERA -> {
-                    val thumbnail: Bitmap = data?.extras?.get("data") as Bitmap
-                    mView.new_wound_image.setImageBitmap(thumbnail)
-                    println("SelectedImageURI: $selectedImageUri")
+                    //val thumbnail: Bitmap = data?.extras?.get("data") as Bitmap
+                    val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
+                    mView.new_wound_image.setImageBitmap(takenImage)
+                    val bitToUri = getImageUriFromBitmap(requireContext(), takenImage)
+                    selectedImageUri = bitToUri
                 }
             }
         }
     }
-
-    // Image converter
-
 
     // Add permission result for gallery access
     override fun onRequestPermissionsResult(
@@ -247,6 +342,14 @@ class UploadNewEntryFragment () :
         if (requestCode == CAMERA_PERMISSION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                // For content sharing in a more secure way
+                photoFile = getPhotoFile(FILE_NAME)
+                val fileProvider = FileProvider.getUriForFile(
+                    requireContext(),
+                    "com.example.surgeryapptest.fileprovider",
+                    photoFile
+                )
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
                 startActivityForResult(intent, REQUEST_CODE_CAMERA)
             } else {
                 Toast.makeText(
@@ -259,7 +362,7 @@ class UploadNewEntryFragment () :
     }
 
     override fun onSmileySelected(smiley: Int, reselected: Boolean) {
-        when(smiley) {
+        when (smiley) {
             SmileRating.TERRIBLE -> painRating = "TERRIBLE"
             SmileRating.BAD -> painRating = "BAD"
             SmileRating.OKAY -> painRating = "OKAY"

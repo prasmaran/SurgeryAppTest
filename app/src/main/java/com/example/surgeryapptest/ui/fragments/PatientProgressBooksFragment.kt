@@ -16,6 +16,8 @@ import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_patient_progress_books.view.*
+import java.sql.Timestamp
+import java.util.*
 
 @AndroidEntryPoint
 class PatientProgressBooksFragment : Fragment() {
@@ -39,6 +41,7 @@ class PatientProgressBooksFragment : Fragment() {
         setupRecyclerView()
         requestApiData()
         fabUploadImage()
+        
         return mView
     }
 
