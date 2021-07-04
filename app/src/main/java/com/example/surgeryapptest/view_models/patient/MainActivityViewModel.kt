@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.view_models
+package com.example.surgeryapptest.view_models.patient
 
 import android.app.Application
 import android.content.Context
@@ -53,7 +53,6 @@ class MainActivityViewModel @Inject constructor(
             }
             response.isSuccessful -> {
                 val data = response.body()
-                println("Received data: \n $data")
                 NetworkResult.Success(data!!)
             }
             else -> {

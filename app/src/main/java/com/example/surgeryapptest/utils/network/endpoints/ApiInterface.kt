@@ -5,6 +5,7 @@ import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBo
 import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.model.network.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.model.network.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -50,11 +51,15 @@ interface ApiInterface {
         @Part("fever") fever: RequestBody,
     ) : Response<NetworkUpdateEntryResponse>
 
+    // Delete selected image entry
     @Multipart
     @PUT("/books/progress/delete")
     suspend fun deleteUploadedEntry(
         @Part("entryID") entryID: RequestBody
     ) : Response<NetworkDeleteEntryResponse>
 
-
+    // Authenticate the user
+    @POST("/user/auth")
+    suspend fun loginUser(@Body params: Map<String, String>):
+            Response<UserLoginNetworkResponse>
 }

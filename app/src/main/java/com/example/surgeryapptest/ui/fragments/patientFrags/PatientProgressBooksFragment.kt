@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.ui.fragments
+package com.example.surgeryapptest.ui.fragments.patientFrags
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,17 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.utils.adapter.Adapter
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
-import com.example.surgeryapptest.view_models.MainActivityViewModel
+import com.example.surgeryapptest.view_models.patient.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_patient_progress_books.view.*
-import java.sql.Timestamp
-import java.util.*
 
 @AndroidEntryPoint
 class PatientProgressBooksFragment : Fragment() {
@@ -41,7 +38,9 @@ class PatientProgressBooksFragment : Fragment() {
         setupRecyclerView()
         requestApiData()
         fabUploadImage()
-        
+
+
+
         return mView
     }
 

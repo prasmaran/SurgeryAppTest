@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.view_models
+package com.example.surgeryapptest.view_models.patient
 
 import android.app.Application
 import android.content.Context
@@ -9,12 +9,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.surgeryapptest.model.network.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
 import com.example.surgeryapptest.model.network.updateWoundImageResponse.NetworkUpdateEntryResponse
-import com.example.surgeryapptest.model.network.uploadNewImageResponse.NetworkUploadNewEntryResponse
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject

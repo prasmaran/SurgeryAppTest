@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.ui.fragments.progressEntryDetails
+package com.example.surgeryapptest.ui.fragments.patientFrags.progressEntryDetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,20 +11,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem
-import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
-import com.example.surgeryapptest.view_models.WoundDetailsFragmentViewModel
+import com.example.surgeryapptest.view_models.patient.WoundDetailsFragmentViewModel
 import com.hsalf.smilerating.BaseRating
 import com.hsalf.smilerating.SmileRating
-import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
 import kotlinx.android.synthetic.main.fragment_wound_details.view.*
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 
 class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
@@ -156,15 +154,16 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         // Pass the values as parameter
         // to be sent to backend
         updateUploadedEntryViewModel.updateUploadedEntry(
-            RequestBody.create(MediaType.parse("multipart/form-data"), woundID),
-            RequestBody.create(MediaType.parse("multipart/form-data"), title),
-            RequestBody.create(MediaType.parse("multipart/form-data"), description),
-            RequestBody.create(MediaType.parse("multipart/form-data"), fluidDrained),
-            RequestBody.create(MediaType.parse("multipart/form-data"), painRating),
-            RequestBody.create(MediaType.parse("multipart/form-data"), redness),
-            RequestBody.create(MediaType.parse("multipart/form-data"), swelling),
-            RequestBody.create(MediaType.parse("multipart/form-data"), odour),
-            RequestBody.create(MediaType.parse("multipart/form-data"), fever),
+            woundID.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            title.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            description.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            fluidDrained.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            painRating.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            redness.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            swelling.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            odour.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            fever.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            //RequestBody.create(MediaType.parse("multipart/form-data"), fever)
         )
 
         updateUploadedEntryViewModel.updatedEntryResponse.observe(viewLifecycleOwner, { response ->
@@ -190,7 +189,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
     private fun deleteSelectedEntry() {
 
         updateUploadedEntryViewModel.deleteUploadedEntry(
-            RequestBody.create(MediaType.parse("multipart/form-data"), woundID)
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), woundID)
         )
 
         updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner, { response ->

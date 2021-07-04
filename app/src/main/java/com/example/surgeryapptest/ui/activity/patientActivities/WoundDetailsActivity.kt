@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.ui.activity
+package com.example.surgeryapptest.ui.activity.patientActivities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.navArgs
 import com.example.surgeryapptest.R
-import com.example.surgeryapptest.ui.fragments.progressEntryDetails.WoundDetailsFragment
-import com.example.surgeryapptest.ui.fragments.progressEntryDetails.WoundDoctorFeedbackFragment
+import com.example.surgeryapptest.ui.fragments.patientFrags.progressEntryDetails.WoundDetailsFragment
+import com.example.surgeryapptest.ui.fragments.patientFrags.progressEntryDetails.WoundDoctorFeedbackFragment
 import com.example.surgeryapptest.utils.adapter.PagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_wound_details.*

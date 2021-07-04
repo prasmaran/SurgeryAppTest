@@ -4,10 +4,13 @@ import com.example.surgeryapptest.model.network.deleteEntryNetworkResponse.Netwo
 import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.model.network.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.model.network.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
 import com.example.surgeryapptest.utils.network.endpoints.ApiInterface
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.POST
 import retrofit2.http.Part
 import javax.inject.Inject
 
@@ -59,6 +62,10 @@ class RemoteDataSource @Inject constructor(
         return apiInterface.deleteUploadedEntry(entryID)
     }
 
-
+    // Authenticate the user
+    suspend fun loginUser(@Body params: Map<String, String>):
+            Response<UserLoginNetworkResponse> {
+        return apiInterface.loginUser(params)
+    }
 
 }
