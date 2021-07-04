@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.ui.fragments
+package com.example.surgeryapptest.ui.fragments.patientFrags
 
 import android.app.Activity
 import android.content.Context
@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -29,11 +30,10 @@ import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.getFileName
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
-import com.example.surgeryapptest.view_models.UploadNewEntryFragmentViewModel
-import com.hsalf.smilerating.BaseRating
+import com.example.surgeryapptest.view_models.patient.UploadNewEntryFragmentViewModel
 import com.hsalf.smilerating.SmileRating
 import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
@@ -99,6 +99,11 @@ class UploadNewEntryFragment :
         radioBtnListeners()
 
         mView.submit_btn.setOnClickListener {
+
+            //closeSoftKeyboard(requireContext(), it) --> giving  weird logcat
+            //closeKeyboard(mView.submit_btn)
+            //hideSoftKeyboard(requireActivity())
+
             val isAllFieldFilled =
                 validateFormEntry(
                     selectedImageUri.toString(),
@@ -112,12 +117,10 @@ class UploadNewEntryFragment :
                     fever
                 )
             if (isAllFieldFilled) {
-                //println(
-                //    "You have entered the following details\n$selectedImageUri\n$title\n$painRating\n$description\n$fluidDrained"
-                //)
                 if (selectedImageUri != null) {
                     mView.progress_bar.visibility = View.VISIBLE
                     createAlertDialog()
+                    it.hideKeyboard()
                 } else {
                     AppUtils.showToast(requireContext(), "Please upload an image!")
                 }
@@ -211,14 +214,15 @@ class UploadNewEntryFragment :
         // to be sent to backend
         uploadNewEntryViewModel.uploadNewWoundEntry(
             MultipartBody.Part.createFormData("image", file.name, body),
-            RequestBody.create(MediaType.parse("multipart/form-data"), title),
-            RequestBody.create(MediaType.parse("multipart/form-data"), description),
-            RequestBody.create(MediaType.parse("multipart/form-data"), fluidDrained),
-            RequestBody.create(MediaType.parse("multipart/form-data"), painRating),
-            RequestBody.create(MediaType.parse("multipart/form-data"), redness),
-            RequestBody.create(MediaType.parse("multipart/form-data"), swelling),
-            RequestBody.create(MediaType.parse("multipart/form-data"), odour),
-            RequestBody.create(MediaType.parse("multipart/form-data"), fever),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), title),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), description),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), fluidDrained),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), painRating),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), redness),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), swelling),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), odour),
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), fever),
+            //RequestBody.create(MediaType.parse("multipart/form-data"), fever),
         )
         uploadNewEntryViewModel.uploadedNewEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
@@ -228,8 +232,8 @@ class UploadNewEntryFragment :
                     // Navigate back after 1 sec
                     findNavController().navigateUp()
                     findNavController().navigate(R.id.patientProgressBooksFragment)
-//                    val action = UploadNewEntryFragmentDirections.actionUploadNewEntryFragmentToPatientProgressBooksFragment()
-//                    findNavController().navigate(action)
+                    //val action = UploadNewEntryFragmentDirections.actionUploadNewEntryFragmentToPatientProgressBooksFragment()
+                    //findNavController().navigate(action)
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(
@@ -310,6 +314,28 @@ class UploadNewEntryFragment :
         }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
+    }
+
+    // hide soft keyboard
+    private fun closeKeyboard(view: View) {
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    // hide soft keyboard 2
+    private fun hideSoftKeyboard(activity: Activity) {
+        if (activity.currentFocus == null) {
+            return
+        }
+        val inputMethodManager =
+            activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(activity.currentFocus!!.windowToken, 0)
+    }
+
+    // hide soft keyboard 3
+    private fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

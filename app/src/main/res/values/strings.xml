@@ -43,5 +43,23 @@
     <string name="no_appointment">No appointments at this moment</string>
     <string name="prasanth_manimaran">Prasanth Manimaran</string>
 
+    <!-- Emergency Numbers -->
+    <string name="mers">General Emergency Services</string>
+    <string name="ppum_emergency">PPUM Emergency</string>
+    <string name="ppum_instruction">For wound emergencies please use the button below to contact PPUM Emergency</string>
+    <string name="mers_instruction">For general emergencies please use the button below to contact 999</string>
+    <string name="mers_number">999</string>
+    <string name="ppum_emergency_number_ori">03-79494422</string>
+    <string name="ppum_emergency_number">0146642285</string>
+
+    <!-- Login/Register -->
+    <string name="username">Username</string>
+    <string name="registration_id">Registration ID</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="welcome">Welcome 😁</string>
+    <string name="login_to_continue">Login to continue</string>
+    <string name="fill_in_all_fields">Fill in all fields</string>
+
 
 </resources>

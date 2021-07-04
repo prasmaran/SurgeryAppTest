@@ -10,7 +10,7 @@
     android:fillViewport="true"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbars="vertical"
-    tools:context=".ui.fragments.UploadNewEntryFragment">
+    tools:context=".ui.fragments.patientFrags.UploadNewEntryFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

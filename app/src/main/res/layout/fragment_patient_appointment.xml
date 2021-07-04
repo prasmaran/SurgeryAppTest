@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/lightGray"
-    tools:context=".ui.fragments.PatientAppointmentFragment">
+    tools:context=".ui.fragments.patientFrags.PatientAppointmentFragment">
 
 
     <TextView

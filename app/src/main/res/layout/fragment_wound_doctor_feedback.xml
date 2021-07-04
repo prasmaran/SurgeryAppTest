@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightGray"
-    tools:context=".ui.fragments.progressEntryDetails.WoundDoctorFeedbackFragment">
+    tools:context=".ui.fragments.patientFrags.progressEntryDetails.WoundDoctorFeedbackFragment">
 
     <TextView
         android:id="@+id/no_messages_from_doctor"

@@ -1,16 +1,18 @@
 package com.example.surgeryapptest.utils.bindingAdapters
 
+import android.os.Build
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import coil.load
-import coil.transform.CircleCropTransformation
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem
-import com.example.surgeryapptest.ui.fragments.PatientProgressBooksFragmentDirections
-import java.lang.Exception
+import com.example.surgeryapptest.ui.fragments.patientFrags.PatientProgressBooksFragmentDirections
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PatientProgressBookEntryBinding {
 
@@ -46,9 +48,23 @@ class PatientProgressBookEntryBinding {
         }
 
         // Need to format the date time to DD-MM-YYYY
+
         @BindingAdapter("formatDateTimestamp")
         @JvmStatic
-        fun dateTimeFormatter(textView: TextView, date: String) {
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun formatDateTimestamp(textView: TextView, dateTime: String) {
+            val parsedDate = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_DATE_TIME)
+            val sdf = parsedDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))
+            textView.text = sdf
+            //return parsedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
         }
+
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        fun parseDate(dateTime: String): String {
+//            val parsedDate = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_DATE_TIME)
+//            val sdf = parsedDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm a"))
+//            println("Parsed DateTime: $sdf")
+//            return parsedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+//        }
     }
 }

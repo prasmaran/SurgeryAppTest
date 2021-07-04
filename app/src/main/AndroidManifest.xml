@@ -11,6 +11,7 @@
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -28,13 +29,24 @@
         android:theme="@style/Theme.SurgeryAppTest"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.activity.WoundDetailsActivity"
-            android:label="Wound Detail"
-            android:theme="@style/WoundDetailActivityStyle"/>
+
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.patientActivities.WoundDetailsActivity"
+            android:label="Wound Detail"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
+            android:theme="@style/WoundDetailActivityStyle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.activity.patientActivities.MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.activity.patientActivities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginStyle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".ui.activity.SplashScreenActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

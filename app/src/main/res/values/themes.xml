@@ -12,6 +12,16 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="LoginStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
     <style name="WoundDetailActivityStyle" parent = "Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -37,5 +47,6 @@
     <style name="CustomTabTextStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textColor">@color/white</item>
     </style>
+
 
 </resources>

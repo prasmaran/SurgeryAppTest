@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.view_models
+package com.example.surgeryapptest.view_models.patient
 
 import android.app.Application
 import android.content.Context

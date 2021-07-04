@@ -6,13 +6,20 @@
     app:startDestination="@id/patientHomeFragment">
     <fragment
         android:id="@+id/patientHomeFragment"
-        android:name="com.example.surgeryapptest.ui.fragments.PatientHomeFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientHomeFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_patient_home" >
+        <action
+            android:id="@+id/action_patientHomeFragment_to_patientEmergencyCallFragment"
+            app:destination="@id/patientEmergencyCallFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/patientProgressBooksFragment"
-        android:name="com.example.surgeryapptest.ui.fragments.PatientProgressBooksFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientProgressBooksFragment"
         android:label="Progress Book"
         tools:layout="@layout/fragment_patient_progress_books" >
         <action
@@ -32,17 +39,17 @@
     </fragment>
     <fragment
         android:id="@+id/patientAppointmentFragment"
-        android:name="com.example.surgeryapptest.ui.fragments.PatientAppointmentFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientAppointmentFragment"
         android:label="Appointments"
         tools:layout="@layout/fragment_patient_appointment" />
     <fragment
         android:id="@+id/patientProfileFragment"
-        android:name="com.example.surgeryapptest.ui.fragments.PatientProfileFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_patient_profile" />
     <fragment
         android:id="@+id/uploadNewEntryFragment"
-        android:name="com.example.surgeryapptest.ui.fragments.UploadNewEntryFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.UploadNewEntryFragment"
         android:label="Upload New Entry"
         tools:layout="@layout/fragment_upload_new_entry" >
         <action
@@ -51,11 +58,16 @@
     </fragment>
     <activity
         android:id="@+id/woundDetailsActivity"
-        android:name="com.example.surgeryapptest.ui.activity.WoundDetailsActivity"
+        android:name="com.example.surgeryapptest.ui.activity.patientActivities.WoundDetailsActivity"
         android:label="Wound Image Details"
         tools:layout="@layout/activity_wound_details" >
         <argument
             android:name="result"
             app:argType="com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem" />
     </activity>
+    <fragment
+        android:id="@+id/patientEmergencyCallFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientEmergencyCallFragment"
+        android:label="Emergency Numbers"
+        tools:layout="@layout/fragment_patient_emergency_call" />
 </navigation>

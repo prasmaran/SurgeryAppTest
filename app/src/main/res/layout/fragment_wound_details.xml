@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightGray"
-    tools:context=".ui.fragments.progressEntryDetails.WoundDetailsFragment">
+    tools:context=".ui.fragments.patientFrags.progressEntryDetails.WoundDetailsFragment">
 
     <ImageView
         android:id="@+id/detail_wound_image"
