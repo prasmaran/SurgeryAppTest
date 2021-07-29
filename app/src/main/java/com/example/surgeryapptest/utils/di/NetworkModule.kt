@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.utils.di
 
+import com.example.surgeryapptest.utils.app.AuthInterceptor
 import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.utils.network.endpoints.ApiInterface
 import com.google.gson.GsonBuilder
@@ -24,10 +25,11 @@ object NetworkModule {
     // added logger .addInterceptor(interceptor)
     @Singleton
     @Provides
-    fun provideHttpClient(): OkHttpClient {
+    fun provideHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
         return OkHttpClient
             .Builder()
-            //.addInterceptor(interceptor) // <-- Check this
+            .addInterceptor(interceptor) // <-- Check this
+            .addInterceptor(authInterceptor) // <-- Check this auth toke interceptor
             .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(45, TimeUnit.SECONDS)

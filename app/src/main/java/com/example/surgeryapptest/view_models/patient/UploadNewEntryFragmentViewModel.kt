@@ -65,7 +65,7 @@ class UploadNewEntryFragmentViewModel @Inject constructor(
         uploadedNewEntryResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remoteDataSource.uploadNewEntry(
+                val response = repository.remote.uploadNewEntry(
                     image, title, description, fluid_drain, painrate,
                     redness, swelling, odour, fever
                 )

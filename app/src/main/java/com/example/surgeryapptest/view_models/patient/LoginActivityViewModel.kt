@@ -4,14 +4,13 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
+import com.example.surgeryapptest.utils.app.DataStoreRepository
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -19,9 +18,29 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginActivityViewModel @Inject constructor(
     private val repository: Repository,
+    private val dataStoreRepository: DataStoreRepository,
     application: Application
 ) : AndroidViewModel(application) {
 
+    fun saveUserProfileDetails(
+        userName: String,
+        userID: String,
+        userIcNumber: String,
+        userGender: String,
+        userType: String,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.saveUserProfileDetails(userName, userID, userIcNumber, userGender, userType)
+        }
+
+        println("SAVED DATA IN VIEW MODEL: $userName $userID $userIcNumber $userGender $userType")
+    }
+
+    fun saveUserAccessToken(userAccessToken: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.saveUserAccessToken(userAccessToken)
+        }
+    }
 
     //var userLoginResponse: MutableLiveData<NetworkResult<UserLoginNetworkResponse>> = MutableLiveData()
     val loginResponse: LiveData<NetworkResult<UserLoginNetworkResponse>> get() = userLoginResponse
@@ -39,7 +58,7 @@ class LoginActivityViewModel @Inject constructor(
         userLoginResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remoteDataSource.loginUser(params)
+                val response = repository.remote.loginUser(params)
                 userLoginResponse.value = handleUserLoginResponse(response)
             } catch (e: Exception) {
                 userLoginResponse.value = NetworkResult.Error(e.message.toString())
@@ -63,6 +82,7 @@ class LoginActivityViewModel @Inject constructor(
 //            }
             response.isSuccessful -> {
                 val data = response.body()
+
                 println("Received data: \n $data")
                 NetworkResult.Success(data!!)
             }

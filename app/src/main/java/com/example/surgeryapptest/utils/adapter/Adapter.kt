@@ -46,7 +46,7 @@ class Adapter : RecyclerView.Adapter<Adapter.MyViewHolder>() {
     override fun getItemCount(): Int = progressEntryItems.size
 
     fun setData(newData : AllProgressBookEntry){
-        val diffUtils = CustomDiffUtils(progressEntryItems,newData.result)
+        val diffUtils = CustomDiffUtils(progressEntryItems,newData.result!!)
         val diffUtilsResult = DiffUtil.calculateDiff(diffUtils)
         progressEntryItems = newData.result
         diffUtilsResult.dispatchUpdatesTo(this)

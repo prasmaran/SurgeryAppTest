@@ -65,7 +65,7 @@ class WoundDetailsFragmentViewModel @Inject constructor(
         updatedEntryResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remoteDataSource.updateUploadedEntry(
+                val response = repository.remote.updateUploadedEntry(
                     entryID, title, description, fluid_drain, painrate,
                     redness, swelling, odour, fever
                 )
@@ -83,7 +83,7 @@ class WoundDetailsFragmentViewModel @Inject constructor(
         deletedEntryResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remoteDataSource.deleteUploadedEntry(entryID)
+                val response = repository.remote.deleteUploadedEntry(entryID)
                 deletedEntryResponse.value = handleDeleteUploadedEntryResponse(response)
             } catch (e: Exception) {
                 deletedEntryResponse.value = NetworkResult.Error(e.message.toString())

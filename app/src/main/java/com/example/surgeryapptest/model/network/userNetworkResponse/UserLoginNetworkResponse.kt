@@ -9,5 +9,7 @@ data class UserLoginNetworkResponse(
     @SerializedName("result")
     val result: List<Result>?,
     @SerializedName("success")
-    val success: Boolean
+    val success: Boolean,
+    @SerializedName("accessToken")
+    val accessToken: String?
 )
