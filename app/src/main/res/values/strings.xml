@@ -60,6 +60,7 @@
     <string name="welcome">Welcome 😁</string>
     <string name="login_to_continue">Login to continue</string>
     <string name="fill_in_all_fields">Fill in all fields</string>
+    <string name="log_out">LOG OUT</string>
 
 
 </resources>

@@ -53,6 +53,9 @@ class UploadNewEntryFragment :
         private const val FILE_NAME = "woundImage"
     }
 
+    //TODO: Check for successful upload flag
+    // to prevent repetitive API calling
+
     private lateinit var uploadNewEntryViewModel: UploadNewEntryFragmentViewModel
     private lateinit var mView: View
     private lateinit var photoFile: File

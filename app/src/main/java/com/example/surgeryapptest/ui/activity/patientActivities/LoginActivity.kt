@@ -8,16 +8,35 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.utils.app.AppUtils
+import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.LoginActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+
+    // Testing data store values
+    private var userName = ""
+    private var userID = ""
+    private var userIcNumber = ""
+    private var userGender = ""
+    private var userType = ""
+
+    // Replace later with Data Store
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     private val loginViewModel: LoginActivityViewModel by viewModels()
 
@@ -26,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         //loginViewModel = ViewModelProvider(this).get(LoginActivityViewModel::class.java)
+        sessionManager = SessionManager(this)
 
         // set up the authentication later
         login_btn.setOnClickListener {
@@ -63,20 +83,40 @@ class LoginActivity : AppCompatActivity() {
             when (response) {
                 is NetworkResult.Success -> {
                     setCheckIcon(true)
+
+                    // save the auth token to sharedPrefs
+                    sessionManager.saveAuthToken(response.data?.accessToken.toString())
+                    // loginViewModel.saveUserAccessToken(response.data?.accessToken.toString())
+
                     Toast.makeText(
                         this@LoginActivity,
-                        response.data?.message.toString(),
+                        response.data?.message.toString() + " " + response.data?.accessToken.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
-                    // set data store variables
-                    // get all the user detail
 
-                    val userString = "${response.data?.result?.get(0)?.mName} = ${response.data?.result?.get(0)?.mType}"
+                    userName = response.data?.result?.get(0)?.mName.toString()
+                    userID = response.data?.result?.get(0)?.mId.toString()
+                    userIcNumber = response.data?.result?.get(0)?.mIc.toString()
+                    userGender = response.data?.result?.get(0)?.mGender.toString()
+                    userType = response.data?.result?.get(0)?.mType.toString()
+
+                    // save user profile details to data store
+                    loginViewModel.saveUserProfileDetails(
+                        userName, userID, userIcNumber, userGender, userType
+                    )
+
+                    // get all the user detail
+                    // println("Access Token: " + sessionManager.fetchAuthToken())
+
+                    val userString =
+                        "${response.data?.result?.get(0)?.mName} = ${response.data?.result?.get(0)?.mType}"
+
                     Toast.makeText(
                         this@LoginActivity,
                         userString,
                         Toast.LENGTH_SHORT
                     ).show()
+
                     goToMain()
                 }
                 is NetworkResult.Error -> {
@@ -118,8 +158,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCheckIcon(valid: Boolean){
-        if(valid) {
+    private fun setCheckIcon(valid: Boolean) {
+        if (valid) {
             username_login_et.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
