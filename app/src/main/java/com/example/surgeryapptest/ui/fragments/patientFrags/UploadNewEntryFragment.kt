@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -217,14 +218,14 @@ class UploadNewEntryFragment :
         // to be sent to backend
         uploadNewEntryViewModel.uploadNewWoundEntry(
             MultipartBody.Part.createFormData("image", file.name, body),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), title),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), description),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), fluidDrained),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), painRating),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), redness),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), swelling),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), odour),
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), fever),
+            title.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            description.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            fluidDrained.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            painRating.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            redness.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            swelling.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            odour.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            fever.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
             //RequestBody.create(MediaType.parse("multipart/form-data"), fever),
         )
         uploadNewEntryViewModel.uploadedNewEntryResponse.observe(viewLifecycleOwner, { response ->

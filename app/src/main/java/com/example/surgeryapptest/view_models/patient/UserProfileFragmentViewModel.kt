@@ -23,6 +23,8 @@ class UserProfileFragmentViewModel @Inject constructor(
     val readUserProfileDetail = dataStoreRepository.readUserProfileDetail
 
     // TODO: Create API to update user contact details
+    /** Listen to the changes and update in Ui
+     * Send changes to server and return the updated response */
     fun updateUserProfileDetails(
         userContact1: String,
         userContact2: String
@@ -31,6 +33,14 @@ class UserProfileFragmentViewModel @Inject constructor(
             dataStoreRepository.updateUserProfileDetails(userContact1, userContact2)
         }
     }
+
+    // TODO: Delete all Data Store Preferences
+    fun deleteAllPreferences() {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.deleteAllPreferences()
+        }
+    }
+
 
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(

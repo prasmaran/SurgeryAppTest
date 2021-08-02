@@ -14,12 +14,13 @@ import retrofit2.http.*
 interface ApiInterface {
 
     // To receive all the progress entry data
-    @GET("/books/progress/getAll")
-    suspend fun getAllProgressEntry() : Response<AllProgressBookEntry>
+    // Edited: Get progress book by userID
+    @GET("/books/progress/getAll/{userId}")
+    suspend fun getAllProgressEntry(@Path("userId") userId: String): Response<AllProgressBookEntry>
 
     // To receive one progress entry by ID
     @GET("/books/progress/{entryid}")
-    suspend fun getOneProgressEntry() : Response<AllProgressBookEntryItem>
+    suspend fun getOneProgressEntry(): Response<AllProgressBookEntryItem>
 
     // To upload new wound image
     @Multipart
@@ -34,7 +35,7 @@ interface ApiInterface {
         @Part("swelling") swelling: RequestBody,
         @Part("odour") odour: RequestBody,
         @Part("fever") fever: RequestBody,
-    ) : Response<NetworkUploadNewEntryResponse>
+    ): Response<NetworkUploadNewEntryResponse>
 
     // To edit selected image entry
     @Multipart
@@ -49,14 +50,14 @@ interface ApiInterface {
         @Part("swelling") swelling: RequestBody,
         @Part("odour") odour: RequestBody,
         @Part("fever") fever: RequestBody,
-    ) : Response<NetworkUpdateEntryResponse>
+    ): Response<NetworkUpdateEntryResponse>
 
     // Delete selected image entry
     @Multipart
     @PUT("/books/progress/delete")
     suspend fun deleteUploadedEntry(
         @Part("entryID") entryID: RequestBody
-    ) : Response<NetworkDeleteEntryResponse>
+    ): Response<NetworkDeleteEntryResponse>
 
     // Authenticate the user
     @POST("/user/auth")

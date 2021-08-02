@@ -44,7 +44,7 @@
         tools:layout="@layout/fragment_patient_appointment" />
     <fragment
         android:id="@+id/patientProfileFragment"
-        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientProfileFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.PatientProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_patient_profile" />
     <fragment

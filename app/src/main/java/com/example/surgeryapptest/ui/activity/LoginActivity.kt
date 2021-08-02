@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.ui.activity.patientActivities
+package com.example.surgeryapptest.ui.activity
 
 import android.app.Activity
 import android.content.Context
@@ -8,20 +8,17 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.ui.activity.doctorActivities.MainActivityDoctor
+import com.example.surgeryapptest.ui.activity.patientActivities.MainActivity
 import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.LoginActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
 import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -67,12 +64,33 @@ class LoginActivity : AppCompatActivity() {
                 password_login_et.text = null
             }
         }
+
     }
 
-    private fun goToMain() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
+    // TODO: Delete after checking the deleted DS values
+    private fun readSavedUserProfileDetails() {
+    }
+
+    private fun goToMain(userType: String) {
+        when (userType) {
+            "P" -> {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+
+            "D" -> {
+                val intent = Intent(this, MainActivityDoctor::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+
+            else -> {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+        }
     }
 
     private fun userLogin(params: Map<String, String>) {
@@ -100,10 +118,14 @@ class LoginActivity : AppCompatActivity() {
                     userGender = response.data?.result?.get(0)?.mGender.toString()
                     userType = response.data?.result?.get(0)?.mType.toString()
 
+                    // save user logged in flag = true
+                    loginViewModel.setUserLoggedIn(true)
                     // save user profile details to data store
                     loginViewModel.saveUserProfileDetails(
                         userName, userID, userIcNumber, userGender, userType
                     )
+                    // save access token to data store
+                    loginViewModel.saveUserAccessToken(response.data?.accessToken.toString())
 
                     // get all the user detail
                     // println("Access Token: " + sessionManager.fetchAuthToken())
@@ -117,7 +139,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    goToMain()
+                    goToMain(userType)
                 }
                 is NetworkResult.Error -> {
                     setCheckIcon(false)

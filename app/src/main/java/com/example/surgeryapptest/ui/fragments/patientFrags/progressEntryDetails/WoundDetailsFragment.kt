@@ -189,7 +189,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
     private fun deleteSelectedEntry() {
 
         updateUploadedEntryViewModel.deleteUploadedEntry(
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), woundID)
+            woundID.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         )
 
         updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner, { response ->

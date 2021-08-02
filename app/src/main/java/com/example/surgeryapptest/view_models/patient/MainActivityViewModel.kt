@@ -31,9 +31,26 @@ class MainActivityViewModel @Inject constructor(
 
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
-    fun saveBackOnline(backOnline: Boolean) {
+    private fun saveBackOnline(backOnline: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveBackOnline(backOnline)
+        }
+    }
+
+    /** DATA STORE */
+
+    val readUserProfileDetail = dataStoreRepository.readUserProfileDetail
+
+    // TODO: Delete all Data Store Preferences
+    fun deleteAllPreferences() {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.deleteAllPreferences()
+        }
+    }
+
+    fun setUserLoggedIn(userLoggedIn: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.setUserLoggedIn(userLoggedIn)
         }
     }
 
@@ -51,15 +68,15 @@ class MainActivityViewModel @Inject constructor(
     var allProgressEntryResponse: MutableLiveData<NetworkResult<AllProgressBookEntry>> =
         MutableLiveData()
 
-    fun getAllProgressEntry() = viewModelScope.launch {
-        getAllProgressEntrySafeCall()
+    fun getAllProgressEntry(userId: String) = viewModelScope.launch {
+        getAllProgressEntrySafeCall(userId)
     }
 
-    private suspend fun getAllProgressEntrySafeCall() {
+    private suspend fun getAllProgressEntrySafeCall(userId: String) {
         allProgressEntryResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remote.getAllProgressEntry()
+                val response = repository.remote.getAllProgressEntry(userId)
                 allProgressEntryResponse.value = handleAllProgressEntryResponse(response)
 
                 val progressBook = allProgressEntryResponse.value!!.data
@@ -69,7 +86,7 @@ class MainActivityViewModel @Inject constructor(
 
             } catch (e: Exception) {
                 allProgressEntryResponse.value = NetworkResult.Error(e.message.toString())
-                println("Error3: ${e.message.toString()}")
+                println("Error0: ${e.message.toString()}")
             }
         } else {
             allProgressEntryResponse.value = NetworkResult.Error("No Internet Connection")
@@ -87,11 +104,16 @@ class MainActivityViewModel @Inject constructor(
             response.message().toString().contains("timeout") -> {
                 NetworkResult.Error("Timeout Error")
             }
-            response.body()!!.success.contains("false") -> {
-                NetworkResult.Error("Error1: ${response.body()!!.message}")
+            response.body()!!.message.contains("Invalid Token") || response.body()!!.message.contains(
+                "Session Expired") -> {
+                NetworkResult.Error("Error 1: ${response.body()!!.message}")
+            }
+            response.body()!!.result.isNullOrEmpty() && response.body()!!.success.contains("true") -> {
+                //NetworkResult.Error("Error Special: ${response.body()!!.message}")
+                NetworkResult.Error("Error2: No progress book found under your name.")
             }
             response.body()!!.result.isNullOrEmpty() -> {
-                NetworkResult.Error("Error2: ${response.body()!!.message}")
+                NetworkResult.Error("Error3: ${response.body()!!.message}")
             }
             response.isSuccessful -> {
                 val data = response.body()
@@ -128,13 +150,13 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
-    fun showNetworkStatus(){
-        if(!networkStatus){
+    fun showNetworkStatus() {
+        if (!networkStatus) {
             Toast.makeText(getApplication(), "No Internet Connection", Toast.LENGTH_SHORT).show()
             saveBackOnline(true)
             println("MainActivityViewModel: $networkStatus")
-        } else if(networkStatus) {
-            if(backOnline) {
+        } else if (networkStatus) {
+            if (backOnline) {
                 Toast.makeText(getApplication(), "We are back online", Toast.LENGTH_SHORT).show()
                 saveBackOnline(false)
             }

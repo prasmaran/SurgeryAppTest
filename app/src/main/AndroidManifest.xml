@@ -29,7 +29,10 @@
         android:theme="@style/Theme.SurgeryAppTest"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-
+        <activity
+            android:name=".ui.activity.doctorActivities.MainActivityDoctor"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.activity.patientActivities.WoundDetailsActivity"
             android:label="Wound Detail"
@@ -41,11 +44,12 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.activity.patientActivities.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginStyle"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".ui.activity.SplashScreenActivity"
+        <activity
+            android:name=".ui.activity.SplashScreenActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

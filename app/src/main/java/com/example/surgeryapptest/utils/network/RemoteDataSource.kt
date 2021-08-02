@@ -12,14 +12,15 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
     private val apiInterface: ApiInterface
 ) {
 
-    suspend fun getAllProgressEntry(): Response<AllProgressBookEntry> {
-        return apiInterface.getAllProgressEntry()
+    suspend fun getAllProgressEntry(userId: String): Response<AllProgressBookEntry> {
+        return apiInterface.getAllProgressEntry(userId)
     }
 
     suspend fun uploadNewEntry(
