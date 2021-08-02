@@ -29,6 +29,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         val userContact1 = stringPreferencesKey(Constants.USER_CONTACT_1)
         val userContact2 = stringPreferencesKey(Constants.USER_CONTACT_2)
         val backOnline = booleanPreferencesKey(Constants.PREFERENCES_BACK_ONLINE)
+        val userLoggedIn = booleanPreferencesKey(Constants.USER_LOGGED_IN)
     }
 
     private val dataStore: DataStore<Preferences> = context.dataStore
@@ -49,7 +50,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
                 throw exception
             }
         }
-        .map {preferences ->
+        .map { preferences ->
             val backOnline = preferences[PreferenceKeys.backOnline] ?: false
             backOnline
         }
@@ -123,6 +124,32 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
                 preferences[PreferenceKeys.userAccessToken] ?: Constants.NOT_AVAILABLE
             receivedUserAccessToken
         }
+
+    suspend fun setUserLoggedIn(userLoggedIn: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferenceKeys.userLoggedIn] = userLoggedIn
+        }
+    }
+
+    val readUserLoggedIn: Flow<Boolean> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
+            val userLoggedIn = preferences[PreferenceKeys.userLoggedIn] ?: false
+            userLoggedIn
+        }
+
+    suspend fun deleteAllPreferences() {
+        dataStore.edit {
+            it.clear()
+        }
+    }
+
 }
 
 data class UserProfileDetail(
@@ -130,5 +157,7 @@ data class UserProfileDetail(
     val userID: String,
     val userIcNumber: String,
     val userGender: String,
-    val userType: String
+    val userType: String,
+    val userContact1: String? = null,
+    val userContact2: String? = null
 )

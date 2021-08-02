@@ -22,6 +22,8 @@ class LoginActivityViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
+    val readUserProfileDetail = dataStoreRepository.readUserProfileDetail
+
     fun saveUserProfileDetails(
         userName: String,
         userID: String,
@@ -36,9 +38,15 @@ class LoginActivityViewModel @Inject constructor(
         println("SAVED DATA IN VIEW MODEL: $userName $userID $userIcNumber $userGender $userType")
     }
 
-    fun saveUserAccessToken(userAccessToken: String){
+    fun saveUserAccessToken(userAccessToken: String) {
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveUserAccessToken(userAccessToken)
+        }
+    }
+
+    fun setUserLoggedIn(userLoggedIn: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.setUserLoggedIn(userLoggedIn)
         }
     }
 

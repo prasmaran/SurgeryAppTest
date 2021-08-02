@@ -16,34 +16,39 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
-import com.example.surgeryapptest.ui.activity.patientActivities.LoginActivity
+import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.adapter.Adapter
 import com.example.surgeryapptest.utils.app.NetworkListener
+import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.constant.Constants.Companion.NETWORK_ERROR_NO_INTERNET
+import com.example.surgeryapptest.utils.constant.Constants.Companion.NO_PROGRESS_BOOK
 import com.example.surgeryapptest.utils.constant.Constants.Companion.UNAUTHENTICATED_USER
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
-import com.example.surgeryapptest.view_models.patient.LoginActivityViewModel
 import com.example.surgeryapptest.view_models.patient.MainActivityViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_patient_progress_books.view.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PatientProgressBooksFragment : Fragment() {
 
     private lateinit var mainViewModel: MainActivityViewModel
-    private lateinit var loginViewModel: LoginActivityViewModel
     private lateinit var networkListener: NetworkListener
     private val mAdapter by lazy { Adapter() }
     private lateinit var mView: View
+    private var userId: String = ""
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize the view models here
         mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-        loginViewModel =
-            ViewModelProvider(requireActivity()).get(LoginActivityViewModel::class.java)
+        sessionManager = SessionManager(requireContext())
     }
 
     override fun onCreateView(
@@ -60,6 +65,13 @@ class PatientProgressBooksFragment : Fragment() {
             mainViewModel.backOnline = it
         })
 
+        // Read userId to get specific progress book data
+        lifecycleScope.launch {
+            mainViewModel.readUserProfileDetail.collect { values ->
+               userId = values.userID
+            }
+        }
+
         lifecycleScope.launch {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
@@ -67,7 +79,7 @@ class PatientProgressBooksFragment : Fragment() {
                     Log.d("NetworkListener_ProgressBookGFrag", status.toString())
                     mainViewModel.networkStatus = status
                     mainViewModel.showNetworkStatus()
-                    requestApiData()
+                    requestApiData(userId)
                 }
         }
 
@@ -93,28 +105,8 @@ class PatientProgressBooksFragment : Fragment() {
         return mView
     }
 
-    // Testing Data Store User Profile Value
-
-//    private fun readSavedUserProfileDetails() {
-//        var uName = ""
-//        var uIC = ""
-//        var uGender = ""
-//        var uType = ""
-//
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            loginViewModel.readUserProfileDetail.collect {
-//                uName = it.userName
-//                uIC = it.userIcNumber
-//                uGender = it.userGender
-//                uType = it.userType
-//            }
-//        }
-//
-//        println("RETRIEVED DATA FROM DS IN PROGRESS BOOK: $uName $uIC $uGender $uType")
-//    }
-
-    private fun requestApiData() {
-        mainViewModel.getAllProgressEntry()
+    private fun requestApiData(userId: String) {
+        mainViewModel.getAllProgressEntry(userId)
         mainViewModel.allProgressEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
@@ -132,19 +124,17 @@ class PatientProgressBooksFragment : Fragment() {
                     hideShimmerEffect()
                     // Loading cache from database
 
-                    val progressBookResponse =
-                        response.message.toString() //response.data?.message.toString()
-                    if (progressBookResponse.contains("Unauthorized User")) {
+                    val progressBookResponse = response.message.toString() //response.data?.message.toString()
+
+                    if (progressBookResponse.contains("Unauthorized User") || progressBookResponse.contains("Invalid Token") ) {
                         unAuthenticateDialog(progressBookResponse)
-                    } else {
+                    }
+                    if (progressBookResponse.contains("No progress book found")) {
+                        noProgressBookFound(progressBookResponse)
+                    }
+                    if (progressBookResponse.contains("No Internet Connection")) {
                         refreshToReadFromCacheDialog(progressBookResponse)
                     }
-//                    Toast.makeText(
-//                        requireContext(),
-//                        response.message.toString(),
-//                        //response.message.toString() + ". Loading from cache if exists",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
 
                 }
                 is NetworkResult.Loading -> {
@@ -168,7 +158,8 @@ class PatientProgressBooksFragment : Fragment() {
 
     // To show a dialog fragment to refresh the page
     private fun refreshToReadFromCacheDialog(errorMessage: String) {
-        val builder = AlertDialog.Builder(requireContext())
+        //val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle(NETWORK_ERROR_NO_INTERNET)
         builder.setMessage("\n$errorMessage. Want to view previously stored data, (if exists) ?")
         builder.setIcon(R.drawable.ic_local_disk)
@@ -185,18 +176,37 @@ class PatientProgressBooksFragment : Fragment() {
 
     // To show a dialog to redirect to login page
     private fun unAuthenticateDialog(errorMessage: String) {
-        val builder = AlertDialog.Builder(requireContext())
+        //val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle(UNAUTHENTICATED_USER)
         //builder.setMessage("\nNo internet connection. Want to view previously stored data, (if exists) ?")
         builder.setMessage("\n$errorMessage. Do you want to login again?")
         builder.setIcon(R.drawable.ic_unauthorized_person)
 
         builder.setPositiveButton(R.string.yes) { _, _ ->
+            sessionManager.saveAuthToken(null)
+            mainViewModel.deleteAllPreferences()
             goToLoginPage()
         }
         builder.setNegativeButton(R.string.cancel) { _, _ ->
             // Do nothing
         }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    // To show a dialog to redirect to login page
+    private fun noProgressBookFound(errorMessage: String) {
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        val builder2 = AlertDialog.Builder(requireContext())
+        builder.setTitle(NO_PROGRESS_BOOK)
+        builder.setMessage("\n$errorMessage")
+        builder.setIcon(R.drawable.ic_empty)
+
+        builder.setPositiveButton(R.string.yes) { _, _ ->
+            // Do nothing
+        }
+
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
     }

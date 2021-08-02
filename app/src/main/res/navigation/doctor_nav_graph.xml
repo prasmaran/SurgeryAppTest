@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/doctor_nav_graph"
+    app:startDestination="@id/doctorHomeFragment">
+
+    <fragment
+        android:id="@+id/doctorHomeFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorHomeFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_doctor_home" />
+    <fragment
+        android:id="@+id/doctorPatientListFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorPatientListFragment"
+        android:label="Patients List"
+        tools:layout="@layout/fragment_doctor_patient_list" />
+    <fragment
+        android:id="@+id/doctorAppointmentFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorAppointmentFragment"
+        android:label="Appointments"
+        tools:layout="@layout/fragment_doctor_appointment" />
+    <fragment
+        android:id="@+id/doctorProfileFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.PatientProfileFragment"
+        android:label="fragment_patient_profile"
+        tools:layout="@layout/fragment_patient_profile" />
+
+</navigation>

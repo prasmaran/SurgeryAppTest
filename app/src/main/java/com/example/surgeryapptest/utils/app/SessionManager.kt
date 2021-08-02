@@ -19,7 +19,7 @@ class SessionManager @Inject constructor(@ApplicationContext private val context
     /**
      * Function to save auth token
      */
-    fun saveAuthToken(token: String) {
+    fun saveAuthToken(token: String? = null) {
         val editor = prefs.edit()
         editor.putString(USER_TOKEN, token)
         editor.apply()
@@ -31,4 +31,10 @@ class SessionManager @Inject constructor(@ApplicationContext private val context
     fun fetchAuthToken(): String? {
         return prefs.getString(USER_TOKEN, null)
     }
+
+    /**
+     * Function to delete all the session values
+     * */
+    //house-keeping
+    fun clearAll() = prefs.edit().clear().commit()
 }
