@@ -18,19 +18,19 @@
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#6200EA</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="WoundDetailActivityStyle" parent = "Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="WoundDetailActivityStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-<!--        <item name="colorSecondary">@color/green</item>-->
-<!--        <item name="colorSecondaryVariant">@color/greenDark</item>-->
-<!--        <item name="colorOnSecondary">@color/black</item>-->
+        <!--        <item name="colorSecondary">@color/green</item>-->
+        <!--        <item name="colorSecondaryVariant">@color/greenDark</item>-->
+        <!--        <item name="colorOnSecondary">@color/black</item>-->
         <!-- Status bar color. -->
         <item name="colorControlNormal">@color/white</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
@@ -56,6 +56,15 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!--     Material Text View/ Edit Text -->
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="shapeAppearance">@color/white</item>
+        <item name="textAppearanceCaption">@font/poppins_regular</item>
+<!--        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.*</item>-->
     </style>
 
 

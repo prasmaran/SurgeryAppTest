@@ -9,7 +9,7 @@ import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import coil.load
 import com.example.surgeryapptest.R
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.ui.fragments.patientFrags.PatientProgressBooksFragmentDirections
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -36,6 +36,13 @@ class PatientProgressBookEntryBinding {
                 }
             }
         }
+
+        /** Selected Patients
+         *
+         *
+         *
+         *
+         * */
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic

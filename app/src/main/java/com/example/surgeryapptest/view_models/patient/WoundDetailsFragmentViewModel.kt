@@ -7,8 +7,8 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.surgeryapptest.model.network.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
-import com.example.surgeryapptest.model.network.updateWoundImageResponse.NetworkUpdateEntryResponse
+import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
+import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel

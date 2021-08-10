@@ -1,10 +1,11 @@
 package com.example.surgeryapptest.utils.network.endpoints
 
-import com.example.surgeryapptest.model.network.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntry
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem
-import com.example.surgeryapptest.model.network.updateWoundImageResponse.NetworkUpdateEntryResponse
-import com.example.surgeryapptest.model.network.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
+import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
+import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
+import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -12,6 +13,15 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiInterface {
+
+    /** ALL USERS ROUTES */
+
+    // Authenticate the user
+    @POST("/user/auth")
+    suspend fun loginUser(@Body params: Map<String, String>):
+            Response<UserLoginNetworkResponse>
+
+    /** PATIENTS ROUTES */
 
     // To receive all the progress entry data
     // Edited: Get progress book by userID
@@ -26,6 +36,7 @@ interface ApiInterface {
     @Multipart
     @POST("/books/progress/upload")
     suspend fun uploadNewEntry(
+        @Part("masterUserId_fk") userID: RequestBody,
         @Part image: MultipartBody.Part,
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
@@ -59,8 +70,9 @@ interface ApiInterface {
         @Part("entryID") entryID: RequestBody
     ): Response<NetworkDeleteEntryResponse>
 
-    // Authenticate the user
-    @POST("/user/auth")
-    suspend fun loginUser(@Body params: Map<String, String>):
-            Response<UserLoginNetworkResponse>
+    /** DOCTOR ROUTES */
+
+    // Retrieve assigned patients progress books
+    @GET("/doctor/getAllPatients/{doctorId}")
+    suspend fun getAssignedPatientsList(@Path("doctorId") doctorId: String): Response<AssignedPatientsList>
 }

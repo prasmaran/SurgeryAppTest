@@ -23,6 +23,7 @@ import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.model.domain_model.UploadNewEntryRequestBody
@@ -33,6 +34,8 @@ import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.UploadNewEntryFragmentViewModel
 import com.hsalf.smilerating.SmileRating
 import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -62,6 +65,7 @@ class UploadNewEntryFragment :
     private lateinit var photoFile: File
 
     // Uploaded info for new entry
+    private var userID: String = ""
     private var selectedImageUri: Uri? = null
     private var painRating: String = ""
     private var title: String = ""
@@ -214,9 +218,18 @@ class UploadNewEntryFragment :
         mView.progress_bar.progress = 0
         val body = UploadNewEntryRequestBody(file, "image", this)
 
+        // read user id
+        viewLifecycleOwner.lifecycleScope.launch {
+            uploadNewEntryViewModel.readUserProfileDetail.collect { values ->
+                userID = values.userID
+            }
+        }
+        println("USER ID: $userID")
+
         // Pass the values as parameter
         // to be sent to backend
         uploadNewEntryViewModel.uploadNewWoundEntry(
+            userID.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
             MultipartBody.Part.createFormData("image", file.name, body),
             title.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
             description.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
@@ -338,7 +351,8 @@ class UploadNewEntryFragment :
 
     // hide soft keyboard 3
     private fun View.hideKeyboard() {
-        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 

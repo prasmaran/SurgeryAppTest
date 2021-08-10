@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.surgeryapptest.R
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.WoundDetailsFragmentViewModel
@@ -21,7 +21,6 @@ import com.hsalf.smilerating.BaseRating
 import com.hsalf.smilerating.SmileRating
 import kotlinx.android.synthetic.main.fragment_wound_details.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 

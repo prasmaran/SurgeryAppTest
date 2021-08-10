@@ -1,16 +1,16 @@
 package com.example.surgeryapptest.utils.network
 
-import com.example.surgeryapptest.model.network.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntry
-import com.example.surgeryapptest.model.network.updateWoundImageResponse.NetworkUpdateEntryResponse
-import com.example.surgeryapptest.model.network.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
+import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
+import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
 import com.example.surgeryapptest.utils.network.endpoints.ApiInterface
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
 import javax.inject.Inject
@@ -24,6 +24,7 @@ class RemoteDataSource @Inject constructor(
     }
 
     suspend fun uploadNewEntry(
+        @Part("masterUserId_fk") userID: RequestBody,
         @Part image: MultipartBody.Part,
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
@@ -35,7 +36,7 @@ class RemoteDataSource @Inject constructor(
         @Part("fever") fever: RequestBody,
     ): Response<NetworkUploadNewEntryResponse> {
         return apiInterface.uploadNewEntry(
-            image, title, description, fluid_drain, painrate,
+            userID, image, title, description, fluid_drain, painrate,
             redness, swelling, odour, fever
         )
     }
@@ -67,6 +68,11 @@ class RemoteDataSource @Inject constructor(
     suspend fun loginUser(@Body params: Map<String, String>):
             Response<UserLoginNetworkResponse> {
         return apiInterface.loginUser(params)
+    }
+
+    // Doctor Routes
+    suspend fun getAssignedPatientsList(doctorId: String): Response<AssignedPatientsList> {
+        return apiInterface.getAssignedPatientsList(doctorId)
     }
 
 }

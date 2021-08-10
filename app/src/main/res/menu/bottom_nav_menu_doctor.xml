@@ -7,7 +7,7 @@
 
     <item android:id="@+id/doctorPatientListFragment"
         android:title="@string/doctor_patient_list"
-        android:icon="@drawable/ic_patients"/>
+        android:icon="@drawable/ic_people"/>
 
     <item android:id="@+id/doctorAppointmentFragment"
         android:title="@string/doctor_appointments"
