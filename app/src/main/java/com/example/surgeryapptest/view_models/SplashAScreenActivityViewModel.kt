@@ -21,6 +21,7 @@ class SplashAScreenActivityViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     val readUserLoggedIn = dataStoreRepository.readUserLoggedIn.asLiveData()
+    val readUserProfileDetail = dataStoreRepository.readUserProfileDetail
 
     // TODO: Delete all Data Store Preferences
     fun deleteAllPreferences() {

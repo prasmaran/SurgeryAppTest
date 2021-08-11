@@ -14,7 +14,15 @@
         android:id="@+id/doctorPatientListFragment"
         android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorPatientListFragment"
         android:label="Patients List"
-        tools:layout="@layout/fragment_doctor_patient_list" />
+        tools:layout="@layout/fragment_doctor_patient_list">
+        <action
+            android:id="@+id/action_doctorPatientListFragment_to_doctorSelectedPatientProgressBookFragment"
+            app:destination="@id/doctorSelectedPatientProgressBookFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/doctorAppointmentFragment"
         android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorAppointmentFragment"
@@ -25,5 +33,14 @@
         android:name="com.example.surgeryapptest.ui.fragments.PatientProfileFragment"
         android:label="fragment_patient_profile"
         tools:layout="@layout/fragment_patient_profile" />
+    <fragment
+        android:id="@+id/doctorSelectedPatientProgressBookFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorSelectedPatientProgressBookFragment"
+        android:label="Patient Progress Book"
+        tools:layout="@layout/fragment_doctor_selected_patient_progress_book" >
+        <argument
+            android:name="patientProgressBook"
+            app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName" />
+    </fragment>
 
 </navigation>

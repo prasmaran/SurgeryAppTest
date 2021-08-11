@@ -79,10 +79,10 @@ class PatientProfileFragment : Fragment() {
                     "R" -> mView.user_type_tv.text = Constants.RESEARCHER
                     "DOP" -> mView.user_type_tv.text = Constants.DOP
                 }
+
+                println("RETRIEVED DATA FROM DS IN PROFILE FRAGMENT: ${values.userName} ${values.userID} ${values.userGender} ${values.userType} ")
             }
         }
-
-        println("RETRIEVED DATA FROM DS IN PROFILE FRAGMENT: $uName $uIC $uGender $uType")
     }
 
     private fun createAlertDialogSignOut() {

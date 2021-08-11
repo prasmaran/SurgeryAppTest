@@ -18,6 +18,8 @@
 
 
     <string name="no_internet_connection">No Internet Connection</string>
+    <string name="no_patient_list">No patient list found</string>
+
 
     <!-- Patient Home Dashboard -->
     <string name="general_info">General Info</string>
@@ -69,10 +71,13 @@
     <string name="registration_id">Registration ID</string>
     <string name="password">Password</string>
     <string name="login">LOGIN</string>
-    <string name="welcome">Welcome 😁</string>
+    <string name="welcome">Welcome back 😁</string>
     <string name="login_to_continue">Login to continue</string>
     <string name="fill_in_all_fields">Fill in all fields</string>
     <string name="log_out">LOG OUT</string>
-
+    <string name="patients_list">Patients List</string>
+    <string name="chats">Chats</string>
+    <string name="appointments">Appointments</string>
+    <string name="forgot_password">Forgot password?</string>
 
 </resources>

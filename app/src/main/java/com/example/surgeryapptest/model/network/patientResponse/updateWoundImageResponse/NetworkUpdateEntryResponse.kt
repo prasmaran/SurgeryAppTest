@@ -1,8 +1,9 @@
-package com.example.surgeryapptest.model.network.uploadNewImageResponse
+package com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse
+
 
 import com.google.gson.annotations.SerializedName
 
-data class NetworkUploadNewEntryResponse(
+data class NetworkUpdateEntryResponse(
     @SerializedName("message")
     val message: String,
     @SerializedName("success")

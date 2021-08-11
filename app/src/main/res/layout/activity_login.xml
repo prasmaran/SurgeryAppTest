@@ -6,17 +6,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@drawable/login_bg_xd"
     tools:context=".ui.activity.LoginActivity">
 
     <TextView
         android:id="@+id/login_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/caveat_semibold"
         android:text="@string/welcome"
-        android:textColor="@color/white"
-        android:textSize="@dimen/margin_40"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text_40sp"
         android:layout_marginStart="@dimen/margin_10"
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_150"
@@ -28,10 +28,10 @@
         android:id="@+id/login_sub_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
-        android:text="Login to continue"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_20sp"
+        android:fontFamily="@font/caveat_regular"
+        android:text="@string/login_to_continue"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text_30sp"
         android:layout_marginStart="@dimen/margin_10"
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_10"
@@ -53,6 +53,8 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_profile"
+            android:drawablePadding="@dimen/margin_12"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/username"
             android:imeOptions="actionNext"
@@ -70,6 +72,8 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="@dimen/margin_12"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/password"
             android:imeOptions="actionNext"
@@ -86,7 +90,6 @@
         <Button
             android:id="@+id/login_btn"
             android:layout_width="0dp"
-            android:backgroundTint="@color/green"
             android:text="@string/login"
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_regular"
@@ -95,6 +98,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_login_et" />
+
+        <TextView
+            android:id="@+id/forgot_password_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/login_btn"
+            android:layout_marginTop="@dimen/margin_10"
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/forgot_password"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

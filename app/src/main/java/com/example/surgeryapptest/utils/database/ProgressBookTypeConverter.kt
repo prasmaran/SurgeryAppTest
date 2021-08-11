@@ -1,7 +1,7 @@
 package com.example.surgeryapptest.utils.database
 
 import androidx.room.TypeConverter
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.surgeryapptest.databinding.ProgressEntryRowLayoutBinding
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntry
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.utils.diffUtils.CustomDiffUtils
 
 class Adapter : RecyclerView.Adapter<Adapter.MyViewHolder>() {

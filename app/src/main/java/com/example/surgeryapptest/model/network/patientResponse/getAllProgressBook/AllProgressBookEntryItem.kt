@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.model.network.getAllProgressBook
+package com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook
 
 
 import android.os.Parcelable

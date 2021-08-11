@@ -60,10 +60,10 @@
         android:id="@+id/woundDetailsActivity"
         android:name="com.example.surgeryapptest.ui.activity.patientActivities.WoundDetailsActivity"
         android:label="Wound Image Details"
-        tools:layout="@layout/activity_wound_details" >
+        tools:layout="@layout/activity_wound_details">
         <argument
             android:name="result"
-            app:argType="com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem" />
+            app:argType="com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem" />
     </activity>
     <fragment
         android:id="@+id/patientEmergencyCallFragment"

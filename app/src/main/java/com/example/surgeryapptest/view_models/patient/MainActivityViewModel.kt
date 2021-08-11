@@ -6,11 +6,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.utils.app.DataStoreRepository
 import com.example.surgeryapptest.utils.database.ProgressBookEntity
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
-import com.example.surgeryapptest.utils.pubsub_state.PubSub
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

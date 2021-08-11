@@ -7,10 +7,16 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.ui.activity.doctorActivities.MainActivityDoctor
 import com.example.surgeryapptest.ui.activity.patientActivities.MainActivity
+import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.view_models.SplashAScreenActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashScreenActivity : AppCompatActivity() {
@@ -18,6 +24,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private val time: Long = 1500
 
     private val splashAScreenViewModel: SplashAScreenActivityViewModel by viewModels()
+    private lateinit var targetActivity: Class<*>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +38,9 @@ class SplashScreenActivity : AppCompatActivity() {
         splashAScreenViewModel.readUserLoggedIn.observe(this, { userLoggedIn ->
             when (userLoggedIn) {
                 true -> {
-                    goToMainActivity()
+                    readSUserTypeToNavigate()
+                    goToTargetActivity(targetActivity)
+                    //goToMainActivity()
                 }
                 else -> {
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -45,10 +54,32 @@ class SplashScreenActivity : AppCompatActivity() {
         })
     }
 
-    private fun goToMainActivity() {
-        val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
+    private fun goToTargetActivity(navToActivity: Class<*>) {
+        val intent = Intent(this@SplashScreenActivity, navToActivity)
         //intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
+    }
+
+    private fun readSUserTypeToNavigate() {
+
+        // TODO: Create API to update user contact details
+        /** Listen to the changes and update in Ui
+         * Send changes to server and return the updated response */
+        lifecycleScope.launch {
+            splashAScreenViewModel.readUserProfileDetail.collect { values ->
+
+                println("RETRIEVED DATA FROM DS IN SPLASH SCREEN : ${values.userType} ")
+
+                when (values.userType) {
+                    "A" -> targetActivity = MainActivity::class.java
+                    "P" -> targetActivity = MainActivity::class.java
+                    "D" -> targetActivity = MainActivityDoctor::class.java
+                    "R" -> targetActivity = MainActivity::class.java
+                    "DOP" -> targetActivity = MainActivity::class.java
+                }
+
+            }
+        }
     }
 }

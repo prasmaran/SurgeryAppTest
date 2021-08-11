@@ -6,7 +6,7 @@
     <data>
         <variable
             name="result"
-            type="com.example.surgeryapptest.model.network.getAllProgressBook.AllProgressBookEntryItem" />
+            type="com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

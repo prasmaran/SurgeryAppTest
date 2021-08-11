@@ -7,7 +7,8 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.surgeryapptest.model.network.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.utils.app.DataStoreRepository
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,13 +21,18 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadNewEntryFragmentViewModel @Inject constructor(
     private val repository: Repository,
+    private val dataStoreRepository: DataStoreRepository,
     application: Application
 ) : AndroidViewModel(application) {
+
+    /** To read user ID */
+    val readUserProfileDetail = dataStoreRepository.readUserProfileDetail
 
     var uploadedNewEntryResponse: MutableLiveData<NetworkResult<NetworkUploadNewEntryResponse>> =
         MutableLiveData()
 
     fun uploadNewWoundEntry(
+        userID: RequestBody,
         image: MultipartBody.Part,
         title: RequestBody,
         description: RequestBody,
@@ -39,6 +45,7 @@ class UploadNewEntryFragmentViewModel @Inject constructor(
     ) =
         viewModelScope.launch {
             getAllProgressEntrySafeCall(
+                userID,
                 image,
                 title,
                 description,
@@ -52,6 +59,7 @@ class UploadNewEntryFragmentViewModel @Inject constructor(
         }
 
     private suspend fun getAllProgressEntrySafeCall(
+        userID: RequestBody,
         image: MultipartBody.Part,
         title: RequestBody,
         description: RequestBody,
@@ -66,7 +74,7 @@ class UploadNewEntryFragmentViewModel @Inject constructor(
         if (hasInternetConnection()) {
             try {
                 val response = repository.remote.uploadNewEntry(
-                    image, title, description, fluid_drain, painrate,
+                    userID, image, title, description, fluid_drain, painrate,
                     redness, swelling, odour, fever
                 )
                 uploadedNewEntryResponse.value = handleAllProgressEntryResponse(response)
