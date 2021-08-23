@@ -54,6 +54,8 @@
     <dimen name="margin_300">300dp</dimen>
     <dimen name="margin_350">350dp</dimen>
     <dimen name="margin_400">400dp</dimen>
+    <dimen name="margin_420">420dp</dimen>
+    <dimen name="margin_430">430dp</dimen>
 
     <!-- for text sizes   -->
     <dimen name="text_10sp">10sp</dimen>

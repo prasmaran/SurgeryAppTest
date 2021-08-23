@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbars="vertical"
+    tools:context=".ui.fragments.doctorFrags.patientWoundDetails.DoctorPatientWoundDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="vertical"
+        tools:context=".ui.fragments.PatientProfileFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_400">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/margin_10">
+
+                <ImageView
+                    android:id="@+id/patient_wound_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="290dp"
+                android:layout_marginEnd="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/margin_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/patient_id"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_15sp" />
+
+                        <TextView
+                            android:id="@+id/patient_id_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_40"
+                            android:fontFamily="@font/poppins_regular"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/darkBlue"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/pain_level"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_15sp" />
+
+                        <ImageView
+                            android:id="@+id/patient_pain_rate_icon"
+                            android:layout_width="@dimen/margin_40"
+                            android:layout_height="@dimen/margin_40"
+                            android:paddingTop="10dp"
+                            tools:srcCompat="@tools:sample/avatars" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/fever"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_15sp" />
+
+                        <TextView
+                            android:id="@+id/patient_fever_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_40"
+                            android:fontFamily="@font/poppins_regular"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/darkBlue"
+                            android:textSize="@dimen/text_20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10">
+
+            <View
+                android:id="@+id/separator1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/title"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_title_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="2"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo1"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/description"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_description_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo2"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/pain_level"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_pain_level_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo3"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator4">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/fluid_drain_tv"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_fluid_drain_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo4"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/redness"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_redness_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo5"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator6">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/swelling"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_swelling_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo6"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator7">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/odour"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_odour_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo7"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator8">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/fever"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_fever_tv_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator9"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo8"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/lo9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="@id/separator9">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:text="@string/date"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_15sp" />
+
+                <TextView
+                    android:id="@+id/patient_date_created"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator10"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/mediumGray"
+                app:layout_constraintTop_toBottomOf="@id/lo9"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/separator10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Send feedback"
+                android:layout_margin="@dimen/margin_10"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,6 +1,8 @@
 package com.example.surgeryapptest.utils.network
 
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
+import com.example.surgeryapptest.model.network.doctorResponse.getFeedbackResponse.WoundImageFeedback
+import com.example.surgeryapptest.model.network.doctorResponse.sendFeedbackResponse.SendWoundFeedbackResponse
 import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
@@ -73,6 +75,16 @@ class RemoteDataSource @Inject constructor(
     // Doctor Routes
     suspend fun getAssignedPatientsList(doctorId: String): Response<AssignedPatientsList> {
         return apiInterface.getAssignedPatientsList(doctorId)
+    }
+
+    // Wound Feedback List
+    suspend fun getFeedbackList(woundImageID: String): Response<WoundImageFeedback> {
+        return apiInterface.getFeedbackList(woundImageID)
+    }
+
+    suspend fun sendFeedback(params: Map<String, String>):
+            Response<SendWoundFeedbackResponse> {
+        return apiInterface.sendFeedback(params)
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.surgeryapptest.ui.fragments.patientFrags
+ package com.example.surgeryapptest.ui.fragments.patientFrags
 
 import android.app.Activity
 import android.content.Context
@@ -178,25 +178,36 @@ class UploadNewEntryFragment :
         }
     }
 
+    private fun clearFocusEditText(){
+        mView.new_entry_title.clearFocus()
+        mView.new_entry_description.clearFocus()
+    }
+
     // Radio button listeners
     private fun radioBtnListeners() {
+
         mView.rgFluidDrainage.setOnCheckedChangeListener { _, checkedId ->
+            clearFocusEditText()
             val rbFluid = mView.findViewById<RadioButton>(checkedId)
             fluidDrained = rbFluid.text.toString()
         }
         mView.rgRedness.setOnCheckedChangeListener { _, checkedId ->
+            clearFocusEditText()
             val rbRedness = mView.findViewById<RadioButton>(checkedId)
             redness = rbRedness.text.toString()
         }
         mView.rgSwelling.setOnCheckedChangeListener { _, checkedId ->
+            clearFocusEditText()
             val rbSwelling = mView.findViewById<RadioButton>(checkedId)
             swelling = rbSwelling.text.toString()
         }
         mView.rgOdour.setOnCheckedChangeListener { _, checkedId ->
+            clearFocusEditText()
             val rbOdour = mView.findViewById<RadioButton>(checkedId)
             odour = rbOdour.text.toString()
         }
         mView.rgFever.setOnCheckedChangeListener { _, checkedId ->
+            clearFocusEditText()
             val rbFever = mView.findViewById<RadioButton>(checkedId)
             fever = rbFever.text.toString()
         }

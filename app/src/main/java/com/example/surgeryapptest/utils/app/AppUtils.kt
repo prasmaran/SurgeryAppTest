@@ -3,14 +3,18 @@ package com.example.surgeryapptest.utils.app
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.provider.OpenableColumns
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.snackbar.Snackbar
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AppUtils {
 
@@ -54,6 +58,12 @@ class AppUtils {
                 fileName = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
             }
             return fileName
+        }
+
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun formatDateTimestampUtil(dateTime: String): String {
+            val parsedDate = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_DATE_TIME)
+            return parsedDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))
         }
 
     }

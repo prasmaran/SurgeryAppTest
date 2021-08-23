@@ -17,7 +17,7 @@
         android:layout_marginEnd="@dimen/margin_0"
         android:background="@android:color/transparent"
         android:drawableEnd="@drawable/ic_close_button"
-        android:drawableTint="@color/black"
+        android:drawableTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

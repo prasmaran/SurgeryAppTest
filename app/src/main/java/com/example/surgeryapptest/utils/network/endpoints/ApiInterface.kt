@@ -1,6 +1,8 @@
 package com.example.surgeryapptest.utils.network.endpoints
 
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
+import com.example.surgeryapptest.model.network.doctorResponse.getFeedbackResponse.WoundImageFeedback
+import com.example.surgeryapptest.model.network.doctorResponse.sendFeedbackResponse.SendWoundFeedbackResponse
 import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
@@ -75,4 +77,14 @@ interface ApiInterface {
     // Retrieve assigned patients progress books
     @GET("/doctor/getAllPatients/{doctorId}")
     suspend fun getAssignedPatientsList(@Path("doctorId") doctorId: String): Response<AssignedPatientsList>
+
+    // Retrieve specific wound image feedback
+    @GET("/doctor/getFeedback/{woundImageID}")
+    suspend fun getFeedbackList(@Path("woundImageID") woundImageID: String): Response<WoundImageFeedback>
+
+    // Send feedback to specific wound image
+    @POST("/doctor/sendFeedback")
+    suspend fun sendFeedback(@Body params: Map<String, String>):
+            Response<SendWoundFeedbackResponse>
+
 }

@@ -30,6 +30,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.activity.doctorActivities.PatientWoundDetailsActivity"
+            android:label="Patient Wound Detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/DoctorWoundDetailActivityStyle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.activity.doctorActivities.MainActivityDoctor"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

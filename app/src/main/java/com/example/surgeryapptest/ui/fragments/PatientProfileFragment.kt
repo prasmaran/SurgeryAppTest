@@ -14,6 +14,7 @@ import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.view_models.patient.UserProfileFragmentViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -86,7 +87,8 @@ class PatientProfileFragment : Fragment() {
     }
 
     private fun createAlertDialogSignOut() {
-        val builder = AlertDialog.Builder(requireContext())
+        //val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle("Confirm log out?")
         builder.setMessage("\nAre you sure you want to log out? All your locally saved data will be removed for privacy purposes.")
         builder.setIcon(R.drawable.ic_log_out)
