@@ -32,7 +32,6 @@
 
     <!-- Patient Upload New Image -->
     <string name="upload_your_new_wound_image">Upload your new wound image</string>
-    <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="fluid_drain">1. Did fluid drain from wound?</string>
     <string name="submit">Submit</string>
@@ -79,5 +78,16 @@
     <string name="chats">Chats</string>
     <string name="appointments">Appointments</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="patient_id">Patient ID</string>
+    <string name="pain_level">Pain Level</string>
+    <string name="fever">Fever</string>
+    <string name="fluid_drain_tv">Fluid drain</string>
+    <string name="redness">Redness</string>
+    <string name="swelling">Swelling</string>
+    <string name="odour">Odour</string>
+    <string name="date">Date</string>
+    <string name="feedback">Feedback</string>
+    <string name="title">Title</string>
+    <string name="swipe_down_to_refresh">Swipe down to refresh</string>
 
 </resources>

@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/doctorProfileFragment"
         android:name="com.example.surgeryapptest.ui.fragments.PatientProfileFragment"
-        android:label="fragment_patient_profile"
+        android:label="Profile "
         tools:layout="@layout/fragment_patient_profile" />
     <fragment
         android:id="@+id/doctorSelectedPatientProgressBookFragment"
@@ -41,6 +41,22 @@
         <argument
             android:name="patientProgressBook"
             app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName" />
+        <action
+            android:id="@+id/action_doctorSelectedPatientProgressBookFragment_to_patientWoundDetailsActivity"
+            app:destination="@id/patientWoundDetailsActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <activity
+        android:id="@+id/patientWoundDetailsActivity"
+        android:name="com.example.surgeryapptest.ui.activity.doctorActivities.PatientWoundDetailsActivity"
+        android:label="activity_patient_wound_details"
+        tools:layout="@layout/activity_patient_wound_details" >
+        <argument
+            android:name="woundImage"
+            app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage" />
+    </activity>
 
 </navigation>

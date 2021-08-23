@@ -9,8 +9,10 @@ import androidx.navigation.findNavController
 import coil.load
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName
+import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorPatientListFragmentDirections
+import com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorSelectedPatientProgressBookFragmentDirections
 import com.example.surgeryapptest.ui.fragments.patientFrags.PatientProgressBooksFragmentDirections
 
 class PatientListRowBinding {
@@ -25,13 +27,36 @@ class PatientListRowBinding {
         ) {
             patientListRowLayout.setOnClickListener {
                 try {
-                    val action = DoctorPatientListFragmentDirections.actionDoctorPatientListFragmentToDoctorSelectedPatientProgressBookFragment(patientProgressBook)
+                    val action =
+                        DoctorPatientListFragmentDirections.actionDoctorPatientListFragmentToDoctorSelectedPatientProgressBookFragment(
+                            patientProgressBook
+                        )
                     patientListRowLayout.findNavController().navigate(action)
                 } catch (e: Exception) {
                     println("onPatientNameClickListener : $e")
                 }
             }
         }
+
+        @BindingAdapter("onWoundImageClickListener")
+        @JvmStatic
+        fun onWoundImageClickListener(
+            selectedPatientWoundImageLayout: ConstraintLayout,
+            patientWoundImage: WoundImage
+        ) {
+            selectedPatientWoundImageLayout.setOnClickListener {
+                try {
+                    val action =
+                        DoctorSelectedPatientProgressBookFragmentDirections.actionDoctorSelectedPatientProgressBookFragmentToPatientWoundDetailsActivity(
+                            patientWoundImage
+                        )
+                    selectedPatientWoundImageLayout.findNavController().navigate(action)
+                } catch (e: Exception) {
+                    println("onWoundImageClickListener : $e")
+                }
+            }
+        }
+
 
         @BindingAdapter("loadDummyPatientImage")
         @JvmStatic
@@ -44,21 +69,21 @@ class PatientListRowBinding {
 
         @BindingAdapter("loadPatientName")
         @JvmStatic
-        fun loadPatientName(textView: TextView, result: PatientName){
+        fun loadPatientName(textView: TextView, result: PatientName) {
             val name = result.patientId.split(":")[1]
             textView.text = name
         }
 
         @BindingAdapter("loadPatientIDNumber")
         @JvmStatic
-        fun loadPatientIDNumber(textView: TextView, result: PatientName){
+        fun loadPatientIDNumber(textView: TextView, result: PatientName) {
             val registrationID = result.woundImages[0].mIc
             textView.text = registrationID
         }
 
         @BindingAdapter("loadWoundImageNumber")
         @JvmStatic
-        fun loadWoundImageNumber(textView: TextView, result: PatientName){
+        fun loadWoundImageNumber(textView: TextView, result: PatientName) {
             val noOfImages = result.woundImages.size
             val finalText = "Uploaded ${noOfImages.toString()} images"
             textView.text = finalText
@@ -66,7 +91,7 @@ class PatientListRowBinding {
 
         @BindingAdapter("loadContactNumber")
         @JvmStatic
-        fun loadContactNumber(textView: TextView, result: PatientName){
+        fun loadContactNumber(textView: TextView, result: PatientName) {
             val contactNumber = result.woundImages[0].masterUserIdFk
             textView.text = contactNumber.toString()
         }

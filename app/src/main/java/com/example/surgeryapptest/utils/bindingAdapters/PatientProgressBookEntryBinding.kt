@@ -49,7 +49,7 @@ class PatientProgressBookEntryBinding {
         fun loadImageFromUrl(imageView: ImageView, imageUrl: String) {
             imageView.load(imageUrl) {
                 placeholder(R.drawable.ic_loading_image)
-                error(R.drawable.mountains)
+                error(R.drawable.ic_mountains_2)
                 crossfade(300)
             }
         }
