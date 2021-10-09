@@ -46,7 +46,6 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         // Initialize the view models here
         updateUploadedEntryViewModel =
             ViewModelProvider(requireActivity()).get(
-                "KEY1",
                 WoundDetailsFragmentViewModel::class.java
             )
     }

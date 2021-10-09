@@ -46,7 +46,7 @@ class FeedbackListAdapter : RecyclerView.Adapter<FeedbackListAdapter.MyViewHolde
     override fun getItemCount(): Int = feedbackList.size
 
     fun setData(newData : WoundImageFeedback){
-        val diffUtils = CustomDiffUtils(feedbackList,newData.result!!)
+        val diffUtils = CustomDiffUtils(feedbackList, newData.result)
         val diffUtilsResult = DiffUtil.calculateDiff(diffUtils)
         feedbackList = newData.result
         diffUtilsResult.dispatchUpdatesTo(this)

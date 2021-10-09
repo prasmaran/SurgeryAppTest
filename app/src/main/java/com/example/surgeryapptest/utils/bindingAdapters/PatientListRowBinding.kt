@@ -85,7 +85,7 @@ class PatientListRowBinding {
         @JvmStatic
         fun loadWoundImageNumber(textView: TextView, result: PatientName) {
             val noOfImages = result.woundImages.size
-            val finalText = "Uploaded ${noOfImages.toString()} images"
+            val finalText = "Uploaded $noOfImages images"
             textView.text = finalText
         }
 

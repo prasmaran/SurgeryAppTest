@@ -4,6 +4,8 @@ import androidx.annotation.Nullable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
+
+// Can change the type to generic <T>
 class CustomDiffUtils constructor(private val mOldList: List<Any>, private val mNewList: List<Any>):
     DiffUtil.Callback() {
 

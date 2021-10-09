@@ -183,6 +183,7 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
                         sendFeedbackResponse,
                         Toast.LENGTH_SHORT
                     ).show()
+                    requestFeedbackList(woundImageEntryId)
                 }
                 is NetworkResult.Error -> {
                     val sendFeedbackResponse = response.data?.message.toString()
@@ -191,7 +192,6 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
                         sendFeedbackResponse,
                         Toast.LENGTH_SHORT
                     ).show()
-                    swipeToRefresh()
                 }
             }
         })

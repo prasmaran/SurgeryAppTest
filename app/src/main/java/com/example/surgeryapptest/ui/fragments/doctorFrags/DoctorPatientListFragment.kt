@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments.doctorFrags
 
+import android.content.Intent
 import android.os.Bundle
 import android.provider.SyncStateContract
 import android.util.Log
@@ -8,25 +9,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.adapter.Adapter
 import com.example.surgeryapptest.utils.adapter.PatientListAdapter
 import com.example.surgeryapptest.utils.app.NetworkListener
+import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.doctor.PatientListViewModel
 import com.example.surgeryapptest.view_models.patient.MainActivityViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_doctor_patient_list.view.*
 import kotlinx.android.synthetic.main.fragment_patient_progress_books.view.*
 import kotlinx.android.synthetic.main.fragment_patient_progress_books.view.recyclerView
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DoctorPatientListFragment : Fragment() {
@@ -36,6 +42,9 @@ class DoctorPatientListFragment : Fragment() {
     private lateinit var networkListener: NetworkListener
     private val mAdapter by lazy { PatientListAdapter() }
     private var doctorId: String = ""
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +117,10 @@ class DoctorPatientListFragment : Fragment() {
                         setErrorAttributesVisible(false)
                     }
 
+                    if (patientListResponse.contains("Unauthorized User") || patientListResponse.contains("Invalid Token") ) {
+                        unAuthenticateDialog(patientListResponse)
+                    }
+
                     hideShimmerEffect()
 
                 }
@@ -119,6 +132,26 @@ class DoctorPatientListFragment : Fragment() {
 
     }
 
+    private fun unAuthenticateDialog(errorMessage: String) {
+        //val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setTitle(Constants.UNAUTHENTICATED_USER)
+        //builder.setMessage("\nNo internet connection. Want to view previously stored data, (if exists) ?")
+        builder.setMessage("\n$errorMessage. Do you want to login again?")
+        builder.setIcon(R.drawable.ic_unauthorized_person)
+
+        builder.setPositiveButton(R.string.yes) { _, _ ->
+            sessionManager.saveAuthToken(null)
+            patientListViewModel.deleteAllPreferences()
+            goToLoginPage()
+        }
+        builder.setNegativeButton(R.string.cancel) { _, _ ->
+            // Do nothing
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
+
     private fun setErrorAttributesVisible(hasList: Boolean){
         if (hasList) {
             dView.no_patient_list_tv.visibility = View.GONE
@@ -127,6 +160,12 @@ class DoctorPatientListFragment : Fragment() {
             dView.no_patient_list_tv.visibility = View.VISIBLE
             dView.no_patient_list_image.visibility = View.VISIBLE
         }
+    }
+
+    private fun goToLoginPage() {
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
     private fun setupRecyclerView() {
