@@ -9,14 +9,71 @@
     tools:context=".ui.fragments.patientFrags.progressEntryDetails.WoundDoctorFeedbackFragment">
 
     <TextView
-        android:id="@+id/no_messages_from_doctor"
-        android:layout_width="match_parent"
+        android:id="@+id/pf_swipe_to_refresh_tv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
+        android:layout_marginTop="@dimen/margin_10"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/swipe_down_to_refresh"
         android:textSize="@dimen/text_15sp"
-        android:gravity="center"
-        android:text="@string/no_feedback"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/pf_no_feedback_image"
+        android:layout_width="@dimen/margin_100"
+        android:layout_height="@dimen/margin_100"
+        android:alpha="0.8"
+        android:src="@drawable/ic_no_feedback"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:id="@+id/pf_no_feedback_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/no_feedback"
+        android:textSize="@dimen/text_15sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pf_no_feedback_image" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pf_swipeToRefresh"
+        android:layout_width="@dimen/margin_0"
+        android:layout_height="@dimen/margin_0"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/pf_recyclerView_FeedbackList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shimmer_recycler_item_count="3"
+            app:shimmer_recycler_layout="@layout/placeholder_row_layout_feedback_list" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

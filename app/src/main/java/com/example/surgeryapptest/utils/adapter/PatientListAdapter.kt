@@ -43,7 +43,7 @@ class PatientListAdapter : RecyclerView.Adapter<PatientListAdapter.MyViewHolder>
     override fun getItemCount(): Int = patientNameList.size
 
     fun setData(newData : AssignedPatientsList){
-        val diffUtils = CustomDiffUtils(patientNameList,newData.result!!)
+        val diffUtils = CustomDiffUtils(patientNameList, newData.result)
         val diffUtilsResult = DiffUtil.calculateDiff(diffUtils)
         patientNameList = newData.result
         diffUtilsResult.dispatchUpdatesTo(this)

@@ -4,14 +4,19 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.surgeryapptest.model.network.doctorResponse.getFeedbackResponse.WoundImageFeedback
 import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
+import com.example.surgeryapptest.utils.app.DataStoreRepository
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -20,13 +25,29 @@ import javax.inject.Inject
 @HiltViewModel
 class WoundDetailsFragmentViewModel @Inject constructor(
     private val repository: Repository,
+    private val dataStoreRepository: DataStoreRepository,
     application: Application
 ) : AndroidViewModel(application) {
+
+    /** Network Listener*/
+    var networkStatus: Boolean = false
+    var backOnline: Boolean = false
+
+    val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
+
+    private fun saveBackOnline(backOnline: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.saveBackOnline(backOnline)
+        }
+    }
 
     var updatedEntryResponse: MutableLiveData<NetworkResult<NetworkUpdateEntryResponse>> =
         MutableLiveData()
 
     var deletedEntryResponse: MutableLiveData<NetworkResult<NetworkDeleteEntryResponse>> =
+        MutableLiveData()
+
+    var feedbackListResponse: MutableLiveData<NetworkResult<WoundImageFeedback>> =
         MutableLiveData()
 
     fun updateUploadedEntry(
@@ -49,6 +70,10 @@ class WoundDetailsFragmentViewModel @Inject constructor(
 
     fun deleteUploadedEntry(entryID: RequestBody) = viewModelScope.launch {
         deleteUploadedEntrySafeCall(entryID)
+    }
+
+    fun getWoundFeedbackList(woundImageID: String) = viewModelScope.launch {
+        getWoundFeedbackListSafeCall(woundImageID)
     }
 
     private suspend fun updateUploadedEntrySafeCall(
@@ -91,6 +116,22 @@ class WoundDetailsFragmentViewModel @Inject constructor(
             }
         } else {
             deletedEntryResponse.value = NetworkResult.Error("No Internet Connection")
+        }
+    }
+
+    private suspend fun getWoundFeedbackListSafeCall(woundImageID: String) {
+        feedbackListResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.getFeedbackList(woundImageID)
+                feedbackListResponse.value = handleFeedbackListResponse(response)
+
+            } catch (e: Exception) {
+                feedbackListResponse.value = NetworkResult.Error(e.message.toString())
+                println("Error0: ${e.message.toString()}")
+            }
+        } else {
+            feedbackListResponse.value = NetworkResult.Error("No Internet Connection")
         }
     }
 
@@ -140,6 +181,29 @@ class WoundDetailsFragmentViewModel @Inject constructor(
         }
     }
 
+    private fun handleFeedbackListResponse(response: Response<WoundImageFeedback>): NetworkResult<WoundImageFeedback> {
+        return when {
+            response.message().toString().contains("timeout") -> {
+                NetworkResult.Error("Timeout Error")
+            }
+            response.body()!!.message.contains("Invalid Token") || response.body()!!.message.contains(
+                "Session Expired"
+            ) -> {
+                NetworkResult.Error("Error1: ${response.body()!!.message}")
+            }
+            response.body()!!.result.isNullOrEmpty() -> {
+                NetworkResult.Error("No feedback found")
+            }
+            response.isSuccessful -> {
+                val data = response.body()
+                NetworkResult.Success(data!!)
+            }
+            else -> {
+                NetworkResult.Error(response.message())
+            }
+        }
+    }
+
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
             Context.CONNECTIVITY_SERVICE
@@ -152,6 +216,19 @@ class WoundDetailsFragmentViewModel @Inject constructor(
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
             else -> false
+        }
+    }
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No Internet Connection", Toast.LENGTH_SHORT).show()
+            saveBackOnline(true)
+            println("WoundDetailsFragmentViewModel: $networkStatus")
+        } else if (networkStatus) {
+            if (backOnline) {
+                Toast.makeText(getApplication(), "We are back online", Toast.LENGTH_SHORT).show()
+                saveBackOnline(false)
+            }
         }
     }
 
