@@ -4,7 +4,7 @@ class Constants {
 
     companion object{
 
-        const val BASE_URL = "http://192.168.1.107:5000" // 192.168.1.107
+        const val BASE_URL = "http://192.168.1.105:5000" // 192.168.1.107
         const val BASE_URL2 = "http://192.168.43.119:5000"
 
         // Database
@@ -26,9 +26,10 @@ class Constants {
         const val USER_CONTACT_2 = "user_contact_2"
         const val USER_ACCESS_TOKEN = "user_access_token"
         const val USER_GENDER = "user_gender"
-        const val NOT_AVAILABLE = "NOT AVAILABLE"
+        const val NOT_AVAILABLE = "N/A"
         const val PREFERENCES_BACK_ONLINE = "backOnline"
         const val USER_LOGGED_IN = "userLoggedIn"
+        const val NO_OF_PHOTOS = "patientNumberOfPhotos"
 
         // User Roles
         const val ADMIN = "ADMIN"

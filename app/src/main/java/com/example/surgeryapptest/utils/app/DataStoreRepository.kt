@@ -30,6 +30,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         val userContact2 = stringPreferencesKey(Constants.USER_CONTACT_2)
         val backOnline = booleanPreferencesKey(Constants.PREFERENCES_BACK_ONLINE)
         val userLoggedIn = booleanPreferencesKey(Constants.USER_LOGGED_IN)
+        val patientNumberOfPhotos = intPreferencesKey(Constants.NO_OF_PHOTOS)
     }
 
     private val dataStore: DataStore<Preferences> = context.dataStore
@@ -143,6 +144,30 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
             val userLoggedIn = preferences[PreferenceKeys.userLoggedIn] ?: false
             userLoggedIn
         }
+
+    // This method will be used to set
+    // number of photos for patient user
+    // and
+    // number of patients for doctor user
+    suspend fun setNumberOfPhotos(noOfPhotos: Int) {
+        dataStore.edit { preferences ->
+            preferences[PreferenceKeys.patientNumberOfPhotos] = noOfPhotos
+        }
+    }
+
+    val readNumberOfPhotos: Flow<Int> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
+            val noOfPhotos = preferences[PreferenceKeys.patientNumberOfPhotos] ?: 1
+            noOfPhotos
+        }
+
 
     suspend fun deleteAllPreferences() {
         dataStore.edit {

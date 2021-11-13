@@ -40,6 +40,7 @@ class PatientProgressBooksFragment : Fragment() {
     private val mAdapter by lazy { Adapter() }
     private lateinit var mView: View
     private var userId: String = ""
+    private var tokenValid = true
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -118,6 +119,10 @@ class PatientProgressBooksFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                     hideShimmerEffect()
+                    val noOfPhotos = response.data?.result?.size
+                    if (noOfPhotos != null) {
+                        mainViewModel.setNumberOfPhotos(noOfPhotos)
+                    }
                     response.data?.let { mAdapter.setData(it) }
                 }
                 is NetworkResult.Error -> {
@@ -128,6 +133,8 @@ class PatientProgressBooksFragment : Fragment() {
 
                     if (progressBookResponse.contains("Unauthorized User") || progressBookResponse.contains("Invalid Token") ) {
                         unAuthenticateDialog(progressBookResponse)
+                        tokenValid = false
+                        mView.floatingActionButton.isClickable = false
                     }
                     if (progressBookResponse.contains("No progress book found")) {
                         noProgressBookFound(progressBookResponse)
