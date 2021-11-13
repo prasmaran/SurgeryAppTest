@@ -84,7 +84,6 @@ class DoctorPatientListFragment : Fragment() {
                 }
         }
 
-
         return dView
     }
 
@@ -101,6 +100,11 @@ class DoctorPatientListFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                     hideShimmerEffect()
+
+                    val noOfPatients = response.data?.result?.size
+                    if (noOfPatients != null) {
+                        patientListViewModel.setPatientNumber(noOfPatients)
+                    }
                     response.data?.let { mAdapter.setData(it) }
                 }
                 is NetworkResult.Error -> {

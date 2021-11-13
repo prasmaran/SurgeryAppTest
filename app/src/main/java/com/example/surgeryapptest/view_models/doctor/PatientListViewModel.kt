@@ -49,6 +49,12 @@ class PatientListViewModel @Inject constructor(
         }
     }
 
+    fun setPatientNumber(patientNumber: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.setNumberOfPhotos(patientNumber)
+        }
+    }
+
     fun setUserLoggedIn(userLoggedIn: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.setUserLoggedIn(userLoggedIn)

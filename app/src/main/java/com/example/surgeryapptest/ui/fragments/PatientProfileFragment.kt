@@ -2,6 +2,7 @@ package com.example.surgeryapptest.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,15 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.viewbinding.ViewBinding
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.FragmentPatientProfileBinding
 import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.view_models.patient.UserProfileFragmentViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.fragment_patient_profile.*
 import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -26,13 +30,18 @@ class PatientProfileFragment : Fragment() {
     @Inject
     lateinit var sessionManager: SessionManager
 
-    private lateinit var mView: View
+    // Trying View Binding in Fragment proper way
+    private var _binding: FragmentPatientProfileBinding? = null
+    private val binding get() = _binding!!
+
+    //private late in it var mView: View
     private lateinit var userProfileViewModel: UserProfileFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize the view models here
-        userProfileViewModel = ViewModelProvider(requireActivity()).get(UserProfileFragmentViewModel::class.java)
+        userProfileViewModel =
+            ViewModelProvider(requireActivity()).get(UserProfileFragmentViewModel::class.java)
 
         sessionManager = SessionManager(requireContext())
     }
@@ -40,20 +49,23 @@ class PatientProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
+        _binding = FragmentPatientProfileBinding.inflate(inflater, container, false)
+        val mView = binding.root
         // Inflate the layout for this fragment
-        mView =  inflater.inflate(R.layout.fragment_patient_profile, container, false)
+        // mView =  inflater.inflate(R.layout.fragment_patient_profile, container, false)
 
         readSavedUserProfileDetails()
 
-        mView.logOut_btn.setOnClickListener {
+        binding.logOutBtn.setOnClickListener {
             createAlertDialogSignOut()
         }
 
         return mView
     }
 
-    private fun readSavedUserProfileDetails(){
+    private fun readSavedUserProfileDetails() {
         val uName = ""
         val uIC = ""
         val uGender = ""
@@ -64,26 +76,33 @@ class PatientProfileFragment : Fragment() {
          * Send changes to server and return the updated response */
         viewLifecycleOwner.lifecycleScope.launch {
             userProfileViewModel.readUserProfileDetail.collect { values ->
-                mView.user_name_main_tv.text = values.userName
-                mView.user_gender_tv.text = values.userGender
-                mView.user_registration_id_tv.text = values.userIcNumber
+                binding.userNameMainTv.text = values.userName
+                binding.userGenderTv.text = values.userGender
+                binding.userRegistrationIdTv.text = values.userIcNumber
 
-                when(values.userGender) {
-                    "M" -> mView.user_icon_pic.setImageResource(R.drawable.ic_user_male)
-                    "F" -> mView.user_icon_pic.setImageResource(R.drawable.ic_user_female)
+                when (values.userGender) {
+                    "M" -> binding.userIconPic.setImageResource(R.drawable.ic_user_male)
+                    "F" -> binding.userIconPic.setImageResource(R.drawable.ic_user_female)
                 }
 
-                when(values.userType) {
-                    "A" -> mView.user_type_tv.text = Constants.ADMIN
-                    "P" -> mView.user_type_tv.text = Constants.PATIENT
-                    "D" -> mView.user_type_tv.text = Constants.DOCTOR
-                    "R" -> mView.user_type_tv.text = Constants.RESEARCHER
-                    "DOP" -> mView.user_type_tv.text = Constants.DOP
+                when (values.userType) {
+                    "A" -> binding.userTypeTv.text = Constants.ADMIN
+                    "P" -> binding.userTypeTv.text = Constants.PATIENT
+                    "D" -> {
+                        binding.noOfPhotosTitle.text = getString(R.string.doctor_patient_list)
+                        binding.userTypeTv.text = Constants.DOCTOR
+                    }
+                    "R" -> binding.userTypeTv.text = Constants.RESEARCHER
+                    "DOP" -> binding.userTypeTv.text = Constants.DOP
                 }
 
                 println("RETRIEVED DATA FROM DS IN PROFILE FRAGMENT: ${values.userName} ${values.userID} ${values.userGender} ${values.userType} ")
             }
         }
+
+        userProfileViewModel.readNumberOfPhotos.observe(viewLifecycleOwner, {
+            binding.noOfPhotosTv.text = it.toString()
+        })
     }
 
     private fun createAlertDialogSignOut() {
@@ -110,6 +129,13 @@ class PatientProfileFragment : Fragment() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        //Fragments outlive their views. Make sure you clean up any references to the
+        //binding class instance in the fragment's onDestroyView() method.
+        _binding = null
     }
 
 }

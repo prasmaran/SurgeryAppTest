@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "35416720113",
+    "project_id": "surgeryapp-e694a",
+    "storage_bucket": "surgeryapp-e694a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35416720113:android:5d3ffa60c81a6c16f19f50",
+        "android_client_info": {
+          "package_name": "com.example.surgeryapptest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35416720113-beatrsnn1uf2lfrv07qmu67u0brjjk0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABbdKu6PJCAULleHp7J1LCPc-ak-k9S6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35416720113-beatrsnn1uf2lfrv07qmu67u0brjjk0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

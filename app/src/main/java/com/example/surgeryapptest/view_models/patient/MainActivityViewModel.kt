@@ -53,6 +53,13 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
+    // Set number of photos for a patient
+    fun setNumberOfPhotos(noOfPhotos: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.setNumberOfPhotos(noOfPhotos)
+        }
+    }
+
     /** ROOM DATABASE */
     var readDatabase: LiveData<List<ProgressBookEntity>> =
         repository.local.readDatabase().asLiveData()

@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.surgeryapptest.utils.app.DataStoreRepository
 import com.example.surgeryapptest.utils.repository.Repository
@@ -21,6 +22,8 @@ class UserProfileFragmentViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     val readUserProfileDetail = dataStoreRepository.readUserProfileDetail
+
+    val readNumberOfPhotos = dataStoreRepository.readNumberOfPhotos.asLiveData()
 
     // TODO: Create API to update user contact details
     /** Listen to the changes and update in Ui
