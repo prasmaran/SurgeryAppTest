@@ -7,52 +7,58 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.FragmentDoctorHomeBinding
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
-import kotlinx.android.synthetic.main.fragment_doctor_home.*
-import kotlinx.android.synthetic.main.fragment_doctor_home.view.*
 
 
 class DoctorHomeFragment : Fragment() {
 
-    private lateinit var dhView: View
+    private var _binding: FragmentDoctorHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        dhView = inflater.inflate(R.layout.fragment_doctor_home, container, false)
+        _binding = FragmentDoctorHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         navigateToPatientList()
         navigateToChats()
         navigateToAppointments()
         navigateToProfile()
 
-        return dhView
+        return view
     }
 
     private fun navigateToPatientList() {
-        dhView.cardViewPatientsList.setOnClickListener {
+        binding.cardViewPatientsList.setOnClickListener {
             findNavController().navigate(R.id.doctorPatientListFragment)
         }
     }
 
     private fun navigateToChats() {
-        dhView.cardViewChats.setOnClickListener {
-            doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
+        binding.cardViewChats.setOnClickListener {
+            binding.doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
         }
     }
 
     private fun navigateToAppointments() {
-        dhView.cardViewAppointments.setOnClickListener {
-            doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
+        binding.cardViewAppointments.setOnClickListener {
+            binding.doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
         }
     }
 
     private fun navigateToProfile() {
-        dhView.cardViewProfile.setOnClickListener {
-            doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
+        binding.cardViewProfile.setOnClickListener {
+            binding.doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

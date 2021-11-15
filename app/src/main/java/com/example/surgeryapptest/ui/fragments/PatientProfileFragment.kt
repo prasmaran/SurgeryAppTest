@@ -2,15 +2,13 @@ package com.example.surgeryapptest.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.viewbinding.ViewBinding
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentPatientProfileBinding
 import com.example.surgeryapptest.ui.activity.LoginActivity
@@ -18,8 +16,6 @@ import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.view_models.patient.UserProfileFragmentViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.fragment_patient_profile.*
-import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

@@ -1,5 +1,8 @@
 <resources>
+
     <string name="app_name">SurgeryApp</string>
+    <string name="api_key">epnrjcs2y4rs</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -89,5 +92,17 @@
     <string name="feedback">Feedback</string>
     <string name="title">Title</string>
     <string name="swipe_down_to_refresh">Swipe down to refresh</string>
+
+   <!-- Stream Chat -->
+    <string name="go">GO</string>
+    <string name="chat_app">Chat App</string>
+    <string name="reliable_and_fast">Reliable and Fast</string>
+    <string name="first_name">First Name</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+    <string name="groups">Groups</string>
+    <string name="channels">Channels</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
 </resources>

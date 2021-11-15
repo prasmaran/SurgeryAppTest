@@ -5,18 +5,21 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.FragmentPatientEmergencyCallBinding
 import com.example.surgeryapptest.utils.app.AppUtils
-import kotlinx.android.synthetic.main.fragment_patient_emergency_call.view.*
 
 class PatientEmergencyCallFragment : Fragment() {
+
+    private var _binding: FragmentPatientEmergencyCallBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         private const val PHONE_CALL_CODE = 42
@@ -32,23 +35,24 @@ class PatientEmergencyCallFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_patient_emergency_call, container, false)
+        _binding = FragmentPatientEmergencyCallBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         callPPUMEmergency()
         call999Emergency()
 
-        return mView
+        return view
     }
 
     private fun callPPUMEmergency() {
-        mView.ppum_emergency_btn.setOnClickListener {
+        binding.ppumEmergencyBtn.setOnClickListener {
             selectedNumber = getString(R.string.ppum_emergency_number_ori)
             checkPermission()
         }
     }
 
     private fun call999Emergency() {
-        mView.general_emergency_btn.setOnClickListener {
+        binding.generalEmergencyBtn.setOnClickListener {
             selectedNumber = getString(R.string.mers_number)
             AppUtils.showToast(requireContext(),"999 has been clicked")
             //checkPermission()
@@ -112,5 +116,9 @@ class PatientEmergencyCallFragment : Fragment() {
         startActivity(intent)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

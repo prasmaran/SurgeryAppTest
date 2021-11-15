@@ -3,18 +3,24 @@ package com.example.surgeryapptest.ui.dialog_fragments
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.setFragmentResult
-import com.example.surgeryapptest.R
-import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage
+import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.fragment.app.DialogFragment
+import com.example.surgeryapptest.databinding.WoundFeedbackDialogFragmentBinding
 import com.example.surgeryapptest.ui.interfaces.SendFeedback
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.wound_feedback_dialog_fragment.*
 
-class WoundFeedbackFrag : BaseDialogFragment(R.layout.wound_feedback_dialog_fragment) {
+class WoundFeedbackFrag : DialogFragment() {
+
+    // TODO: THIS SHIT IS A BIT TRICKY TO SOLVE
 
     private var sendFeedbackInterface: SendFeedback? = null
     private var patientDetailFeedback = PatientDetailFeedback("", "", "")
+
+    private var _binding: WoundFeedbackDialogFragmentBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         fun newInstance(patientDetail: PatientDetailFeedback): WoundFeedbackFrag =
@@ -22,13 +28,27 @@ class WoundFeedbackFrag : BaseDialogFragment(R.layout.wound_feedback_dialog_frag
                 arguments = Bundle().apply {
                     putParcelable("patient_detail", patientDetail)
                 }
-//                arguments = Bundle().apply {
-//                    putString("wound_title", patientDetail.woundTitle)
-//                }
-//                arguments = Bundle().apply {
-//                    putString("pain_rate", patientDetail.painRate)
-//                }
             }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        dialog?.setCancelable(false)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        _binding = WoundFeedbackDialogFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onAttach(context: Context) {
@@ -54,12 +74,12 @@ class WoundFeedbackFrag : BaseDialogFragment(R.layout.wound_feedback_dialog_frag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        feedback_closeBtn.setOnClickListener {
+        binding.feedbackCloseBtn.setOnClickListener {
             dismiss()
         }
-        submit_feedback_btn.setOnClickListener {
+        binding.submitFeedbackBtn.setOnClickListener {
             // Send the feedback through the interface
-            val doctorFeedback: String = feedback_et.text.toString()
+            val doctorFeedback: String = binding.feedbackEt.text.toString()
 
             dismiss()
 
@@ -70,12 +90,20 @@ class WoundFeedbackFrag : BaseDialogFragment(R.layout.wound_feedback_dialog_frag
             }
         }
 
-        feedback_patient_name_tv.append(patientDetailFeedback.patientName)
-        feedback_wound_title_tv.append(patientDetailFeedback.woundTitle)
-        feedback_pain_rate_tv.append(patientDetailFeedback.painRate)
+        binding.feedbackPatientNameTv.append(patientDetailFeedback.patientName)
+        binding.feedbackWoundTitleTv.append(patientDetailFeedback.woundTitle)
+        binding.feedbackPainRateTv.append(patientDetailFeedback.painRate)
 
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
+
+// TODO: Why the fuck is this giving this weird errors?
+// parcelize vs kotlin extensions?
 
 @Parcelize
 data class PatientDetailFeedback(

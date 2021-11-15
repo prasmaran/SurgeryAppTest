@@ -1,29 +1,32 @@
 package com.example.surgeryapptest.ui.activity.doctorActivities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.navArgs
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.ActivityPatientWoundDetailsBinding
 import com.example.surgeryapptest.ui.fragments.doctorFrags.patientWoundDetails.DoctorPatientWoundDetailFragment
 import com.example.surgeryapptest.ui.fragments.doctorFrags.patientWoundDetails.DoctorPatientWoundFeedback
 import com.example.surgeryapptest.utils.adapter.PagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_patient_wound_details.*
 
 @AndroidEntryPoint
 class PatientWoundDetailsActivity : AppCompatActivity() {
 
     private val args by navArgs<PatientWoundDetailsActivityArgs>()
+    private lateinit var binding: ActivityPatientWoundDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_patient_wound_details)
+        binding = ActivityPatientWoundDetailsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        setSupportActionBar(doctor_wound_details_toolbar)
-        doctor_wound_details_toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
+        setSupportActionBar(binding.doctorWoundDetailsToolbar)
+        binding.doctorWoundDetailsToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val woundDetailsFrags = ArrayList<Fragment>()
@@ -44,8 +47,8 @@ class PatientWoundDetailsActivity : AppCompatActivity() {
             supportFragmentManager
         )
 
-        view_pager_doctor.adapter = woundDetailAdapter
-        doctor_tab_layout.setupWithViewPager(view_pager_doctor)
+        binding.viewPagerDoctor.adapter = woundDetailAdapter
+        binding.doctorTabLayout.setupWithViewPager(binding.viewPagerDoctor)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

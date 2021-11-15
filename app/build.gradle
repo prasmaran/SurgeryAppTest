@@ -167,9 +167,8 @@ dependencies {
     //event bus
     implementation 'org.greenrobot:eventbus:3.2.0'
 
-    // Client + offline + UI components
-
-    implementation "io.getstream:stream-chat-android-ui-components:4.8.0"
+    // Stream Chat
+    implementation "io.getstream:stream-chat-android-ui-components:4.13.0"
 
 
 }
