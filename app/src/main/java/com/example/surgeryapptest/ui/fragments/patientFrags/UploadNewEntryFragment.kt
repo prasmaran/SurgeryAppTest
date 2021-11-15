@@ -1,5 +1,6 @@
- package com.example.surgeryapptest.ui.fragments.patientFrags
+package com.example.surgeryapptest.ui.fragments.patientFrags
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,19 +28,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.FragmentUploadNewEntryBinding
 import com.example.surgeryapptest.model.domain_model.UploadNewEntryRequestBody
 import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.getFileName
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
+import com.example.surgeryapptest.utils.app.AppUtils.Companion.showToast
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.UploadNewEntryFragmentViewModel
 import com.hsalf.smilerating.SmileRating
-import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -48,6 +50,9 @@ import java.io.FileOutputStream
 class UploadNewEntryFragment :
     Fragment(), SmileRating.OnSmileySelectionListener, SmileRating.OnRatingSelectedListener,
     UploadNewEntryRequestBody.UploadCallback {
+
+    private var _binding: FragmentUploadNewEntryBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         private const val GALLERY_PERMISSION = 1
@@ -60,8 +65,8 @@ class UploadNewEntryFragment :
     //TODO: Check for successful upload flag
     // to prevent repetitive API calling
 
-    private lateinit var uploadNewEntryViewModel: UploadNewEntryFragmentViewModel
     private lateinit var mView: View
+    private lateinit var uploadNewEntryViewModel: UploadNewEntryFragmentViewModel
     private lateinit var photoFile: File
 
     // Uploaded info for new entry
@@ -88,25 +93,27 @@ class UploadNewEntryFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_upload_new_entry, container, false)
+        _binding = FragmentUploadNewEntryBinding.inflate(inflater, container, false)
+        val view = binding.root
+
 
         // Get image from gallery and the camera
-        mView.pick_from_gallery_btn.setOnClickListener {
+        binding.pickFromGalleryBtn.setOnClickListener {
             getWoundImage()
         }
-        mView.camera_btn.setOnClickListener {
+        binding.cameraBtn.setOnClickListener {
             captureNewImage()
         }
 
         // Setup the pain rating slider
-        mView.rating_bar.setOnSmileySelectionListener(this)
-        mView.rating_bar.setOnRatingSelectedListener(this)
+        binding.ratingBar.setOnSmileySelectionListener(this)
+        binding.ratingBar.setOnRatingSelectedListener(this)
         //mView.rating_bar.selectedSmile = BaseRating.GREAT
 
         formInputListener()
         radioBtnListeners()
 
-        mView.submit_btn.setOnClickListener {
+        binding.submitBtn.setOnClickListener {
 
             //closeSoftKeyboard(requireContext(), it) --> giving  weird logcat
             //closeKeyboard(mView.submit_btn)
@@ -126,7 +133,7 @@ class UploadNewEntryFragment :
                 )
             if (isAllFieldFilled) {
                 if (selectedImageUri != null) {
-                    mView.progress_bar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                     createAlertDialog()
                     it.hideKeyboard()
                 } else {
@@ -135,7 +142,7 @@ class UploadNewEntryFragment :
             }
         }
 
-        return mView
+        return view
     }
 
     private fun validateFormEntry(
@@ -153,7 +160,7 @@ class UploadNewEntryFragment :
             painRating.isEmpty() or description.isEmpty() or title.isEmpty() or
                     redness.isEmpty() or fluid.isEmpty() or swelling.isEmpty() or
                     odour.isEmpty() or fever.isEmpty() -> {
-                mView.uploadFragmentLayout.showSnackBar("Fill in all the fields")
+                binding.uploadFragmentLayout.showSnackBar("Fill in all the fields")
                 return false
             }
             else -> return true
@@ -162,14 +169,14 @@ class UploadNewEntryFragment :
 
     // Input listeners
     private fun formInputListener() {
-        mView.new_entry_title.addTextChangedListener {
+        binding.newEntryTitle.addTextChangedListener {
             it?.let {
                 if (it.isNotEmpty()) {
                     title = it.toString()
                 }
             }
         }
-        mView.new_entry_description.addTextChangedListener {
+        binding.newEntryDescription.addTextChangedListener {
             it?.let {
                 if (it.isNotEmpty()) {
                     description = it.toString()
@@ -178,38 +185,68 @@ class UploadNewEntryFragment :
         }
     }
 
-    private fun clearFocusEditText(){
-        mView.new_entry_title.clearFocus()
-        mView.new_entry_description.clearFocus()
+    private fun clearFocusEditText() {
+        binding.newEntryTitle.clearFocus()
+        binding.newEntryDescription.clearFocus()
     }
 
     // Radio button listeners
+    @SuppressLint("ResourceType")
     private fun radioBtnListeners() {
 
-        mView.rgFluidDrainage.setOnCheckedChangeListener { _, checkedId ->
+        binding.rgFluidDrainage.setOnCheckedChangeListener { _, checkedId ->
             clearFocusEditText()
-            val rbFluid = mView.findViewById<RadioButton>(checkedId)
-            fluidDrained = rbFluid.text.toString()
+            val rbFluid = when (checkedId) {
+                R.id.rb_fluid_yes -> "Yes"
+                R.id.rb_fluid_no -> "No"
+                R.id.rb_fluid_notSure -> "Not sure"
+                else -> ""
+            }
+            fluidDrained = rbFluid
         }
-        mView.rgRedness.setOnCheckedChangeListener { _, checkedId ->
+
+        binding.rgRedness.setOnCheckedChangeListener { _, checkedId ->
             clearFocusEditText()
-            val rbRedness = mView.findViewById<RadioButton>(checkedId)
-            redness = rbRedness.text.toString()
+            val rbRedness = when (checkedId) {
+                R.id.rb_redness_worse -> "Worse"
+                R.id.rb_redness_same -> "Same"
+                R.id.rb_redness_better -> "Better"
+                R.id.rb_redness_unsure -> "Unsure"
+                R.id.rb_redness_none -> "None"
+                else -> ""
+            }
+            redness = rbRedness
         }
-        mView.rgSwelling.setOnCheckedChangeListener { _, checkedId ->
+        binding.rgSwelling.setOnCheckedChangeListener { _, checkedId ->
             clearFocusEditText()
-            val rbSwelling = mView.findViewById<RadioButton>(checkedId)
-            swelling = rbSwelling.text.toString()
+            val rbSwelling = when (checkedId) {
+                R.id.rb_swelling_worse -> "Worse"
+                R.id.rb_swelling_same -> "Same"
+                R.id.rb_swelling_better -> "Better"
+                R.id.rb_swelling_unsure -> "Unsure"
+                R.id.rb_swelling_none -> "None"
+                else -> ""
+            }
+            swelling = rbSwelling
         }
-        mView.rgOdour.setOnCheckedChangeListener { _, checkedId ->
+        binding.rgOdour.setOnCheckedChangeListener { _, checkedId ->
             clearFocusEditText()
-            val rbOdour = mView.findViewById<RadioButton>(checkedId)
-            odour = rbOdour.text.toString()
+            val rbOdour = when (checkedId) {
+                R.id.rb_odour_yes -> "Yes"
+                R.id.rb_odour_no -> "No"
+                R.id.rb_odour_not_sure -> "Not sure"
+                else -> ""
+            }
+            odour = rbOdour
         }
-        mView.rgFever.setOnCheckedChangeListener { _, checkedId ->
+        binding.rgFever.setOnCheckedChangeListener { _, checkedId ->
             clearFocusEditText()
-            val rbFever = mView.findViewById<RadioButton>(checkedId)
-            fever = rbFever.text.toString()
+            val rbFever = when (checkedId) {
+                R.id.rb_fever_yes -> "Yes but did not take the temperature"
+                R.id.rb_fever_no -> "No"
+                else -> ""
+            }
+            fever = rbFever
         }
     }
 
@@ -226,7 +263,7 @@ class UploadNewEntryFragment :
         inputStream.copyTo(outputStream)
 
         // Initialize the progress bar with value 0
-        mView.progress_bar.progress = 0
+        binding.progressBar.progress = 0
         val body = UploadNewEntryRequestBody(file, "image", this)
 
         // read user id
@@ -255,8 +292,8 @@ class UploadNewEntryFragment :
         uploadNewEntryViewModel.uploadedNewEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    mView.progress_bar.progress = 100
-                    mView.uploadFragmentLayout.showSnackBar("Your image has been uploaded")
+                    binding.progressBar.progress = 100
+                    binding.uploadFragmentLayout.showSnackBar("Your image has been uploaded")
                     // Navigate back after 1 sec
                     findNavController().navigateUp()
                     findNavController().navigate(R.id.patientProgressBooksFragment)
@@ -374,12 +411,12 @@ class UploadNewEntryFragment :
                 REQUEST_CODE_IMAGE_PICKER -> {
                     selectedImageUri = data?.data
                     println("Gallery SelectedImageURI: $selectedImageUri")
-                    mView.new_wound_image.setImageURI(selectedImageUri)
+                    binding.newWoundImage.setImageURI(selectedImageUri)
                 }
                 REQUEST_CODE_CAMERA -> {
                     //val thumbnail: Bitmap = data?.extras?.get("data") as Bitmap
                     val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
-                    mView.new_wound_image.setImageBitmap(takenImage)
+                    binding.newWoundImage.setImageBitmap(takenImage)
                     val bitToUri = getImageUriFromBitmap(requireContext(), takenImage)
                     selectedImageUri = bitToUri
                 }
@@ -432,6 +469,11 @@ class UploadNewEntryFragment :
     }
 
     override fun onProgressUpdate(percentage: Int) {
-        mView.progress_bar.progress = percentage
+        binding.progressBar.progress = percentage
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

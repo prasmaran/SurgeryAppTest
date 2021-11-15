@@ -1,20 +1,18 @@
 package com.example.surgeryapptest.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.ui.activity.doctorActivities.MainActivityDoctor
 import com.example.surgeryapptest.ui.activity.patientActivities.MainActivity
-import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.view_models.SplashAScreenActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

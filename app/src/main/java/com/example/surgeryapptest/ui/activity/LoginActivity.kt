@@ -3,13 +3,13 @@ package com.example.surgeryapptest.ui.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.ActivityLoginBinding
 import com.example.surgeryapptest.ui.activity.doctorActivities.MainActivityDoctor
 import com.example.surgeryapptest.ui.activity.patientActivities.MainActivity
 import com.example.surgeryapptest.utils.app.AppUtils
@@ -17,13 +17,12 @@ import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.LoginActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
-import kotlinx.android.synthetic.main.fragment_upload_new_entry.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityLoginBinding
 
     // Testing data store values
     private var userName = ""
@@ -40,20 +39,18 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //window.setFlags(
-        //    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        //    WindowManager.LayoutParams.FLAG_FULLSCREEN
-        //)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         //loginViewModel = ViewModelProvider(this).get(LoginActivityViewModel::class.java)
         sessionManager = SessionManager(this)
 
         // set up the authentication later
-        login_btn.setOnClickListener {
+        binding.loginBtn.setOnClickListener {
             hideSoftKeyboard(this)
-            val username = username_login_et.text.toString()
-            val password = password_login_et.text.toString()
+            val username = binding.usernameLoginEt.text.toString()
+            val password = binding.passwordLoginEt.text.toString()
             if (fieldsValidation(username, password)) {
                 //AppUtils.showToast(this, "Successfully logged in")
                 //setCheckIcon(true)
@@ -65,8 +62,8 @@ class LoginActivity : AppCompatActivity() {
                 userLogin(userParams)
             } else {
                 setCheckIcon(false)
-                username_login_et.text = null
-                password_login_et.text = null
+                binding.usernameLoginEt.text = null
+                binding.passwordLoginEt.text = null
             }
         }
 
@@ -187,26 +184,26 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setCheckIcon(valid: Boolean) {
         if (valid) {
-            username_login_et.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            binding.usernameLoginEt.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
                 R.drawable.ic_check,
                 0
             )
-            password_login_et.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            binding.passwordLoginEt.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
                 R.drawable.ic_check,
                 0
             )
         } else {
-            username_login_et.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            binding.usernameLoginEt.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
                 R.drawable.ic_cancel,
                 0
             )
-            password_login_et.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            binding.passwordLoginEt.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
                 R.drawable.ic_cancel,

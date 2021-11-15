@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.FragmentPatientProgressBooksBinding
 import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.adapter.Adapter
 import com.example.surgeryapptest.utils.app.NetworkListener
@@ -27,7 +28,6 @@ import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.MainActivityViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_patient_progress_books.view.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,10 +35,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PatientProgressBooksFragment : Fragment() {
 
+    private var _binding: FragmentPatientProgressBooksBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var mainViewModel: MainActivityViewModel
     private lateinit var networkListener: NetworkListener
     private val mAdapter by lazy { Adapter() }
-    private lateinit var mView: View
     private var userId: String = ""
     private var tokenValid = true
 
@@ -57,7 +59,8 @@ class PatientProgressBooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_patient_progress_books, container, false)
+        _binding = FragmentPatientProgressBooksBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         setupRecyclerView()
         // requestApiData()
@@ -84,7 +87,7 @@ class PatientProgressBooksFragment : Fragment() {
                 }
         }
 
-        mView.floatingActionButton.setOnClickListener {
+        binding.floatingActionButton.setOnClickListener {
             if (mainViewModel.networkStatus) {
                 val action = PatientProgressBooksFragmentDirections.actionPatientProgressBooksFragmentToUploadNewEntryFragment()
                 findNavController().navigate(action)
@@ -103,7 +106,7 @@ class PatientProgressBooksFragment : Fragment() {
          * readDatabase()
          * */
 
-        return mView
+        return view
     }
 
     private fun requestApiData(userId: String) {
@@ -134,7 +137,7 @@ class PatientProgressBooksFragment : Fragment() {
                     if (progressBookResponse.contains("Unauthorized User") || progressBookResponse.contains("Invalid Token") ) {
                         unAuthenticateDialog(progressBookResponse)
                         tokenValid = false
-                        mView.floatingActionButton.isClickable = false
+                        binding.floatingActionButton.isClickable = false
                     }
                     if (progressBookResponse.contains("No progress book found")) {
                         noProgressBookFound(progressBookResponse)
@@ -237,7 +240,7 @@ class PatientProgressBooksFragment : Fragment() {
 
     // Disable FAB when no Internet connection
     private fun disableFab() {
-        mView.floatingActionButton.backgroundTintList =
+        binding.floatingActionButton.backgroundTintList =
             ColorStateList.valueOf(Color.rgb(75, 75, 75))
         println("CANNOT CLICK FAB SINCE NO INTERNET CONNECTION")
         Toast.makeText(
@@ -248,16 +251,21 @@ class PatientProgressBooksFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        mView.recyclerView.adapter = mAdapter
-        mView.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = mAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
     }
 
     private fun showShimmerEffect() {
-        mView.recyclerView.showShimmer()
+        binding.recyclerView.showShimmer()
     }
 
     private fun hideShimmerEffect() {
-        mView.recyclerView.hideShimmer()
+        binding.recyclerView.hideShimmer()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

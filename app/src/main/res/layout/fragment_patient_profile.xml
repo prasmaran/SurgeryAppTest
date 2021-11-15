@@ -9,6 +9,7 @@
     android:fitsSystemWindows="true"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbars="vertical"
+    android:background="@color/colorAccentLighter2"
     tools:context=".ui.fragments.PatientProfileFragment">
     <!--    android:background="@color/colorAccentLighter2"-->
 
@@ -34,8 +35,8 @@
                     android:layout_height="@dimen/margin_130"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="45dp"
-                    android:src="@drawable/ic_user_icon"
-                    android:background="@drawable/circle_shape"/>
+                    android:background="@drawable/circle_shape"
+                    android:src="@drawable/ic_user_icon" />
 
                 <TextView
                     android:id="@+id/user_name_main_tv"

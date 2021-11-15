@@ -2,34 +2,27 @@ package com.example.surgeryapptest.ui.fragments.doctorFrags
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.SyncStateContract
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.FragmentDoctorPatientListBinding
 import com.example.surgeryapptest.ui.activity.LoginActivity
-import com.example.surgeryapptest.utils.adapter.Adapter
 import com.example.surgeryapptest.utils.adapter.PatientListAdapter
 import com.example.surgeryapptest.utils.app.NetworkListener
 import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.doctor.PatientListViewModel
-import com.example.surgeryapptest.view_models.patient.MainActivityViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_doctor_patient_list.view.*
-import kotlinx.android.synthetic.main.fragment_patient_progress_books.view.*
-import kotlinx.android.synthetic.main.fragment_patient_progress_books.view.recyclerView
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,7 +30,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DoctorPatientListFragment : Fragment() {
 
-    private lateinit var dView: View
+    private var _binding: FragmentDoctorPatientListBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var patientListViewModel: PatientListViewModel
     private lateinit var networkListener: NetworkListener
     private val mAdapter by lazy { PatientListAdapter() }
@@ -57,7 +52,9 @@ class DoctorPatientListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        dView = inflater.inflate(R.layout.fragment_doctor_patient_list, container, false)
+        _binding = FragmentDoctorPatientListBinding.inflate(inflater, container, false)
+        val view = binding.root
+
 
         setupRecyclerView()
 
@@ -84,7 +81,7 @@ class DoctorPatientListFragment : Fragment() {
                 }
         }
 
-        return dView
+        return view
     }
 
     private fun requestPatientList(doctorId: String) {
@@ -121,7 +118,10 @@ class DoctorPatientListFragment : Fragment() {
                         setErrorAttributesVisible(false)
                     }
 
-                    if (patientListResponse.contains("Unauthorized User") || patientListResponse.contains("Invalid Token") ) {
+                    if (patientListResponse.contains("Unauthorized User") || patientListResponse.contains(
+                            "Invalid Token"
+                        )
+                    ) {
                         unAuthenticateDialog(patientListResponse)
                     }
 
@@ -156,13 +156,13 @@ class DoctorPatientListFragment : Fragment() {
         alertDialog.show()
     }
 
-    private fun setErrorAttributesVisible(hasList: Boolean){
+    private fun setErrorAttributesVisible(hasList: Boolean) {
         if (hasList) {
-            dView.no_patient_list_tv.visibility = View.GONE
-            dView.no_patient_list_image.visibility = View.GONE
+            binding.noPatientListImage.visibility = View.GONE
+            binding.noPatientListImage.visibility = View.GONE
         } else {
-            dView.no_patient_list_tv.visibility = View.VISIBLE
-            dView.no_patient_list_image.visibility = View.VISIBLE
+            binding.noPatientListImage.visibility = View.VISIBLE
+            binding.noPatientListImage.visibility = View.VISIBLE
         }
     }
 
@@ -173,17 +173,22 @@ class DoctorPatientListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        dView.recyclerViewPatientList.adapter = mAdapter
+        binding.recyclerViewPatientList.adapter = mAdapter
         //dView.recyclerViewPatientList.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL, false)
-        dView.recyclerViewPatientList.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewPatientList.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
     }
 
     private fun showShimmerEffect() {
-        dView.recyclerViewPatientList.showShimmer()
+        binding.recyclerViewPatientList.showShimmer()
     }
 
     private fun hideShimmerEffect() {
-        dView.recyclerViewPatientList.hideShimmer()
+        binding.recyclerViewPatientList.hideShimmer()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -13,19 +13,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.databinding.FragmentWoundDetailsBinding
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.WoundDetailsFragmentViewModel
 import com.hsalf.smilerating.BaseRating
 import com.hsalf.smilerating.SmileRating
-import kotlinx.android.synthetic.main.fragment_wound_details.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 
 
 class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
     SmileRating.OnRatingSelectedListener {
+
+    private var _binding: FragmentWoundDetailsBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var updateUploadedEntryViewModel: WoundDetailsFragmentViewModel
 
@@ -55,7 +58,9 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_wound_details, container, false)
+        _binding = FragmentWoundDetailsBinding.inflate(inflater, container, false)
+        val view = binding.root
+
 
         val args = arguments
         val myBundle: AllProgressBookEntryItem? = args?.getParcelable("progressEntryBundle")
@@ -64,13 +69,13 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         if (myBundle != null) {
             woundID = myBundle.entryID.toString()
         }
-        view.detail_wound_image.load(myBundle?.progressImage)
-        view.uploaded_entry_title.setText(myBundle?.progressTitle)
-        view.uploaded_entry_description.setText(myBundle?.progressDescription)
+        binding.detailWoundImage.load(myBundle?.progressImage)
+        binding.uploadedEntryTitle.setText(myBundle?.progressTitle)
+        binding.uploadedEntryDescription.setText(myBundle?.progressDescription)
 
         // Setup the pain rating slider
-        view.uploaded_rating_bar.setOnSmileySelectionListener(this)
-        view.uploaded_rating_bar.setOnRatingSelectedListener(this)
+        binding.uploadedRatingBar.setOnSmileySelectionListener(this)
+        binding.uploadedRatingBar.setOnRatingSelectedListener(this)
         val painLevel: String = myBundle?.quesPain.toString()
         setUploadedPainRating(view, painLevel)
 
@@ -91,15 +96,15 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         radioBtnListeners(view)
 
         // Listen for edit button
-        view.update_btn.setOnClickListener {
+        binding.updateBtn.setOnClickListener {
             editMode = true
-            view.update_btn.visibility = View.GONE
-            view.save_btn.visibility = View.VISIBLE
+            binding.updateBtn.visibility = View.GONE
+            binding.saveBtn.visibility = View.VISIBLE
             enableEditing(editMode, view)
         }
 
         // Listen for save button
-        view.save_btn.setOnClickListener {
+        binding.saveBtn.setOnClickListener {
             // save to database after validation
             //val isAllFieldFilled = validateFormEntry(
             //    view, title, description, fluidDrained, painRating,
@@ -118,7 +123,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
 //            }
         }
 
-        view.delete_btn.setOnClickListener {
+        binding.deleteBtn.setOnClickListener {
             createAlertDialogDelete()
             //AppUtils.showToast(requireContext(), "Need to setup the delete function")
         }
@@ -141,7 +146,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
             painRating.isEmpty() or description.isEmpty() or title.isEmpty() or
                     redness.isEmpty() or fluid.isEmpty() or swelling.isEmpty() or
                     odour.isEmpty() or fever.isEmpty() -> {
-                view.woundDetailsFragmentLayout.showSnackBar("Fill in all the fields")
+                binding.woundDetailsFragmentLayout.showSnackBar("Fill in all the fields")
                 return false
             }
             else -> return true
@@ -167,8 +172,14 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         updateUploadedEntryViewModel.updatedEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    view?.woundDetailsFragmentLayout?.showSnackBar("This entry has been updated successfully")
-                    //this.findNavController().popBackStack()
+                    binding.woundDetailsFragmentLayout.showSnackBar("This entry has been updated successfully")
+
+                    editMode = false
+                    binding.updateBtn.visibility = View.VISIBLE
+                    binding.saveBtn.visibility = View.GONE
+                    enableEditing(editMode, requireView())
+
+
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(
@@ -193,7 +204,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    view?.woundDetailsFragmentLayout?.showSnackBar("${response.data?.message}")
+                    binding.woundDetailsFragmentLayout.showSnackBar("${response.data?.message}")
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(
@@ -211,14 +222,14 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
 
     // Input listeners
     private fun formInputListener(view: View) {
-        view.uploaded_entry_title.addTextChangedListener {
+        binding.uploadedEntryTitle.addTextChangedListener {
             it?.let {
                 if (it.isNotEmpty()) {
                     title = it.toString()
                 }
             }
         }
-        view.uploaded_entry_description.addTextChangedListener {
+        binding.uploadedEntryDescription.addTextChangedListener {
             it?.let {
                 if (it.isNotEmpty()) {
                     description = it.toString()
@@ -229,23 +240,23 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
 
     // Radio button listeners
     private fun radioBtnListeners(view: View) {
-        view.uploaded_rgFluidDrainage.setOnCheckedChangeListener { _, checkedId ->
+        binding.uploadedRgFluidDrainage.setOnCheckedChangeListener { _, checkedId ->
             val updatedRbFluid = view.findViewById<RadioButton>(checkedId)
             fluidDrained = updatedRbFluid.text.toString()
         }
-        view.uploaded_rgRedness.setOnCheckedChangeListener { _, checkedId ->
+        binding.uploadedRgRedness.setOnCheckedChangeListener { _, checkedId ->
             val updatedRbRedness = view.findViewById<RadioButton>(checkedId)
             redness = updatedRbRedness.text.toString()
         }
-        view.uploaded_rgSwelling.setOnCheckedChangeListener { _, checkedId ->
+        binding.uploadedRgSwelling.setOnCheckedChangeListener { _, checkedId ->
             val updatedRbSwelling = view.findViewById<RadioButton>(checkedId)
             swelling = updatedRbSwelling.text.toString()
         }
-        view.uploaded_rgOdour.setOnCheckedChangeListener { _, checkedId ->
+        binding.uploadedRgOdour.setOnCheckedChangeListener { _, checkedId ->
             val updatedRbOdour = view.findViewById<RadioButton>(checkedId)
             odour = updatedRbOdour.text.toString()
         }
-        view.uploaded_rgFever.setOnCheckedChangeListener { _, checkedId ->
+        binding.uploadedRgFever.setOnCheckedChangeListener { _, checkedId ->
             val updatedRbFever = view.findViewById<RadioButton>(checkedId)
             fever = updatedRbFever.text.toString()
         }
@@ -254,23 +265,23 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
     private fun enableEditing(editMode: Boolean, view: View) {
         // By default editMode == false
         if (!editMode) {
-            view.uploaded_entry_title.isEnabled = false
-            view.uploaded_entry_description.isEnabled = false
-            enableDisableRadioGroup(view.uploaded_rgFluidDrainage, false)
-            enableDisableRadioGroup(view.uploaded_rgRedness, false)
-            enableDisableRadioGroup(view.uploaded_rgSwelling, false)
-            enableDisableRadioGroup(view.uploaded_rgOdour, false)
-            enableDisableRadioGroup(view.uploaded_rgFever, false)
-            view.uploaded_rating_bar.isIndicator = true
+            binding.uploadedEntryTitle.isEnabled = false
+            binding.uploadedEntryDescription.isEnabled = false
+            enableDisableRadioGroup(binding.uploadedRgFluidDrainage, false)
+            enableDisableRadioGroup(binding.uploadedRgRedness, false)
+            enableDisableRadioGroup(binding.uploadedRgSwelling, false)
+            enableDisableRadioGroup(binding.uploadedRgOdour, false)
+            enableDisableRadioGroup(binding.uploadedRgFever, false)
+            binding.uploadedRatingBar.isIndicator = true
         } else {
-            view.uploaded_entry_title.isEnabled = true
-            view.uploaded_entry_description.isEnabled = true
-            enableDisableRadioGroup(view.uploaded_rgFluidDrainage, true)
-            enableDisableRadioGroup(view.uploaded_rgRedness, true)
-            enableDisableRadioGroup(view.uploaded_rgSwelling, true)
-            enableDisableRadioGroup(view.uploaded_rgOdour, true)
-            enableDisableRadioGroup(view.uploaded_rgFever, true)
-            view.uploaded_rating_bar.isIndicator = false
+            binding.uploadedEntryTitle.isEnabled = true
+            binding.uploadedEntryDescription.isEnabled = true
+            enableDisableRadioGroup(binding.uploadedRgFluidDrainage, true)
+            enableDisableRadioGroup(binding.uploadedRgRedness, true)
+            enableDisableRadioGroup(binding.uploadedRgSwelling, true)
+            enableDisableRadioGroup(binding.uploadedRgOdour, true)
+            enableDisableRadioGroup(binding.uploadedRgFever, true)
+            binding.uploadedRatingBar.isIndicator = false
         }
     }
 
@@ -280,88 +291,88 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
     ) {
         when (fluidAnswer) {
             "Yes" -> {
-                view.uploaded_rgFluidDrainage?.check(R.id.rb_fluid_yes)
+                binding.uploadedRgFluidDrainage.check(R.id.rb_fluid_yes)
             }
             "No" -> {
-                view.uploaded_rgFluidDrainage?.check(R.id.rb_fluid_no)
+                binding.uploadedRgFluidDrainage.check(R.id.rb_fluid_no)
             }
             "Not sure" -> {
-                view.uploaded_rgFluidDrainage?.check(R.id.rb_fluid_notSure)
+                binding.uploadedRgFluidDrainage.check(R.id.rb_fluid_notSure)
             }
         }
         when (rednessAnswer) {
             "Worse" -> {
-                view.uploaded_rgRedness?.check(R.id.rb_redness_worse)
+                binding.uploadedRgRedness.check(R.id.rb_redness_worse)
             }
             "Same" -> {
-                view.uploaded_rgRedness?.check(R.id.rb_redness_same)
+                binding.uploadedRgRedness.check(R.id.rb_redness_same)
             }
             "Better" -> {
-                view.uploaded_rgRedness?.check(R.id.rb_redness_better)
+                binding.uploadedRgRedness.check(R.id.rb_redness_better)
             }
             "Unsure" -> {
-                view.uploaded_rgRedness?.check(R.id.rb_redness_unsure)
+                binding.uploadedRgRedness.check(R.id.rb_redness_unsure)
             }
             "None" -> {
-                view.uploaded_rgRedness?.check(R.id.rb_redness_none)
+                binding.uploadedRgRedness.check(R.id.rb_redness_none)
             }
         }
         when (swellingAnswer) {
             "Worse" -> {
-                view.uploaded_rgSwelling?.check(R.id.rb_swelling_worse)
+                binding.uploadedRgSwelling.check(R.id.rb_swelling_worse)
             }
             "Same" -> {
-                view.uploaded_rgSwelling?.check(R.id.rb_swelling_same)
+                binding.uploadedRgSwelling.check(R.id.rb_swelling_same)
             }
             "Better" -> {
-                view.uploaded_rgSwelling?.check(R.id.rb_swelling_better)
+                binding.uploadedRgSwelling.check(R.id.rb_swelling_better)
             }
             "Unsure" -> {
-                view.uploaded_rgSwelling?.check(R.id.rb_swelling_unsure)
+                binding.uploadedRgSwelling.check(R.id.rb_swelling_unsure)
             }
             "None" -> {
-                view.uploaded_rgSwelling?.check(R.id.rb_swelling_none)
+                binding.uploadedRgSwelling.check(R.id.rb_swelling_none)
             }
         }
         when (odourAnswer) {
             "Yes" -> {
-                view.uploaded_rgOdour?.check(R.id.rb_odour_yes)
+                binding.uploadedRgOdour.check(R.id.rb_odour_yes)
             }
             "No" -> {
-                view.uploaded_rgOdour?.check(R.id.rb_odour_no)
+                binding.uploadedRgOdour.check(R.id.rb_odour_no)
             }
             "Not sure" -> {
-                view.uploaded_rgOdour?.check(R.id.rb_odour_not_sure)
+                binding.uploadedRgOdour.check(R.id.rb_odour_not_sure)
             }
         }
         when (feverAnswer) {
             "Yes but did not take the temperature" -> {
-                view.uploaded_rgFever?.check(R.id.rb_fever_yes)
+                binding.uploadedRgFever.check(R.id.rb_fever_yes)
             }
             "No" -> {
-                view.uploaded_rgFever?.check(R.id.rb_fever_no)
+                binding.uploadedRgFever.check(R.id.rb_fever_no)
             }
         }
     }
 
     private fun setUploadedPainRating(view: View, myBundle: String) {
         if (myBundle == "TERRIBLE") {
-            view.uploaded_rating_bar?.selectedSmile = BaseRating.TERRIBLE
+            binding.uploadedRatingBar.selectedSmile = BaseRating.TERRIBLE
         }
         if (myBundle == "BAD") {
-            view.uploaded_rating_bar?.selectedSmile = BaseRating.BAD
+            binding.uploadedRatingBar.selectedSmile = BaseRating.BAD
         }
         if (myBundle == "OKAY") {
-            view.uploaded_rating_bar?.selectedSmile = BaseRating.OKAY
+            binding.uploadedRatingBar.selectedSmile = BaseRating.OKAY
         }
         if (myBundle == "GOOD") {
-            view.uploaded_rating_bar?.selectedSmile = BaseRating.GOOD
+            binding.uploadedRatingBar.selectedSmile = BaseRating.GOOD
         }
         if (myBundle == "GREAT") {
-            view.uploaded_rating_bar?.selectedSmile = BaseRating.GREAT
+            binding.uploadedRatingBar.selectedSmile = BaseRating.GREAT
         }
         if (myBundle == "NONE") {
-            view.uploaded_rating_bar?.selectedSmile = BaseRating.NONE
+            binding.uploadedRatingBar.selectedSmile = BaseRating.NONE
         }
     }
 
@@ -390,8 +401,24 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
 
     private fun createAlertDialogDelete() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Confirm delete?")
+        builder.setTitle("Delete this entry?")
         builder.setMessage("\nAre you sure you want to delete this uploaded entry?")
+        builder.setIcon(R.drawable.ic_delete)
+
+        builder.setPositiveButton(R.string.yes) { _, _ ->
+            createAlertDialogDeleteDoubleWarning()
+        }
+        builder.setNegativeButton(R.string.cancel) { _, _ ->
+            // Do nothing
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun createAlertDialogDeleteDoubleWarning() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Confirm delete?")
+        builder.setMessage("\nDo you really want to delete this?")
         builder.setIcon(R.drawable.ic_delete)
 
         builder.setPositiveButton(R.string.yes) { _, _ ->
@@ -404,6 +431,8 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
     }
+
+
 
     override fun onSmileySelected(smiley: Int, reselected: Boolean) {
         when (smiley) {
@@ -420,5 +449,8 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         println("Rated as $level - $reselected")
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
