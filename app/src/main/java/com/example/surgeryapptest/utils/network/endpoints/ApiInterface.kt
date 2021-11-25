@@ -30,6 +30,11 @@ interface ApiInterface {
     @GET("/books/progress/getAll/{userId}")
     suspend fun getAllProgressEntry(@Path("userId") userId: String): Response<AllProgressBookEntry>
 
+    // To receive all the archived entries list
+    // Edited: Get progress book by userID
+    @GET("/books/progress/getAllArchived/{userId}")
+    suspend fun getAllArchivedEntry(@Path("userId") userId: String): Response<AllProgressBookEntry>
+
     // To receive one progress entry by ID
     @GET("/books/progress/{entryid}")
     suspend fun getOneProgressEntry(): Response<AllProgressBookEntryItem>
@@ -69,6 +74,13 @@ interface ApiInterface {
     @Multipart
     @PUT("/books/progress/delete")
     suspend fun deleteUploadedEntry(
+        @Part("entryID") entryID: RequestBody
+    ): Response<NetworkDeleteEntryResponse>
+
+    // Archive selected image entry
+    @Multipart
+    @PUT("/books/progress/archive")
+    suspend fun archiveUploadedEntry(
         @Part("entryID") entryID: RequestBody
     ): Response<NetworkDeleteEntryResponse>
 

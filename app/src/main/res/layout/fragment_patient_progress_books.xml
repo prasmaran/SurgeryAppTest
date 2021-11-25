@@ -9,6 +9,38 @@
     android:background="@color/lightGray"
     tools:context=".ui.fragments.patientFrags.PatientProgressBooksFragment">
 
+    <SearchView
+        android:id="@+id/patientBookSearchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_bg_primary"
+        android:focusable="false"
+        android:visibility="gone"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
+        android:paddingStart="@dimen/margin_10"
+        android:paddingEnd="@dimen/margin_10"
+        android:queryHint="Search your uploaded entry ..."
+        android:layout_margin="@dimen/margin_10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/archive_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/click_to_see_archived_files"
+        android:fontFamily="@font/poppins_semibold"
+        android:textAlignment="center"
+        android:layout_margin="@dimen/margin_10"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
@@ -16,13 +48,14 @@
         android:layout_marginStart="@dimen/margin_8"
         android:layout_marginEnd="@dimen/margin_8"
         android:orientation="vertical"
-        app:shimmer_recycler_item_count="3"
-        app:shimmer_recycler_layout="@layout/placeholder_row_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/archive_title_tv"
+        android:layout_marginTop="@dimen/margin_5"
+        app:shimmer_recycler_item_count="3"
+        app:shimmer_recycler_layout="@layout/placeholder_row_layout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"

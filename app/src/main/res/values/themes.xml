@@ -9,6 +9,7 @@
         <item name="colorOnPrimary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">#6200EA</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -17,6 +18,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">#6200EA</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">#6200EA</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowFullscreen">true</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">#6200EA</item>
         <item name="android:navigationBarColor" tools:targetApi="l">#6200EA</item>
@@ -80,12 +93,15 @@
     </style>
 
     <!--     Material Text View/ Edit Text -->
-<!--    <style name="ThemeOverlay.App.TextInputLayout" parent="">-->
-<!--        <item name="colorPrimary">@color/white</item>-->
-<!--        <item name="colorOnSurface">@color/white</item>-->
-<!--        <item name="shapeAppearance">@color/white</item>-->
-<!--        <item name="textAppearanceCaption">@font/poppins_regular</item>-->
-<!--&lt;!&ndash;        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.*</item>&ndash;&gt;-->
-<!--    </style>-->
+    <!--    <style name="ThemeOverlay.App.TextInputLayout" parent="">-->
+    <!--        <item name="colorPrimary">@color/white</item>-->
+    <!--        <item name="colorOnSurface">@color/white</item>-->
+    <!--        <item name="shapeAppearance">@color/white</item>-->
+    <!--        <item name="textAppearanceCaption">@font/poppins_regular</item>-->
+    <!--&lt;!&ndash;        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.*</item>&ndash;&gt;-->
+    <!--    </style>-->
+
+    <!-- Alert Dialog Theme -->
+
 
 </resources>

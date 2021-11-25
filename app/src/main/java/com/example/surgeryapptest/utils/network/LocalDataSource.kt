@@ -17,4 +17,8 @@ class LocalDataSource @Inject constructor(
         progressBookDao.insertProgressBook(progressBookEntity)
     }
 
+    fun searchDatabase(searchQuery: String) : Flow<List<ProgressBookEntity>> {
+        return progressBookDao.searchDatabase(searchQuery)
+    }
+
 }

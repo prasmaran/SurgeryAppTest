@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -63,6 +64,7 @@ class PatientProgressBooksFragment : Fragment() {
         val view = binding.root
 
         setupRecyclerView()
+        // searchProgressBookFilter()
         // requestApiData()
 
         mainViewModel.readBackOnline.observe(viewLifecycleOwner, {
@@ -72,7 +74,7 @@ class PatientProgressBooksFragment : Fragment() {
         // Read userId to get specific progress book data
         lifecycleScope.launch {
             mainViewModel.readUserProfileDetail.collect { values ->
-               userId = values.userID
+                userId = values.userID
             }
         }
 
@@ -89,16 +91,22 @@ class PatientProgressBooksFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             if (mainViewModel.networkStatus) {
-                val action = PatientProgressBooksFragmentDirections.actionPatientProgressBooksFragmentToUploadNewEntryFragment()
+                val action =
+                    PatientProgressBooksFragmentDirections.actionPatientProgressBooksFragmentToUploadNewEntryFragment()
                 findNavController().navigate(action)
-            }
-            else {
+            } else {
                 Toast.makeText(
                     requireContext(),
                     "No Internet Connection. Cannot upload new photo at the moment.",
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        binding.archiveTitleTv.setOnClickListener {
+            val action =
+                PatientProgressBooksFragmentDirections.actionPatientProgressBooksFragmentToPatientArchiveBookFragment()
+            findNavController().navigate(action)
         }
 
         // If no Internet connection
@@ -108,6 +116,42 @@ class PatientProgressBooksFragment : Fragment() {
 
         return view
     }
+
+    // Search filter testing
+    // Hide this if not working
+//    private fun searchProgressBookFilter() {
+//        binding.patientBookSearchView.setOnQueryTextListener(object :
+//            SearchView.OnQueryTextListener, android.widget.SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//
+//                if (query != null) {
+//                    val searchQuery = "%$query%"
+//                    mainViewModel.searchDatabase(searchQuery)
+//                        .observe(viewLifecycleOwner, { database ->
+//                            if (database.isNotEmpty()) {
+//                                mAdapter.setData(database[0].progressBook)
+//                            }
+//                        })
+//                }
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(query: String?): Boolean {
+//
+//                if (query != null) {
+//                    val searchQuery = "%$query%"
+//                    mainViewModel.searchDatabase(searchQuery)
+//                        .observe(viewLifecycleOwner, { database ->
+//                            if (database.isNotEmpty()) {
+//                                mAdapter.setData(database[0].progressBook)
+//                                //database[0].progressBook.result?.get(0)
+//                            }
+//                        })
+//                }
+//                return true
+//            }
+//        })
+//    }
 
     private fun requestApiData(userId: String) {
         mainViewModel.getAllProgressEntry(userId)
@@ -132,9 +176,13 @@ class PatientProgressBooksFragment : Fragment() {
                     hideShimmerEffect()
                     // Loading cache from database
 
-                    val progressBookResponse = response.message.toString() //response.data?.message.toString()
+                    val progressBookResponse =
+                        response.message.toString() //response.data?.message.toString()
 
-                    if (progressBookResponse.contains("Unauthorized User") || progressBookResponse.contains("Invalid Token") ) {
+                    if (progressBookResponse.contains("Unauthorized User") || progressBookResponse.contains(
+                            "Invalid Token"
+                        )
+                    ) {
                         unAuthenticateDialog(progressBookResponse)
                         tokenValid = false
                         binding.floatingActionButton.isClickable = false
@@ -268,4 +316,5 @@ class PatientProgressBooksFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

@@ -93,7 +93,7 @@
     <string name="title">Title</string>
     <string name="swipe_down_to_refresh">Swipe down to refresh</string>
 
-   <!-- Stream Chat -->
+    <!-- Stream Chat -->
     <string name="go">GO</string>
     <string name="chat_app">Chat App</string>
     <string name="reliable_and_fast">Reliable and Fast</string>
@@ -104,5 +104,6 @@
     <string name="channels">Channels</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="click_to_see_archived_files"><u>--- Click to see archived files ---</u></string>
 
 </resources>
