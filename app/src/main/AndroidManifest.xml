@@ -30,6 +30,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.streamChat.StreamChatActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.activity.doctorActivities.PatientWoundDetailsActivity"
             android:label="Patient Wound Detail"
             android:screenOrientation="portrait"

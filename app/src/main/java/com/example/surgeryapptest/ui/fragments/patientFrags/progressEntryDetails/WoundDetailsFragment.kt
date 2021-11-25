@@ -8,6 +8,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -220,6 +221,31 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         })
     }
 
+    private fun archiveSelectedEntry() {
+
+        updateUploadedEntryViewModel.archiveUploadedEntry(
+            woundID.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        )
+
+        updateUploadedEntryViewModel.archivedEntryResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    binding.woundDetailsFragmentLayout.showSnackBar("${response.data?.message}")
+                }
+                is NetworkResult.Error -> {
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is NetworkResult.Loading -> {
+                    //TODO: Add loading fragment here
+                }
+            }
+        })
+    }
+
     // Input listeners
     private fun formInputListener(view: View) {
         binding.uploadedEntryTitle.addTextChangedListener {
@@ -413,25 +439,31 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
+
     }
 
     private fun createAlertDialogDeleteDoubleWarning() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Confirm delete?")
-        builder.setMessage("\nDo you really want to delete this?")
+        builder.setTitle("Maybe archive?")
+        builder.setMessage("\nDo you want to archive this instead?")
         builder.setIcon(R.drawable.ic_delete)
 
         builder.setPositiveButton(R.string.yes) { _, _ ->
             println("The delete function has been pressed ....")
-            deleteSelectedEntry()
+            archiveSelectedEntry()
         }
         builder.setNegativeButton(R.string.cancel) { _, _ ->
             // Do nothing
         }
+        builder.setNeutralButton("DELETE") { _, _ ->
+            deleteSelectedEntry()
+        }
+
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
     }
-
 
 
     override fun onSmileySelected(smiley: Int, reselected: Boolean) {

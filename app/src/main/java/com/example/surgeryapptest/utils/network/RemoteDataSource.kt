@@ -25,6 +25,10 @@ class RemoteDataSource @Inject constructor(
         return apiInterface.getAllProgressEntry(userId)
     }
 
+    suspend fun getAllArchivedEntry(userId: String): Response<AllProgressBookEntry> {
+        return apiInterface.getAllArchivedEntry(userId)
+    }
+
     suspend fun uploadNewEntry(
         @Part("masterUserId_fk") userID: RequestBody,
         @Part image: MultipartBody.Part,
@@ -64,6 +68,12 @@ class RemoteDataSource @Inject constructor(
         @Part("entryID") entryID: RequestBody
     ) : Response<NetworkDeleteEntryResponse> {
         return apiInterface.deleteUploadedEntry(entryID)
+    }
+
+    suspend fun archiveUploadedEntry(
+        @Part("entryID") entryID: RequestBody
+    ) : Response<NetworkDeleteEntryResponse> {
+        return apiInterface.archiveUploadedEntry(entryID)
     }
 
     // Authenticate the user

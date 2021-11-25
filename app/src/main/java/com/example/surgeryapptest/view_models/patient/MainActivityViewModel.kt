@@ -13,6 +13,7 @@ import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.utils.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -70,8 +71,16 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
+    // Newly added to search database
+    fun searchDatabase(searchQuery: String) : LiveData<List<ProgressBookEntity>> {
+        return repository.local.searchDatabase(searchQuery).asLiveData()
+    }
+
     /** RETROFIT */
     var allProgressEntryResponse: MutableLiveData<NetworkResult<AllProgressBookEntry>> =
+        MutableLiveData()
+
+    var allArchivedEntryResponse: MutableLiveData<NetworkResult<AllProgressBookEntry>> =
         MutableLiveData()
 
     fun getAllProgressEntry(userId: String) = viewModelScope.launch {
@@ -99,11 +108,6 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
-    private fun offlineProgressBookCache(progressBook: AllProgressBookEntry) {
-        val progressBookEntity = ProgressBookEntity(progressBook)
-        insertProgressBook(progressBookEntity)
-    }
-
     private fun handleAllProgressEntryResponse(response: Response<AllProgressBookEntry>): NetworkResult<AllProgressBookEntry> {
 
         return when {
@@ -116,7 +120,58 @@ class MainActivityViewModel @Inject constructor(
             }
             response.body()!!.result.isNullOrEmpty() && response.body()!!.success.contains("true") -> {
                 //NetworkResult.Error("Error Special: ${response.body()!!.message}")
-                NetworkResult.Error("Error2: No progress book found under your name.")
+                NetworkResult.Error("Error 2: No progress book found under your name.")
+            }
+            response.body()!!.result.isNullOrEmpty() -> {
+                NetworkResult.Error("Error 3: ${response.body()!!.message}")
+            }
+            response.isSuccessful -> {
+                val data = response.body()
+                NetworkResult.Success(data!!)
+            }
+            else -> {
+                NetworkResult.Error(response.message())
+            }
+        }
+    }
+
+    /**
+     * This part is for returning archived files
+     */
+
+    fun getAllArchivedEntry(userId: String) = viewModelScope.launch {
+        getAllArchivedEntrySafeCall(userId)
+    }
+
+    private suspend fun getAllArchivedEntrySafeCall(userId: String) {
+        allProgressEntryResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.getAllArchivedEntry(userId)
+                allArchivedEntryResponse.value = handleAllArchivedEntryResponse(response)
+
+            } catch (e: Exception) {
+                allArchivedEntryResponse.value = NetworkResult.Error(e.message.toString())
+                println("Error0: ${e.message.toString()}")
+            }
+        } else {
+            allArchivedEntryResponse.value = NetworkResult.Error("No Internet Connection")
+        }
+    }
+
+    private fun handleAllArchivedEntryResponse(response: Response<AllProgressBookEntry>): NetworkResult<AllProgressBookEntry> {
+
+        return when {
+            response.message().toString().contains("timeout") -> {
+                NetworkResult.Error("Timeout Error")
+            }
+            response.body()!!.message.contains("Invalid Token") || response.body()!!.message.contains(
+                "Session Expired") -> {
+                NetworkResult.Error("Error 1: ${response.body()!!.message}")
+            }
+            response.body()!!.result.isNullOrEmpty() && response.body()!!.success.contains("true") -> {
+                //NetworkResult.Error("Error Special: ${response.body()!!.message}")
+                NetworkResult.Error("Error: No archive files found.")
             }
             response.body()!!.result.isNullOrEmpty() -> {
                 NetworkResult.Error("Error3: ${response.body()!!.message}")
@@ -129,6 +184,15 @@ class MainActivityViewModel @Inject constructor(
                 NetworkResult.Error(response.message())
             }
         }
+    }
+
+    /**
+     *
+     */
+
+    private fun offlineProgressBookCache(progressBook: AllProgressBookEntry) {
+        val progressBookEntity = ProgressBookEntity(progressBook)
+        insertProgressBook(progressBookEntity)
     }
 
     private fun hasInternetConnection(): Boolean {
@@ -155,6 +219,10 @@ class MainActivityViewModel @Inject constructor(
             else -> false
         }
     }
+
+    /**
+     * This is for network checking
+     */
 
     fun showNetworkStatus() {
         if (!networkStatus) {

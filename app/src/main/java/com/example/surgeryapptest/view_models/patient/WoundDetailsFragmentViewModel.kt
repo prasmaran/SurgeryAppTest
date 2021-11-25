@@ -47,6 +47,9 @@ class WoundDetailsFragmentViewModel @Inject constructor(
     var deletedEntryResponse: MutableLiveData<NetworkResult<NetworkDeleteEntryResponse>> =
         MutableLiveData()
 
+    var archivedEntryResponse: MutableLiveData<NetworkResult<NetworkDeleteEntryResponse>> =
+        MutableLiveData()
+
     var feedbackListResponse: MutableLiveData<NetworkResult<WoundImageFeedback>> =
         MutableLiveData()
 
@@ -70,6 +73,10 @@ class WoundDetailsFragmentViewModel @Inject constructor(
 
     fun deleteUploadedEntry(entryID: RequestBody) = viewModelScope.launch {
         deleteUploadedEntrySafeCall(entryID)
+    }
+
+    fun archiveUploadedEntry(entryID: RequestBody) = viewModelScope.launch {
+        archiveUploadedEntrySafeCall(entryID)
     }
 
     fun getWoundFeedbackList(woundImageID: String) = viewModelScope.launch {
@@ -116,6 +123,22 @@ class WoundDetailsFragmentViewModel @Inject constructor(
             }
         } else {
             deletedEntryResponse.value = NetworkResult.Error("No Internet Connection")
+        }
+    }
+
+    //TODO : Safe call for archiving API call
+    private suspend fun archiveUploadedEntrySafeCall(entryID: RequestBody) {
+        archivedEntryResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.archiveUploadedEntry(entryID)
+                archivedEntryResponse.value = handleArchiveUploadedEntryResponse(response)
+            } catch (e: Exception) {
+                archivedEntryResponse.value = NetworkResult.Error(e.message.toString())
+                println("Error : ${e.message.toString()}")
+            }
+        } else {
+            archivedEntryResponse.value = NetworkResult.Error("No Internet Connection")
         }
     }
 
@@ -172,7 +195,30 @@ class WoundDetailsFragmentViewModel @Inject constructor(
             }
             response.isSuccessful -> {
                 val data = response.body()
-                println("Successfully updated !!!")
+                println("Successfully deleted !!!")
+                NetworkResult.Success(data!!)
+            }
+            else -> {
+                NetworkResult.Error(response.message())
+            }
+        }
+    }
+
+    private fun handleArchiveUploadedEntryResponse(response: Response<NetworkDeleteEntryResponse>): NetworkResult<NetworkDeleteEntryResponse> {
+
+        return when {
+            response.message().toString().contains("timeout") -> {
+                NetworkResult.Error("Timeout")
+            }
+            response.body()!!.success.toString().contains("false") -> {
+                NetworkResult.Error("Error: ${response.body()!!.success}")
+            }
+            response.body()!!.message.toString().contains("Please") -> {
+                NetworkResult.Error("Please upload an image!")
+            }
+            response.isSuccessful -> {
+                val data = response.body()
+                println("Successfully archived !!!")
                 NetworkResult.Success(data!!)
             }
             else -> {

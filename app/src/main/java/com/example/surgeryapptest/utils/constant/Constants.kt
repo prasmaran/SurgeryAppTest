@@ -15,6 +15,7 @@ class Constants {
         const val NETWORK_ERROR_NO_INTERNET = "Network Error"
         const val UNAUTHENTICATED_USER = "Authentication Error"
         const val NO_PROGRESS_BOOK = "No Progress Book Found"
+        const val NO_ARCHIVE_BOOK = "No Archive Book Found"
 
         // Preferences
         const val PREFERENCES_NAME = "my_settings"

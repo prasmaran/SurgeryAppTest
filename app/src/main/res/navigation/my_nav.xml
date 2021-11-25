@@ -36,6 +36,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_patientProgressBooksFragment_to_patientArchiveBookFragment"
+            app:destination="@id/patientArchiveBookFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/patientAppointmentFragment"
@@ -70,4 +77,9 @@
         android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientEmergencyCallFragment"
         android:label="Emergency Numbers"
         tools:layout="@layout/fragment_patient_emergency_call" />
+    <fragment
+        android:id="@+id/patientArchiveBookFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientArchiveBookFragment"
+        android:label="Archived Entries"
+        tools:layout="@layout/fragment_patient_archive_book" />
 </navigation>

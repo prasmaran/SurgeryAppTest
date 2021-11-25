@@ -58,8 +58,7 @@ class PatientHomeFragment : Fragment() {
     // have not implemented yet
     private fun navigateToGeneralInfo() {
         binding.cardViewGeneralInfo.setOnClickListener {
-            binding.patientHomeFragmentLayout
-                .showSnackBar("This feature has not been implemented yet")
+            binding.patientHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
         }
     }
 
