@@ -70,10 +70,12 @@ class RemoteDataSource @Inject constructor(
         return apiInterface.deleteUploadedEntry(entryID)
     }
 
+    // Edited this to include prevFlag
     suspend fun archiveUploadedEntry(
-        @Part("entryID") entryID: RequestBody
+        @Part("entryID") entryID: RequestBody,
+        @Part("prevFlag") prevFlag: RequestBody,
     ) : Response<NetworkDeleteEntryResponse> {
-        return apiInterface.archiveUploadedEntry(entryID)
+        return apiInterface.archiveUploadedEntry(entryID, prevFlag)
     }
 
     // Authenticate the user

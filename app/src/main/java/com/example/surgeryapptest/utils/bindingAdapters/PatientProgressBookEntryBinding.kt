@@ -1,16 +1,26 @@
 package com.example.surgeryapptest.utils.bindingAdapters
 
 import android.os.Build
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import coil.load
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
+import com.example.surgeryapptest.ui.fragments.patientFrags.PatientArchiveBookFragment
 import com.example.surgeryapptest.ui.fragments.patientFrags.PatientProgressBooksFragmentDirections
+import com.example.surgeryapptest.utils.app.AppUtils
+import com.example.surgeryapptest.utils.constant.Constants
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -64,6 +74,21 @@ class PatientProgressBookEntryBinding {
             val sdf = parsedDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))
             textView.text = sdf
             //return parsedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+        }
+
+        /**
+         * Long click listener to
+         * remove the entry from the archive list
+         */
+        @BindingAdapter("onProgressEntryArchivedImageClickListener")
+        @JvmStatic
+        fun onProgressEntryArchivedImageClickListener(
+            progressArchivedEntryRowLayout: ConstraintLayout,
+            result: AllProgressBookEntryItem
+        ) {
+//            progressArchivedEntryRowLayout.setOnClickListener {
+            Log.d("LONG_PRESS", "onProgressEntryArchivedImageClickListener: $result ")
+//            }
         }
 
 //        @RequiresApi(Build.VERSION_CODES.O)

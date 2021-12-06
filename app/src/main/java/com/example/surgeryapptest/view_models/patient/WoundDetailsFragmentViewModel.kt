@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.Part
 import javax.inject.Inject
 
 @HiltViewModel
@@ -75,8 +76,8 @@ class WoundDetailsFragmentViewModel @Inject constructor(
         deleteUploadedEntrySafeCall(entryID)
     }
 
-    fun archiveUploadedEntry(entryID: RequestBody) = viewModelScope.launch {
-        archiveUploadedEntrySafeCall(entryID)
+    fun archiveUploadedEntry(entryID: RequestBody, prevFlag: RequestBody) = viewModelScope.launch {
+        archiveUploadedEntrySafeCall(entryID, prevFlag)
     }
 
     fun getWoundFeedbackList(woundImageID: String) = viewModelScope.launch {
@@ -127,11 +128,12 @@ class WoundDetailsFragmentViewModel @Inject constructor(
     }
 
     //TODO : Safe call for archiving API call
-    private suspend fun archiveUploadedEntrySafeCall(entryID: RequestBody) {
+    //TODO : Modified to cater undo archiving through previous flag
+    private suspend fun archiveUploadedEntrySafeCall(entryID: RequestBody, prevFlag: RequestBody) {
         archivedEntryResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remote.archiveUploadedEntry(entryID)
+                val response = repository.remote.archiveUploadedEntry(entryID, prevFlag)
                 archivedEntryResponse.value = handleArchiveUploadedEntryResponse(response)
             } catch (e: Exception) {
                 archivedEntryResponse.value = NetworkResult.Error(e.message.toString())

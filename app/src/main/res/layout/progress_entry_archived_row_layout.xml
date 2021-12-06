@@ -7,11 +7,16 @@
         <variable
             name="result"
             type="com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem"/>
+
+        <variable
+            name="handler"
+            type="com.example.surgeryapptest.ui.fragments.patientFrags.PatientArchiveBookFragment" />
     </data>
 
+    <!-- onProgressEntryArchivedImageClickListener="@{result}" -->
+    <!-- android:onClickListener="@{() -> handler.createAlertDialogUnarchive(result)}" -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/progressEntryRowLayout"
-        onProgressEntryImageClickListener="@{result}"
+        android:id="@+id/progressEntryArchivedRowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_5"
@@ -21,14 +26,14 @@
             android:id="@+id/row_cardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/lightGray"
             app:cardCornerRadius="@dimen/margin_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/colorPrimaryDark"
-            app:cardBackgroundColor="@color/lightGray"
-            app:strokeWidth="@dimen/margin_2">
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="@dimen/margin_1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -36,15 +41,15 @@
 
                 <ImageView
                     android:id="@+id/wound_image_view"
+                    loadImageFromUrl="@{result.progressImage}"
                     android:layout_width="@dimen/margin_150"
                     android:layout_height="0dp"
-                    loadImageFromUrl="@{result.progressImage}"
+                    android:contentDescription="TODO"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars"
-                    android:contentDescription="TODO" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/wound_title_textView"
@@ -69,32 +74,32 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:drawablePadding="@dimen/margin_5"
                     android:ellipsize="end"
+                    android:gravity="center_vertical"
                     android:maxLines="3"
                     android:text="@{result.progressDescription}"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/text_12sp"
-                    android:gravity="center_vertical"
-                    android:drawablePadding="@dimen/margin_5"
+                    app:drawableStartCompat="@drawable/ic_note2"
                     app:layout_constraintEnd_toEndOf="@+id/wound_title_textView"
                     app:layout_constraintStart_toStartOf="@+id/wound_title_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/wound_title_textView"
-                    app:drawableStartCompat="@drawable/ic_note2" />
+                    app:layout_constraintTop_toBottomOf="@+id/wound_title_textView" />
 
                 <TextView
                     android:id="@+id/wound_entry_date"
+                    formatDateTimestamp="@{result.dateCreated}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    formatDateTimestamp="@{result.dateCreated}"
+                    android:drawablePadding="@dimen/margin_5"
+                    android:gravity="center_vertical"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/text_12sp"
-                    android:gravity="center_vertical"
-                    android:drawablePadding="@dimen/margin_5"
+                    app:drawableStartCompat="@drawable/ic_appointment"
                     app:layout_constraintEnd_toEndOf="@+id/wound_description_textView"
                     app:layout_constraintStart_toStartOf="@+id/wound_description_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/wound_description_textView"
-                    app:drawableStartCompat="@drawable/ic_appointment" />
+                    app:layout_constraintTop_toBottomOf="@+id/wound_description_textView" />
 
                 <TextView
                     android:id="@+id/wound_doctorName"
@@ -102,16 +107,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
+                    android:drawablePadding="@dimen/margin_5"
+                    android:gravity="center_vertical"
                     android:text="@{result.doctorAssigned}"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/text_12sp"
-                    android:gravity="center_vertical"
-                    android:drawablePadding="@dimen/margin_5"
+                    app:drawableStartCompat="@drawable/ic_profile"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/wound_entry_date"
                     app:layout_constraintStart_toStartOf="@+id/wound_entry_date"
-                    app:layout_constraintTop_toBottomOf="@+id/wound_entry_date"
-                    app:drawableStartCompat="@drawable/ic_profile" />
+                    app:layout_constraintTop_toBottomOf="@+id/wound_entry_date" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

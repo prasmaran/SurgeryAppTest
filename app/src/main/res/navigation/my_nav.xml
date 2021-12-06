@@ -81,5 +81,9 @@
         android:id="@+id/patientArchiveBookFragment"
         android:name="com.example.surgeryapptest.ui.fragments.patientFrags.PatientArchiveBookFragment"
         android:label="Archived Entries"
-        tools:layout="@layout/fragment_patient_archive_book" />
+        tools:layout="@layout/fragment_patient_archive_book" >
+        <action
+            android:id="@+id/action_patientArchiveBookFragment_to_patientProgressBooksFragment"
+            app:destination="@id/patientProgressBooksFragment" />
+    </fragment>
 </navigation>

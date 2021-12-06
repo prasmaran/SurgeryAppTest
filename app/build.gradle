@@ -170,6 +170,9 @@ dependencies {
     // Stream Chat
     implementation "io.getstream:stream-chat-android-ui-components:4.13.0"
 
+    // Toast library
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+
 
 }
 
