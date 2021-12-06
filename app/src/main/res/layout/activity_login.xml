@@ -110,8 +110,20 @@
             android:text="@string/forgot_password"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/login_progress_bar"
+        android:layout_width="@dimen/margin_80"
+        android:layout_height="@dimen/margin_80"
+        android:background="@drawable/circle_shape"
+        android:indeterminateTint="@color/colorPrimary"
+        android:padding="@dimen/margin_10"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

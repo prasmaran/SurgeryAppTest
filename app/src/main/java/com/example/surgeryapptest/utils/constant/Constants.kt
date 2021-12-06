@@ -4,8 +4,8 @@ class Constants {
 
     companion object{
 
-        const val BASE_URL = "http://192.168.1.105:5000" // 192.168.1.107
-        const val BASE_URL2 = "http://192.168.43.119:5000"
+        const val BASE_URL = "https://crucialtechno.educationhost.cloud" // 192.168.1.107
+        const val BASE_URL2 = "http://192.168.1.106:5000"
 
         // Database
         const val DATABASE = "progressBook_database"

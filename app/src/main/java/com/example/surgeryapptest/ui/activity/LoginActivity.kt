@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.ActivityLoginBinding
 import com.example.surgeryapptest.ui.activity.doctorActivities.MainActivityDoctor
@@ -17,6 +19,8 @@ import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.LoginActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -98,21 +102,29 @@ class LoginActivity : AppCompatActivity() {
     private fun userLogin(params: Map<String, String>) {
 
         loginViewModel.loginUser(params)
+
+
+
         loginViewModel.loginResponse.observe(this@LoginActivity, { response ->
+
+            binding.loginProgressBar.visibility = View.VISIBLE
 
             when (response) {
                 is NetworkResult.Success -> {
+
+                    binding.loginProgressBar.visibility = View.GONE
+
                     setCheckIcon(true)
 
                     // save the auth token to sharedPrefs
                     sessionManager.saveAuthToken(response.data?.accessToken.toString())
                     // loginViewModel.saveUserAccessToken(response.data?.accessToken.toString())
 
-                    Toast.makeText(
-                        this@LoginActivity,
-                        response.data?.message.toString() + " " + response.data?.accessToken.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this@LoginActivity,
+//                        response.data?.message.toString() + " " + response.data?.accessToken.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
 
                     userName = response.data?.result?.get(0)?.mName.toString()
                     userID = response.data?.result?.get(0)?.mId.toString()
@@ -132,28 +144,39 @@ class LoginActivity : AppCompatActivity() {
                     // get all the user detail
                     // println("Access Token: " + sessionManager.fetchAuthToken())
 
-                    val userString =
-                        "${response.data?.result?.get(0)?.mName} = ${response.data?.result?.get(0)?.mType}"
+                    val userString = response.data?.message.toString()
+                        //"${response.data?.result?.get(0)?.mName} = ${response.data?.result?.get(0)?.mType}"
 
-                    Toast.makeText(
-                        this@LoginActivity,
+                    MotionToast.darkColorToast(
+                        this,
+                        "Login Successful!",
                         userString,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        MotionToastStyle.SUCCESS,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(this,R.font.helvetica_regular))
 
                     goToMain(userType)
                 }
                 is NetworkResult.Error -> {
-                    setCheckIcon(false)
-                    Toast.makeText(
-                        this@LoginActivity,
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
 
+                    val userString = response.data?.message.toString()
+
+                    binding.loginProgressBar.visibility = View.GONE
+
+                    setCheckIcon(false)
+
+                    MotionToast.darkColorToast(
+                        this,
+                        "Login Failed!",
+                        "Incorrect Username or Password",
+                        MotionToastStyle.ERROR,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(this,R.font.helvetica_regular))
                 }
                 is NetworkResult.Loading -> {
-                    //TODO: Add loading fragment here
+                    //binding.loginProgressBar.visibility = View.VISIBLE
                 }
             }
         })

@@ -36,7 +36,7 @@ interface ApiInterface {
     suspend fun getAllArchivedEntry(@Path("userId") userId: String): Response<AllProgressBookEntry>
 
     // To receive one progress entry by ID
-    @GET("/books/progress/{entryid}")
+    @GET("/testingnodeapp/books/progress/{entryid}")
     suspend fun getOneProgressEntry(): Response<AllProgressBookEntryItem>
 
     // To upload new wound image
@@ -81,7 +81,8 @@ interface ApiInterface {
     @Multipart
     @PUT("/books/progress/archive")
     suspend fun archiveUploadedEntry(
-        @Part("entryID") entryID: RequestBody
+        @Part("entryID") entryID: RequestBody,
+        @Part("prevFlag") prevFlag: RequestBody,
     ): Response<NetworkDeleteEntryResponse>
 
     /** DOCTOR ROUTES */

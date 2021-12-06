@@ -44,6 +44,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
     private var swelling: String = ""
     private var odour: String = ""
     private var fever: String = ""
+    private var prevFlag: String = "1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -180,7 +181,6 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
                     binding.saveBtn.visibility = View.GONE
                     enableEditing(editMode, requireView())
 
-
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(
@@ -224,7 +224,8 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
     private fun archiveSelectedEntry() {
 
         updateUploadedEntryViewModel.archiveUploadedEntry(
-            woundID.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            woundID.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+            prevFlag.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         )
 
         updateUploadedEntryViewModel.archivedEntryResponse.observe(viewLifecycleOwner, { response ->

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +32,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -95,11 +98,14 @@ class PatientProgressBooksFragment : Fragment() {
                     PatientProgressBooksFragmentDirections.actionPatientProgressBooksFragmentToUploadNewEntryFragment()
                 findNavController().navigate(action)
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    "No Internet Connection. Cannot upload new photo at the moment.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                MotionToast.createColorToast(
+                    requireActivity(), "No Internet",
+                    "Cannot upload new photo at the moment",
+                    MotionToastStyle.INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                )
             }
         }
 
