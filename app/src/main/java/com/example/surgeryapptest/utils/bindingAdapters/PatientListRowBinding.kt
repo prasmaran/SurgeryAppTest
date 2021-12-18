@@ -1,6 +1,5 @@
 package com.example.surgeryapptest.utils.bindingAdapters
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -10,10 +9,9 @@ import coil.load
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage
-import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorPatientListFragmentDirections
 import com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorSelectedPatientProgressBookFragmentDirections
-import com.example.surgeryapptest.ui.fragments.patientFrags.PatientProgressBooksFragmentDirections
+import com.example.surgeryapptest.ui.fragments.researcherFrags.ResearcherPatientListFragmentDirections
 
 class PatientListRowBinding {
 
@@ -38,6 +36,28 @@ class PatientListRowBinding {
             }
         }
 
+        /**
+         * Researcher Patient List to progress entry list
+         */
+        @BindingAdapter("onResearchPatientNameClickListener")
+        @JvmStatic
+        fun onResearchPatientNameClickListener(
+            patientListRowLayout: ConstraintLayout,
+            patientProgressBook: PatientName
+        ) {
+            patientListRowLayout.setOnClickListener {
+                try {
+                    val action =
+                        ResearcherPatientListFragmentDirections.actionResearcherPatientListFragmentToResearcherSelectedPatientProgressBookFragment2(
+                            patientProgressBook
+                        )
+                    patientListRowLayout.findNavController().navigate(action)
+                } catch (e: Exception) {
+                    println("onResearchPatientNameClickListener : $e")
+                }
+            }
+        }
+
         @BindingAdapter("onWoundImageClickListener")
         @JvmStatic
         fun onWoundImageClickListener(
@@ -46,17 +66,20 @@ class PatientListRowBinding {
         ) {
             selectedPatientWoundImageLayout.setOnClickListener {
                 try {
-                    val action =
-                        DoctorSelectedPatientProgressBookFragmentDirections.actionDoctorSelectedPatientProgressBookFragmentToPatientWoundDetailsActivity(
-                            patientWoundImage
-                        )
-                    selectedPatientWoundImageLayout.findNavController().navigate(action)
+//                    val action =
+//                        DoctorSelectedPatientProgressBookFragmentDirections.actionDoctorSelectedPatientProgressBookFragmentToPatientWoundDetailsActivity(
+//                            patientWoundImage
+//                        )
+
+                    val navigateTo = DoctorSelectedPatientProgressBookFragmentDirections.actionDoctorSelectedPatientProgressBookFragmentToPatientWoundDetailsActivity(
+                        patientWoundImage
+                    )
+                    selectedPatientWoundImageLayout.findNavController().navigate(navigateTo)
                 } catch (e: Exception) {
                     println("onWoundImageClickListener : $e")
                 }
             }
         }
-
 
         @BindingAdapter("loadDummyPatientImage")
         @JvmStatic
@@ -89,12 +112,14 @@ class PatientListRowBinding {
             textView.text = finalText
         }
 
+        // Change the variables later
         @BindingAdapter("loadContactNumber")
         @JvmStatic
         fun loadContactNumber(textView: TextView, result: PatientName) {
-            val contactNumber = result.woundImages[0].masterUserIdFk
-            textView.text = contactNumber.toString()
+            val contactNumber = "Doctor assigned: ${result.woundImages[0].doctorAssigned}"
+            textView.text = contactNumber
         }
+
 
 //        @BindingAdapter("formatDateTimestamp")
 //        @JvmStatic

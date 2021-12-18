@@ -30,9 +30,11 @@ class LoginActivityViewModel @Inject constructor(
         userIcNumber: String,
         userGender: String,
         userType: String,
+        userContact1: String,
+        userContact2: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            dataStoreRepository.saveUserProfileDetails(userName, userID, userIcNumber, userGender, userType)
+            dataStoreRepository.saveUserProfileDetails(userName, userID, userIcNumber, userGender, userType, userContact1, userContact2)
         }
 
         println("SAVED DATA IN VIEW MODEL: $userName $userID $userIcNumber $userGender $userType")

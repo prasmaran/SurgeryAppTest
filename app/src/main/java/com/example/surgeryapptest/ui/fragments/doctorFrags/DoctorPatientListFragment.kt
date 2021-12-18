@@ -11,9 +11,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentDoctorPatientListBinding
+import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
+import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName
 import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.adapter.PatientListAdapter
 import com.example.surgeryapptest.utils.app.NetworkListener
@@ -37,6 +40,8 @@ class DoctorPatientListFragment : Fragment() {
     private lateinit var networkListener: NetworkListener
     private val mAdapter by lazy { PatientListAdapter() }
     private var doctorId: String = ""
+
+    private lateinit var chartDataPatientNameList : AssignedPatientsList
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -81,7 +86,17 @@ class DoctorPatientListFragment : Fragment() {
                 }
         }
 
+        summaryChartFAB()
+
         return view
+    }
+
+    private fun summaryChartFAB() {
+        binding.summaryChartFAB.setOnClickListener {
+            val action =
+                DoctorPatientListFragmentDirections.actionDoctorPatientListFragmentToChartingActivity(chartDataPatientNameList)
+            findNavController().navigate(action)
+        }
     }
 
     private fun requestPatientList(doctorId: String) {
@@ -102,7 +117,12 @@ class DoctorPatientListFragment : Fragment() {
                     if (noOfPatients != null) {
                         patientListViewModel.setPatientNumber(noOfPatients)
                     }
-                    response.data?.let { mAdapter.setData(it) }
+                    response.data?.let {
+                        chartDataPatientNameList = it
+                        mAdapter.setData(it)
+                    }
+
+                    Log.d("DPListFrag", "requestPatientList: $chartDataPatientNameList")
                 }
                 is NetworkResult.Error -> {
                     val patientListResponse = response.message.toString()

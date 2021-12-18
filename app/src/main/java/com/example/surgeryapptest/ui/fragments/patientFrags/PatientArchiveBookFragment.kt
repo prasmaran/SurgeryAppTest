@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentPatientArchiveBookBinding
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.adapter.ArchivedAdapter
 import com.example.surgeryapptest.utils.app.AppUtils
@@ -31,6 +33,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -125,11 +129,6 @@ class PatientArchiveBookFragment : Fragment() {
             when (response) {
                 is NetworkResult.Success -> {
                     val archivedBookResponse = response.data?.message.toString()
-                    Toast.makeText(
-                        requireContext(),
-                        archivedBookResponse,
-                        Toast.LENGTH_SHORT
-                    ).show()
                     hideShimmerEffect()
                     progressBarVisible(false)
                     response.data?.let { mAdapter.setData(it) }
@@ -283,18 +282,43 @@ class PatientArchiveBookFragment : Fragment() {
         updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    binding.archiveRootLayout.showSnackBar("${response.data?.message}")
-                    progressBarVisible(false)
-                    hideShimmerEffect()
-                    //mAdapter.notifyItemRemoved(pos.toInt())
+                    //binding.woundDetailsFragmentLayout.showSnackBar("${response.data?.message}")
+                    if ((response.data?.message.toString()).contains("Successfully")) {
+                        MotionToast.createColorToast(
+                            requireActivity(),
+                            "Done Deleting",
+                            response.data?.message.toString(),
+                            MotionToastStyle.DELETE,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                        )
+
+                    } else {
+                        MotionToast.createColorToast(
+                            requireActivity(),
+                            "Delete failed!",
+                            response.data?.message.toString(),
+                            MotionToastStyle.ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                        )
+                        //mAdapter.notifyDataSetChanged()
+                    }
+                    reCallAPI()
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    progressBarVisible(false)
+                    //response.body()!!.message
+                    MotionToast.createColorToast(
+                        requireActivity(),
+                        "Delete failed!",
+                        response.data!!.message,
+                        MotionToastStyle.WARNING,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                    )
                 }
                 is NetworkResult.Loading -> {
                     //TODO: Add loading fragment here
@@ -315,17 +339,29 @@ class PatientArchiveBookFragment : Fragment() {
         updateUploadedEntryViewModel.archivedEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    binding.archiveRootLayout.showSnackBar("${response.data?.message}")
+                    MotionToast.createColorToast(
+                        requireActivity(),
+                        "Done Restoring!",
+                        response.data?.message.toString(),
+                        MotionToastStyle.SUCCESS,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                    )
                     progressBarVisible(false)
                     reCallAPI()
-                    //mAdapter.notifyItemRemoved(pos.toInt())
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                    MotionToast.createColorToast(
+                        requireActivity(),
+                        "Restoring Failed!",
+                        response.data?.message.toString(),
+                        MotionToastStyle.WARNING,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                    )
                     progressBarVisible(false)
                 }
                 is NetworkResult.Loading -> {
@@ -333,9 +369,12 @@ class PatientArchiveBookFragment : Fragment() {
                 }
             }
         })
-        //reCallAPI()
     }
 
+    private fun cheapWorkAround() {
+        val temp : AllProgressBookEntry = null!!
+        mAdapter.setData(temp)
+    }
 
     private fun goToLoginPage() {
         val intent = Intent(requireContext(), LoginActivity::class.java)

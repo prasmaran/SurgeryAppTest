@@ -5,11 +5,11 @@
     android:id="@+id/uploadFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccentLighter2"
     android:fillViewport="true"
     android:fitsSystemWindows="true"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbars="vertical"
-    android:background="@color/colorAccentLighter2"
     tools:context=".ui.fragments.PatientProfileFragment">
     <!--    android:background="@color/colorAccentLighter2"-->
 
@@ -76,8 +76,8 @@
                             android:id="@+id/no_of_photos_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Photos"
                             android:fontFamily="@font/poppins_regular"
+                            android:text="Photos"
                             android:textColor="@color/colorPrimary"
                             android:textSize="20sp" />
 
@@ -85,9 +85,9 @@
                             android:id="@+id/no_of_photos_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
                             android:paddingTop="10dp"
                             android:text="125"
-                            android:fontFamily="@font/poppins_regular"
                             android:textColor="@color/darkBlue"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -104,8 +104,8 @@
                             android:id="@+id/user_type_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="User Type"
                             android:fontFamily="@font/poppins_regular"
+                            android:text="User Type"
                             android:textColor="@color/colorPrimary"
                             android:textSize="20sp" />
 
@@ -113,9 +113,9 @@
                             android:id="@+id/user_type_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
                             android:paddingTop="10dp"
                             android:text="Patient"
-                            android:fontFamily="@font/poppins_regular"
                             android:textColor="@color/darkBlue"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -132,8 +132,8 @@
                             android:id="@+id/user_gender_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Gender"
                             android:fontFamily="@font/poppins_regular"
+                            android:text="Gender"
                             android:textColor="@color/colorPrimary"
                             android:textSize="20sp" />
 
@@ -141,9 +141,9 @@
                             android:id="@+id/user_gender_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
                             android:paddingTop="10dp"
                             android:text="Male"
-                            android:fontFamily="@font/poppins_regular"
                             android:textColor="@color/darkBlue"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -153,99 +153,141 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="45dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/margin_10">
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/info_layout1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:hint="@string/user_registration_id"
+                android:enabled="false"
+                android:textColorHint="@color/colorPrimary"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary"
+                app:startIconDrawable="@drawable/ic_patient_id"
+                app:startIconTint="@color/colorPrimary">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_user_ic_number" />
-
-                <TextView
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_registration_id_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingLeft="20dp"
-                    android:text="980524145363"
-                    android:textSize="@dimen/text_18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:enabled="false"
+                    android:textColor="@color/colorPrimary" />
 
-            <LinearLayout
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/info_layout2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:hint="Contact Number 1"
+                android:textColorHint="@color/colorPrimary"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeErrorColor="@color/red"
+                app:errorIconTint="@color/red"
+                app:errorTextColor="@color/red"
+                app:hintTextColor="@color/colorPrimary"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_patient_phone"
+                app:startIconTint="@color/colorPrimary">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_user_contact" />
-
-                <TextView
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_contact_1_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingLeft="20dp"
-                    android:text="266225225"
-                    android:textSize="@dimen/text_18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:enabled="false"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:textColor="@color/colorPrimary" />
 
-            <LinearLayout
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/info_layout3"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:hint="Contact Number 2"
+                android:textColorHint="@color/colorPrimary"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeErrorColor="@color/red"
+                app:errorIconTint="@color/red"
+                app:errorTextColor="@color/red"
+                app:hintTextColor="@color/colorPrimary"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_patient_phone"
+                app:startIconTint="@color/colorPrimary">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_user_contact" />
-
-                <TextView
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_contact_2_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingStart="20dp"
-                    android:text="0146642285"
-                    android:textSize="@dimen/text_18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:enabled="false"
+                    android:maxLength="12"
+                    android:inputType="number"
+                    android:textColor="@color/colorPrimary" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/update_user_details_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/update_details"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/save_user_details_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:backgroundTint="@color/green"
+                android:fontFamily="@font/poppins_semibold"
+                android:visibility="gone"
+                android:text="@string/save_details"
+                android:textColor="@color/white" />
+
+
+            <Button
+                android:id="@+id/logOut_btn"
+                style="@style/Theme.UserProfile"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/red"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/log_out"
+                android:textColor="#fff"
+                android:textSize="@dimen/text_18sp" />
 
         </LinearLayout>
-
-        <Button
-            style="@style/Theme.UserProfile"
-            android:id="@+id/logOut_btn"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_60"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="35dp"
-            android:backgroundTint="@color/red"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="@string/log_out"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_18sp" />
 
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
+
+

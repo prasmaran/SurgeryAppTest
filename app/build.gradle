@@ -173,6 +173,13 @@ dependencies {
     // Toast library
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
 
+    // chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // Zoom ImageView
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
 
 }
 

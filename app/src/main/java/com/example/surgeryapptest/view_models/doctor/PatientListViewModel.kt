@@ -66,8 +66,16 @@ class PatientListViewModel @Inject constructor(
     var allPatientsListResponse: MutableLiveData<NetworkResult<AssignedPatientsList>> =
         MutableLiveData()
 
+    // Research List
+    var allResearcherPatientsListResponse: MutableLiveData<NetworkResult<AssignedPatientsList>> =
+        MutableLiveData()
+
     fun getAssignedPatientsList(doctorId: String) = viewModelScope.launch {
         getAssignedPatientsListSafeCall(doctorId)
+    }
+
+    fun getResearcherPatientsList() = viewModelScope.launch {
+        getResearcherPatientsListSafeCall()
     }
 
     private suspend fun getAssignedPatientsListSafeCall(doctorId: String) {
@@ -86,6 +94,22 @@ class PatientListViewModel @Inject constructor(
         }
     }
 
+    private suspend fun getResearcherPatientsListSafeCall() {
+        allResearcherPatientsListResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.getAllPatientsList()
+                allResearcherPatientsListResponse.value = handleResearcherPatientListResponse(response)
+
+            } catch (e: Exception) {
+                allResearcherPatientsListResponse.value = NetworkResult.Error(e.message.toString())
+                println("Error0: ${e.message.toString()}")
+            }
+        } else {
+            allResearcherPatientsListResponse.value = NetworkResult.Error("No Internet Connection")
+        }
+    }
+
 
     private fun handlePatientListResponse(response: Response<AssignedPatientsList>): NetworkResult<AssignedPatientsList> {
         return when {
@@ -98,6 +122,28 @@ class PatientListViewModel @Inject constructor(
             }
             response.body()!!.result.isNullOrEmpty() || response.body()!!.result.size < 1 -> {
                 NetworkResult.Error("No patient list assigned under your name. Please contact the Pathology Department.")
+            }
+            response.isSuccessful -> {
+                val data = response.body()
+                NetworkResult.Success(data!!)
+            }
+            else -> {
+                NetworkResult.Error(response.message())
+            }
+        }
+    }
+
+    private fun handleResearcherPatientListResponse(response: Response<AssignedPatientsList>): NetworkResult<AssignedPatientsList> {
+        return when {
+            response.message().toString().contains("timeout") -> {
+                NetworkResult.Error("Timeout Error")
+            }
+            response.body()!!.message.contains("Invalid Token") || response.body()!!.message.contains(
+                "Session Expired") -> {
+                NetworkResult.Error("Error1: ${response.body()!!.message}")
+            }
+            response.body()!!.result.isNullOrEmpty() || response.body()!!.result.size < 1 -> {
+                NetworkResult.Error("No patient list available. Please contact the Pathology Department.")
             }
             response.isSuccessful -> {
                 val data = response.body()

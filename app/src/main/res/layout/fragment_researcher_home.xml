@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/lightGray"
+    tools:context=".ui.fragments.researcherFrags.ResearcherHomeFragment">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/researcher_notice_card"
+        android:layout_width="@dimen/margin_350"
+        android:layout_height="@dimen/margin_200"
+        app:cardCornerRadius="@dimen/margin_10"
+        app:cardElevation="5dp"
+        android:backgroundTint="@color/colorAccentLighter2"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/flow2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/noticeImage"
+                android:layout_width="@dimen/margin_80"
+                android:layout_height="@dimen/margin_80"
+                android:layout_margin="@dimen/margin_5"
+                android:padding="@dimen/margin_10"
+                android:scaleType="fitXY"
+                android:src="@drawable/notice_researcher"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/researcher_notice"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:padding="@dimen/margin_5"
+                android:textSize="@dimen/text_13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/noticeImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:constraint_referenced_ids="cardViewPatientsList_researcher,
+        cardViewProfile_researcher"
+        app:flow_horizontalGap="@dimen/margin_20"
+        app:flow_maxElementsWrap="2"
+        app:flow_verticalGap="@dimen/margin_20"
+        app:flow_wrapMode="aligned"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewPatientsList_researcher"
+        android:layout_width="@dimen/margin_130"
+        android:layout_height="@dimen/margin_150"
+        tools:ignore="MissingConstraints"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/margin_10"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:backgroundTint="@color/colorAccentLighter2"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/patient_list_image"
+                android:layout_width="@dimen/margin_80"
+                android:layout_height="@dimen/margin_80"
+                android:src="@drawable/ic_patient"
+                android:scaleType="fitXY"
+                android:padding="@dimen/margin_10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="@dimen/margin_5"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/patients_list"
+                android:textSize="@dimen/text_13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/patient_list_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewProfile_researcher"
+        android:layout_width="@dimen/margin_130"
+        android:layout_height="@dimen/margin_150"
+        tools:ignore="MissingConstraints"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/margin_10"
+        android:backgroundTint="@color/colorAccentLighter2"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/margin_80"
+                android:layout_height="@dimen/margin_80"
+                android:src="@drawable/ic_profile_icon"
+                android:scaleType="fitXY"
+                android:padding="@dimen/margin_10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="@dimen/margin_5"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/doctor_profile"
+                android:textSize="@dimen/text_13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

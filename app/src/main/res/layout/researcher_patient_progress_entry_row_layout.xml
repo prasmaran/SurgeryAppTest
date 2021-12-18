@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="result"
+            type="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage"/>
+    </data>
+
+    <!-- onResearchWoundImageClickListener="@{result}" -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/selectedPatientProgressBookRowLayout1"
+        onResearchWoundImageClickListener="@{result}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_marginBottom="@dimen/margin_5">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/row_cardView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/margin_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/mediumGray"
+            app:cardBackgroundColor="@color/lightGray"
+            app:strokeWidth="@dimen/margin_1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/wound_image_view1"
+                    android:layout_width="@dimen/margin_150"
+                    android:layout_height="0dp"
+                    loadImageFromUrl="@{result.progressImage}"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:contentDescription="TODO" />
+
+                <TextView
+                    android:id="@+id/wound_title_textView1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:maxLines="2"
+                    android:text="@{result.progressTitle}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/wound_image_view1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/wound_description_textView1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="@{result.progressDescription}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/text_12sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/margin_5"
+                    app:layout_constraintEnd_toEndOf="@+id/wound_title_textView1"
+                    app:layout_constraintStart_toStartOf="@+id/wound_title_textView1"
+                    app:layout_constraintTop_toBottomOf="@+id/wound_title_textView1"
+                    app:drawableStartCompat="@drawable/ic_note2" />
+
+                <TextView
+                    android:id="@+id/wound_entry_date1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    formatDateTimestamp="@{result.dateCreated}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/text_12sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/margin_5"
+                    app:layout_constraintEnd_toEndOf="@+id/wound_description_textView1"
+                    app:layout_constraintStart_toStartOf="@+id/wound_description_textView1"
+                    app:layout_constraintTop_toBottomOf="@+id/wound_description_textView1"
+                    app:drawableStartCompat="@drawable/ic_appointment" />
+
+                <TextView
+                    android:id="@+id/wound_doctorName1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    convertEntryIDToString = "@{result}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/text_12sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/margin_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/wound_entry_date1"
+                    app:layout_constraintStart_toStartOf="@+id/wound_entry_date1"
+                    app:layout_constraintTop_toBottomOf="@+id/wound_entry_date1"
+                    app:drawableStartCompat="@drawable/ic_patient_id" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

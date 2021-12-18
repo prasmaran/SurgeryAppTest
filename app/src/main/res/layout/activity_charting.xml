@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGray"
+    tools:context=".ui.activity.ChartingActivity">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_10"
+        app:layout_constraintBottom_toTopOf="@id/chartFlow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/load_pie_chart"
+        android:text="Pie Chart"
+        android:layout_width="@dimen/margin_0"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/load_bar_chart"
+        android:text="Bar Chart"
+        android:layout_width="@dimen/margin_0"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/chartFlow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:flow_horizontalGap="@dimen/margin_5"
+        android:layout_margin="@dimen/margin_5"
+        app:constraint_referenced_ids="load_pie_chart, load_bar_chart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

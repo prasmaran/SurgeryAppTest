@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/researcher_nav_graph"
+    app:startDestination="@id/researcherHomeFragment">
+
+    <fragment
+        android:id="@+id/researcherHomeFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.researcherFrags.ResearcherHomeFragment"
+        android:label="Researcher Dashboard"
+        tools:layout="@layout/fragment_researcher_home" />
+    <fragment
+        android:id="@+id/researcherPatientListFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.researcherFrags.ResearcherPatientListFragment"
+        android:label="All Patients List"
+        tools:layout="@layout/fragment_researcher_patient_list">
+        <action
+            android:id="@+id/action_researcherPatientListFragment_to_chartingActivity2"
+            app:destination="@id/chartingActivity2" />
+        <action
+            android:id="@+id/action_researcherPatientListFragment_to_researcherSelectedPatientProgressBookFragment2"
+            app:destination="@id/researcherSelectedPatientProgressBookFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/researcherProfileFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.PatientProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_patient_profile" />
+
+    <activity
+        android:id="@+id/chartingActivity2"
+        android:name="com.example.surgeryapptest.ui.activity.ChartingActivity"
+        android:label="All Patients Summary Chart"
+        tools:layout="@layout/activity_charting">
+        <argument
+            android:name="patientListData"
+            app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList" />
+    </activity>
+    <!--    <fragment-->
+    <!--        android:id="@+id/doctorSelectedPatientProgressBookFragment2"-->
+    <!--        android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorSelectedPatientProgressBookFragment"-->
+    <!--        android:label="Selected Patient Progress Book"-->
+    <!--        tools:layout="@layout/fragment_doctor_selected_patient_progress_book">-->
+    <!--        <argument-->
+    <!--            android:name="patientProgressBook"-->
+    <!--            app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName" />-->
+    <!--    </fragment>-->
+    <fragment
+        android:id="@+id/researcherSelectedPatientProgressBookFragment2"
+        android:name="com.example.surgeryapptest.ui.fragments.researcherFrags.ResearcherSelectedPatientProgressBookFragment"
+        android:label="fragment_researcher_selected_patient_progress_book"
+        tools:layout="@layout/fragment_researcher_selected_patient_progress_book">
+        <argument
+            android:name="patientProgressBook"
+            app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName" />
+        <action
+            android:id="@+id/action_researcherSelectedPatientProgressBookFragment2_to_patientWoundDetailsActivity2"
+            app:destination="@id/patientWoundDetailsActivity2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <activity
+        android:id="@+id/patientWoundDetailsActivity2"
+        android:name="com.example.surgeryapptest.ui.activity.doctorActivities.PatientWoundDetailsActivity"
+        android:label="researcher_activity_patient_wound_details"
+        tools:layout="@layout/activity_patient_wound_details">
+        <argument
+            android:name="woundImage"
+            app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage" />
+    </activity>
+</navigation>
+

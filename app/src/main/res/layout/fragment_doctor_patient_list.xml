@@ -51,4 +51,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/summaryChartFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_24"
+        android:layout_marginBottom="@dimen/margin_24"
+        android:clickable="true"
+        app:tint="@color/white"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_chart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="true"
+        android:contentDescription="TODO" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

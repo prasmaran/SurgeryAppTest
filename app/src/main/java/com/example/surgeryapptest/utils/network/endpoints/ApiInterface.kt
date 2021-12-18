@@ -8,7 +8,9 @@ import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBo
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.updateDetails.UpdateDetailResponse
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
+import com.example.surgeryapptest.model.network.utilsResponse.GeneralInfoResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -71,8 +73,12 @@ interface ApiInterface {
     ): Response<NetworkUpdateEntryResponse>
 
     // Delete selected image entry
+    //@PUT("/books/progress/delete")
+    /**
+     * Delete only entries without feedback
+     */
     @Multipart
-    @PUT("/books/progress/delete")
+    @PUT("/books/progress/deleteEntryNoFeedback")
     suspend fun deleteUploadedEntry(
         @Part("entryID") entryID: RequestBody
     ): Response<NetworkDeleteEntryResponse>
@@ -99,5 +105,23 @@ interface ApiInterface {
     @POST("/doctor/sendFeedback")
     suspend fun sendFeedback(@Body params: Map<String, String>):
             Response<SendWoundFeedbackResponse>
+
+    /** RESEARCHER ROUTES **/
+    @GET("/researcher/getAllPatients")
+    suspend fun getAllPatientsList(): Response<AssignedPatientsList>
+
+    // Update user phone number
+    @Multipart
+    @PUT("/user/update_phone_number")
+    suspend fun updatePhoneNumber(
+        @Part("userContact1") userContact1: RequestBody,
+        @Part("userContact2") userContact2: RequestBody,
+        @Part("userID") userID: RequestBody,
+    ) : Response<UpdateDetailResponse>
+
+    // To receive list of general ideas about surgery
+    @GET("/utils/general")
+    suspend fun getGeneralInfoList(): Response<GeneralInfoResponse>
+
 
 }

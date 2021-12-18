@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/researcherHomeFragment"
+        android:title="@string/patient_dashboard"
+        android:icon="@drawable/ic_home"/>
+
+    <item android:id="@+id/researcherPatientListFragment"
+        android:title="@string/patients_list"
+        android:icon="@drawable/ic_groups"/>
+
+    <item android:id="@+id/researcherProfileFragment"
+        android:title="@string/patient_profile"
+        android:icon="@drawable/ic_profile"/>
+</menu>
