@@ -189,9 +189,9 @@ class WoundDetailsFragmentViewModel @Inject constructor(
             response.message().toString().contains("timeout") -> {
                 NetworkResult.Error("Timeout")
             }
-            response.body()!!.success.toString().contains("false") -> {
-                NetworkResult.Error("Error: ${response.body()!!.success}")
-            }
+//            response.body()!!.success.toString().contains("false") -> {
+//                NetworkResult.Error("Error: ${response.body()!!.message}")
+//            }
             response.body()!!.message.toString().contains("Please") -> {
                 NetworkResult.Error("Please upload an image!")
             }

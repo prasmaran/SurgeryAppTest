@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentDoctorPatientWoundFeedbackBinding
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage
 import com.example.surgeryapptest.ui.dialog_fragments.PatientDetailFeedback
@@ -18,9 +19,11 @@ import com.example.surgeryapptest.ui.interfaces.SendFeedback
 import com.example.surgeryapptest.utils.adapter.FeedbackListAdapter
 import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.NetworkListener
+import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.utils.constant.DialogFragConstants
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.doctor.WoundFeedbackListViewModel
+import com.example.surgeryapptest.view_models.patient.UserProfileFragmentViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -31,6 +34,8 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
     private val binding get() = _binding!!
 
     private lateinit var woundFeedbackListViewModel: WoundFeedbackListViewModel
+    private lateinit var userProfileViewModel: UserProfileFragmentViewModel
+
     private lateinit var networkListener: NetworkListener
     private val feedbackAdapter by lazy { FeedbackListAdapter() }
 
@@ -43,6 +48,8 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
         super.onCreate(savedInstanceState)
         woundFeedbackListViewModel =
             ViewModelProvider(requireActivity()).get(WoundFeedbackListViewModel::class.java)
+        userProfileViewModel =
+            ViewModelProvider(requireActivity()).get(UserProfileFragmentViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -53,6 +60,7 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
         _binding = FragmentDoctorPatientWoundFeedbackBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        readSavedUserProfileDetails()
 
         val args = arguments
         val woundBundleFeedback: WoundImage? = args?.getParcelable("woundImageBundle")
@@ -90,6 +98,16 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
 
         AppUtils.showToast(requireContext(), "Entry ID: $woundImageEntryId")
         return view
+    }
+
+    private fun readSavedUserProfileDetails() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            userProfileViewModel.readUserProfileDetail.collect { values ->
+                when (values.userType) {
+                    "R" -> binding.sendFeedbackBtn.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun swipeToRefresh() {

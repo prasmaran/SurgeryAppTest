@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="result"
+            type="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/patientListRowLayout"
+        onResearchPatientNameClickListener="@{result}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_marginBottom="@dimen/margin_5">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/patient_row_cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/margin_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/mediumGray"
+            app:cardBackgroundColor="@color/lightGray"
+            app:strokeWidth="@dimen/margin_1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/patient_image_view"
+                    android:layout_width="@dimen/margin_150"
+                    android:layout_height="0dp"
+                    android:background="@drawable/gradient"
+                    android:src="@drawable/ic_user_male"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="@dimen/margin_20"
+                    android:contentDescription="TODO" />
+
+                <TextView
+                    android:id="@+id/patient_name_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:maxLines="2"
+                    loadPatientName="@{result}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/patient_image_view"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/patient_registration_id_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    loadPatientIDNumber="@{result}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/text_12sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/margin_5"
+                    app:layout_constraintEnd_toEndOf="@+id/patient_name_textView"
+                    app:layout_constraintStart_toStartOf="@+id/patient_name_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_name_textView"
+                    app:drawableStartCompat="@drawable/ic_profile" />
+
+                <TextView
+                    android:id="@+id/no_of_images_uploaded_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    loadWoundImageNumber="@{result}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/text_12sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/margin_5"
+                    app:layout_constraintEnd_toEndOf="@+id/patient_registration_id_textView"
+                    app:layout_constraintStart_toStartOf="@+id/patient_registration_id_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_registration_id_textView"
+                    app:drawableStartCompat="@drawable/ic_loading_image" />
+
+                <TextView
+                    android:id="@+id/patient_contact_number_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    loadContactNumber="@{result}"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/text_12sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/margin_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/no_of_images_uploaded_textView"
+                    app:layout_constraintStart_toStartOf="@+id/no_of_images_uploaded_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/no_of_images_uploaded_textView"
+                    app:drawableStartCompat="@drawable/ic_groups" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

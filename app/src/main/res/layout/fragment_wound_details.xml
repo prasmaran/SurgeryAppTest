@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/detail_wound_image"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_250"
@@ -406,6 +406,19 @@
                 app:constraint_referenced_ids="update_btn,save_btn,delete_btn "
                 app:layout_constraintTop_toBottomOf="@id/progress_bar"
                 tools:layout_editor_absoluteX="20dp" />
+
+            <ProgressBar
+                android:id="@+id/update_entry_progress_bar"
+                android:layout_width="@dimen/margin_80"
+                android:layout_height="@dimen/margin_80"
+                android:background="@drawable/circle_shape"
+                android:indeterminateTint="@color/colorPrimary"
+                android:padding="@dimen/margin_10"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

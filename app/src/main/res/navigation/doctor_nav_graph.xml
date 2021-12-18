@@ -22,6 +22,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_doctorPatientListFragment_to_chartingActivity"
+            app:destination="@id/chartingActivity" />
     </fragment>
     <fragment
         android:id="@+id/doctorAppointmentFragment"
@@ -57,6 +60,15 @@
         <argument
             android:name="woundImage"
             app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage" />
+    </activity>
+    <activity
+        android:id="@+id/chartingActivity"
+        android:name="com.example.surgeryapptest.ui.activity.ChartingActivity"
+        android:label="Summary Chart"
+        tools:layout="@layout/activity_charting" >
+        <argument
+            android:name="patientListData"
+            app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList" />
     </activity>
 
 </navigation>

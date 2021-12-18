@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.ui.activity.doctorActivities.MainActivityDoctor
 import com.example.surgeryapptest.ui.activity.patientActivities.MainActivity
+import com.example.surgeryapptest.ui.activity.researcherActivities.ResearcherMainActivity
 import com.example.surgeryapptest.view_models.SplashAScreenActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -70,10 +71,10 @@ class SplashScreenActivity : AppCompatActivity() {
                 println("RETRIEVED DATA FROM DS IN SPLASH SCREEN : ${values.userType} ")
 
                 when (values.userType) {
-                    "A" -> targetActivity = MainActivity::class.java
+                    "A" -> targetActivity = MainActivity::class.java // remove this
                     "P" -> targetActivity = MainActivity::class.java
                     "D" -> targetActivity = MainActivityDoctor::class.java
-                    "R" -> targetActivity = MainActivity::class.java
+                    "R" -> targetActivity = ResearcherMainActivity::class.java // Add new nav graph etc
                     "DOP" -> targetActivity = MainActivity::class.java
                 }
 

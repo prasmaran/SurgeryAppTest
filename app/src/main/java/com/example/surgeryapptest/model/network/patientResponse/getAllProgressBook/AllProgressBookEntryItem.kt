@@ -17,6 +17,8 @@ data class AllProgressBookEntryItem(
     val progressDescription: String,
     @SerializedName("dateCreated")
     val dateCreated: String,
+    @SerializedName("dateUpdated")
+    val dateUpdated: String,
     @SerializedName("quesFluid")
     val quesFluid: String,
     @SerializedName("quesPain")

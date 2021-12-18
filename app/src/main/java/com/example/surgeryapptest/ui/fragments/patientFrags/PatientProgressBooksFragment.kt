@@ -19,6 +19,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentPatientProgressBooksBinding
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.adapter.Adapter
 import com.example.surgeryapptest.utils.app.NetworkListener
@@ -47,6 +49,9 @@ class PatientProgressBooksFragment : Fragment() {
     private val mAdapter by lazy { Adapter() }
     private var userId: String = ""
     private var tokenValid = true
+
+    // Passing data for charts
+    private var chartData = emptyList<AllProgressBookEntryItem>()
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -176,7 +181,13 @@ class PatientProgressBooksFragment : Fragment() {
                     if (noOfPhotos != null) {
                         mainViewModel.setNumberOfPhotos(noOfPhotos)
                     }
-                    response.data?.let { mAdapter.setData(it) }
+
+                    response.data?.let {
+                        chartData = it.result!!
+                        mAdapter.setData(it)
+                    }
+
+                    //Log.d("PatientProgressBooksFrag", "chartData : $chartData")
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()

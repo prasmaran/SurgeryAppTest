@@ -70,7 +70,7 @@
 
     <!-- Login/Register -->
     <string name="username">Username</string>
-    <string name="registration_id">Registration ID</string>
+    <string name="user_registration_id">Registration ID</string>
     <string name="password">Password</string>
     <string name="login">LOGIN</string>
     <string name="welcome">Welcome back 😁</string>
@@ -92,6 +92,7 @@
     <string name="feedback">Feedback</string>
     <string name="title">Title</string>
     <string name="swipe_down_to_refresh">Swipe down to refresh</string>
+    <string name="researcher_notice"><u><b>As a researcher, you are only permitted to view all the patients uploaded images and the relevant details</b></u></string>
 
     <!-- Stream Chat -->
     <string name="go">GO</string>
@@ -105,5 +106,9 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="click_to_see_archived_files"><u>--- Click to see archived files ---</u></string>
+    <string name="registration_id">Registration ID</string>
+    <string name="update_details">Update Details</string>
+    <string name="save_details">Save details</string>
+    <string name="faq">FAQ</string>
 
 </resources>

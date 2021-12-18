@@ -7,12 +7,15 @@ import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetwo
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.updateDetails.UpdateDetailResponse
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
+import com.example.surgeryapptest.model.network.utilsResponse.GeneralInfoResponse
 import com.example.surgeryapptest.utils.network.endpoints.ApiInterface
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Part
 import retrofit2.http.Path
 import javax.inject.Inject
@@ -89,6 +92,11 @@ class RemoteDataSource @Inject constructor(
         return apiInterface.getAssignedPatientsList(doctorId)
     }
 
+    // Researcher Routes
+    suspend fun getAllPatientsList(): Response<AssignedPatientsList> {
+        return  apiInterface.getAllPatientsList()
+    }
+
     // Wound Feedback List
     suspend fun getFeedbackList(woundImageID: String): Response<WoundImageFeedback> {
         return apiInterface.getFeedbackList(woundImageID)
@@ -97,6 +105,18 @@ class RemoteDataSource @Inject constructor(
     suspend fun sendFeedback(params: Map<String, String>):
             Response<SendWoundFeedbackResponse> {
         return apiInterface.sendFeedback(params)
+    }
+
+    suspend fun updatePhoneNumber(
+        userContact1: RequestBody,
+        userContact2: RequestBody,
+        userID: RequestBody,
+    ) : Response<UpdateDetailResponse> {
+        return apiInterface.updatePhoneNumber(userContact1, userContact2, userID)
+    }
+
+    suspend fun getGeneralInfoList(): Response<GeneralInfoResponse> {
+        return apiInterface.getGeneralInfoList()
     }
 
 }

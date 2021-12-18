@@ -9,6 +9,7 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import coil.load
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentWoundDetailsBinding
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
+import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.patient.WoundDetailsFragmentViewModel
@@ -23,6 +25,8 @@ import com.hsalf.smilerating.BaseRating
 import com.hsalf.smilerating.SmileRating
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 
 class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
@@ -108,33 +112,31 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         // Listen for save button
         binding.saveBtn.setOnClickListener {
             // save to database after validation
-            //val isAllFieldFilled = validateFormEntry(
-            //    view, title, description, fluidDrained, painRating,
-            //    redness, swelling, odour, fever
-            //)
-            createAlertDialogUpdate()
+            val isAllFieldFilled = validateFormEntry(
+                title, description, fluidDrained, painRating, redness,
+                swelling, odour, fever
+            )
+            //createAlertDialogUpdate()
             println(
                 "Updated values: $title, $description, $fluidDrained, $painRating,\n" +
                         "$redness, $swelling, $odour, $fever"
             )
 
-//            if (isAllFieldFilled) {
-//                createAlertDialogUpdate()
-//            } else {
-//                AppUtils.showToast(requireContext(), "Please fill all fields !")
-//            }
+            if (isAllFieldFilled) {
+                createAlertDialogUpdate()
+            } else {
+                //AppUtils.showToast(requireContext(), "Please fill all fields !")
+            }
         }
 
         binding.deleteBtn.setOnClickListener {
             createAlertDialogDelete()
-            //AppUtils.showToast(requireContext(), "Need to setup the delete function")
         }
 
         return view
     }
 
     private fun validateFormEntry(
-        view: View,
         title: String,
         description: String,
         fluid: String,
@@ -144,18 +146,20 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         odour: String,
         fever: String
     ): Boolean {
-        when {
-            painRating.isEmpty() or description.isEmpty() or title.isEmpty() or
+        return when {
+            painRating.isEmpty() or description.isBlank() or title.isBlank() or
                     redness.isEmpty() or fluid.isEmpty() or swelling.isEmpty() or
                     odour.isEmpty() or fever.isEmpty() -> {
                 binding.woundDetailsFragmentLayout.showSnackBar("Fill in all the fields")
-                return false
+                false
             }
-            else -> return true
+            else -> true
         }
     }
 
     private fun updateSelectedEntry() {
+
+        binding.updateEntryProgressBar.visibility = View.VISIBLE
         // Pass the values as parameter
         // to be sent to backend
         updateUploadedEntryViewModel.updateUploadedEntry(
@@ -174,6 +178,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         updateUploadedEntryViewModel.updatedEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
+                    binding.updateEntryProgressBar.visibility = View.GONE
                     binding.woundDetailsFragmentLayout.showSnackBar("This entry has been updated successfully")
 
                     editMode = false
@@ -183,6 +188,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
 
                 }
                 is NetworkResult.Error -> {
+                    binding.updateEntryProgressBar.visibility = View.GONE
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -205,14 +211,41 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    binding.woundDetailsFragmentLayout.showSnackBar("${response.data?.message}")
+                    //binding.woundDetailsFragmentLayout.showSnackBar("${response.data?.message}")
+
+                    if ((response.data?.message.toString()).contains("Successfully")) {
+                        MotionToast.createColorToast(
+                            requireActivity(),
+                            "Done Deleting",
+                            response.data?.message.toString(),
+                            MotionToastStyle.DELETE,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                        )
+                    } else {
+                        MotionToast.createColorToast(
+                            requireActivity(),
+                            "Delete failed!",
+                            response.data?.message.toString(),
+                            MotionToastStyle.ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                        )
+                    }
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    //response.body()!!.message
+                    MotionToast.createColorToast(
+                        requireActivity(),
+                        "Delete failed!",
+                        response.data!!.message,
+                        MotionToastStyle.WARNING,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                    )
                 }
                 is NetworkResult.Loading -> {
                     //TODO: Add loading fragment here

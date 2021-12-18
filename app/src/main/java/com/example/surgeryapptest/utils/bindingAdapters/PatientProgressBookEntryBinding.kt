@@ -15,9 +15,14 @@ import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import coil.load
 import com.example.surgeryapptest.R
+import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.PatientName
+import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
+import com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorSelectedPatientProgressBookFragmentDirections
 import com.example.surgeryapptest.ui.fragments.patientFrags.PatientArchiveBookFragment
 import com.example.surgeryapptest.ui.fragments.patientFrags.PatientProgressBooksFragmentDirections
+import com.example.surgeryapptest.ui.fragments.researcherFrags.ResearcherSelectedPatientProgressBookFragmentDirections
 import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.constant.Constants
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -47,12 +52,30 @@ class PatientProgressBookEntryBinding {
             }
         }
 
-        /** Selected Patients
-         *
-         *
-         *
-         *
-         * */
+        /**
+         * Researcher Selected patient progess entry to detail activity
+         */
+        @BindingAdapter("onResearchWoundImageClickListener")
+        @JvmStatic
+        fun onResearchWoundImageClickListener(
+            selectedPatientWoundImageLayout: ConstraintLayout,
+            patientWoundImage: WoundImage
+        ) {
+            selectedPatientWoundImageLayout.setOnClickListener {
+                try {
+                    println("GOING TO DETAIL ACTIVITY with ${patientWoundImage.progressTitle}")
+
+                    val navigateTo = ResearcherSelectedPatientProgressBookFragmentDirections.actionResearcherSelectedPatientProgressBookFragment2ToPatientWoundDetailsActivity2(
+                        patientWoundImage
+                    )
+
+                    selectedPatientWoundImageLayout.findNavController().navigate(navigateTo)
+                } catch (e: Exception) {
+                    println("onResearchWoundImageClickListener : $e")
+                }
+            }
+        }
+
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
@@ -76,27 +99,22 @@ class PatientProgressBookEntryBinding {
             //return parsedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
         }
 
-        /**
-         * Long click listener to
-         * remove the entry from the archive list
-         */
-        @BindingAdapter("onProgressEntryArchivedImageClickListener")
+        // Change the variables later
+        @BindingAdapter("convertEntryIDToString")
         @JvmStatic
-        fun onProgressEntryArchivedImageClickListener(
-            progressArchivedEntryRowLayout: ConstraintLayout,
-            result: AllProgressBookEntryItem
-        ) {
-//            progressArchivedEntryRowLayout.setOnClickListener {
-            Log.d("LONG_PRESS", "onProgressEntryArchivedImageClickListener: $result ")
-//            }
+        fun convertEntryIDToString(textView: TextView, result: WoundImage) {
+            val entryID = "Uploaded image ID: ${result.entryID}"
+            textView.text = entryID
         }
 
-//        @RequiresApi(Build.VERSION_CODES.O)
-//        fun parseDate(dateTime: String): String {
-//            val parsedDate = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_DATE_TIME)
-//            val sdf = parsedDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm a"))
-//            println("Parsed DateTime: $sdf")
-//            return parsedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-//        }
+
+        // Change the variables later
+        @BindingAdapter("loadDrAssignedPatientProgressBook")
+        @JvmStatic
+        fun loadDrAssignedPatientProgressBook(textView: TextView, result: AllProgressBookEntryItem) {
+            val contactNumber = "Doctor assigned: ${result.doctorAssigned}"
+            textView.text = contactNumber
+        }
+
     }
 }

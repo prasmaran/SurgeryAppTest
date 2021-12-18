@@ -14,6 +14,7 @@ import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.ActivityLoginBinding
 import com.example.surgeryapptest.ui.activity.doctorActivities.MainActivityDoctor
 import com.example.surgeryapptest.ui.activity.patientActivities.MainActivity
+import com.example.surgeryapptest.ui.activity.researcherActivities.ResearcherMainActivity
 import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
@@ -34,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
     private var userIcNumber = ""
     private var userGender = ""
     private var userType = ""
+    private var userContact1 = ""
+    private var userContact2 = ""
 
     // Replace later with Data Store
     @Inject
@@ -92,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             else -> {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, ResearcherMainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             }
@@ -131,12 +134,14 @@ class LoginActivity : AppCompatActivity() {
                     userIcNumber = response.data?.result?.get(0)?.mIc.toString()
                     userGender = response.data?.result?.get(0)?.mGender.toString()
                     userType = response.data?.result?.get(0)?.mType.toString()
+                    userContact1 = response.data?.result?.get(0)?.mContact1.toString()
+                    userContact2 = response.data?.result?.get(0)?.mContact2.toString()
 
                     // save user logged in flag = true
                     loginViewModel.setUserLoggedIn(true)
                     // save user profile details to data store
                     loginViewModel.saveUserProfileDetails(
-                        userName, userID, userIcNumber, userGender, userType
+                        userName, userID, userIcNumber, userGender, userType, userContact1, userContact2
                     )
                     // save access token to data store
                     loginViewModel.saveUserAccessToken(response.data?.accessToken.toString())

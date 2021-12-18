@@ -16,6 +16,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_patientHomeFragment_to_generalInfoFragment"
+            app:destination="@id/generalInfoFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/patientProgressBooksFragment"
@@ -86,4 +93,26 @@
             android:id="@+id/action_patientArchiveBookFragment_to_patientProgressBooksFragment"
             app:destination="@id/patientProgressBooksFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/generalInfoFragment"
+        android:name="com.example.surgeryapptest.ui.fragments.patientFrags.GeneralInfoFragment"
+        android:label="Frequently Asked Questions"
+        tools:layout="@layout/fragment_general_info" >
+        <action
+            android:id="@+id/action_generalInfoFragment_to_generalInfoWebActivity"
+            app:destination="@id/generalInfoWebActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <activity
+        android:id="@+id/generalInfoWebActivity"
+        android:name="com.example.surgeryapptest.ui.activity.GeneralInfoWebActivity"
+        android:label="FAQ Article"
+        tools:layout="@layout/activity_general_info_web" >
+        <argument
+            android:name="selected_article"
+            app:argType="com.example.surgeryapptest.model.network.utilsResponse.GeneralInfoList" />
+    </activity>
 </navigation>

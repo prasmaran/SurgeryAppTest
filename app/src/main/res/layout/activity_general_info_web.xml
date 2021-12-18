@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.activity.GeneralInfoWebActivity">
+
+    <TextView
+        android:id="@+id/web_loading_tv"
+        android:text="Webpage is loading..."
+        android:gravity="center"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="@dimen/text_15sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/margin_5"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <WebView
+        android:id="@+id/general_info_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/web_loading_tv"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

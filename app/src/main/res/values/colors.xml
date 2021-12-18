@@ -20,4 +20,7 @@
     <color name="darkBlue">#041055</color>
 
     <color name="actionBarBackgroundColour">@color/colorPrimary</color>
+
+    <!-- Widget colours -->
+    <color name="mtrl_textinput_default_box_stroke_color">#6200EA</color>
 </resources>

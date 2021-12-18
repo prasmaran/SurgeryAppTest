@@ -20,6 +20,9 @@ data class Result(
     val mType: String,
     @SerializedName("password")
     val password: String,
-    @SerializedName("updated_at")
-    val updatedAt: String
+    @SerializedName("m_contact1")
+    val mContact1: String,
+    @SerializedName("m_contact2")
+    val mContact2: String,
+
 )

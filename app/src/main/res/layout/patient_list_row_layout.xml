@@ -112,7 +112,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/no_of_images_uploaded_textView"
                     app:layout_constraintStart_toStartOf="@+id/no_of_images_uploaded_textView"
                     app:layout_constraintTop_toBottomOf="@+id/no_of_images_uploaded_textView"
-                    app:drawableStartCompat="@drawable/ic_phone" />
+                    app:drawableStartCompat="@drawable/ic_groups" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

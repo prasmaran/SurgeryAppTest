@@ -62,6 +62,8 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         userIcNumber: String,
         userGender: String,
         userType: String,
+        userContact1: String,
+        userContact2: String
     ) {
         dataStore.edit { preferences ->
             preferences[PreferenceKeys.userName] = userName
@@ -69,13 +71,15 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
             preferences[PreferenceKeys.userIcNumber] = userIcNumber
             preferences[PreferenceKeys.userGender] = userGender
             preferences[PreferenceKeys.userType] = userType
+            preferences[PreferenceKeys.userContact1] = userContact1
+            preferences[PreferenceKeys.userContact2] = userContact2
         }
     }
 
-    suspend fun updateUserProfileDetails(userContact1: String, userContact2: String?) {
+    suspend fun updateUserProfileDetails(userContact1: String, userContact2: String) {
         dataStore.edit { preferences ->
             preferences[PreferenceKeys.userContact1] = userContact1
-            preferences[PreferenceKeys.userContact2] = userContact2!!
+            preferences[PreferenceKeys.userContact2] = userContact2
         }
     }
 
@@ -95,12 +99,16 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
             val receivedUserGender =
                 preferences[PreferenceKeys.userGender] ?: Constants.NOT_AVAILABLE
             val receivedUserType = preferences[PreferenceKeys.userType] ?: Constants.NOT_AVAILABLE
+            val receivedUserContact1 = preferences[PreferenceKeys.userContact1] ?: Constants.NOT_AVAILABLE
+            val receivedUserContact2 = preferences[PreferenceKeys.userContact2] ?: Constants.NOT_AVAILABLE
             UserProfileDetail(
                 receivedUserName,
                 receivedUserID,
                 receivedUserIcNumber,
                 receivedUserGender,
-                receivedUserType
+                receivedUserType,
+                receivedUserContact1,
+                receivedUserContact2
             )
         }
 
@@ -164,7 +172,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
             }
         }
         .map { preferences ->
-            val noOfPhotos = preferences[PreferenceKeys.patientNumberOfPhotos] ?: 1
+            val noOfPhotos = preferences[PreferenceKeys.patientNumberOfPhotos] ?: 0
             noOfPhotos
         }
 

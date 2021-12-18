@@ -30,9 +30,9 @@ object NetworkModule {
             .Builder()
             .addInterceptor(interceptor) // <-- Check this
             .addInterceptor(authInterceptor) // <-- Check this auth toke interceptor
-            .readTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(45, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
             .build()
     }
 
