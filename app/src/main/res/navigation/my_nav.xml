@@ -50,6 +50,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_patientProgressBooksFragment_to_PDFProgressEntryActivity"
+            app:destination="@id/PDFProgressEntryActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/patientAppointmentFragment"
@@ -114,5 +121,14 @@
         <argument
             android:name="selected_article"
             app:argType="com.example.surgeryapptest.model.network.utilsResponse.GeneralInfoList" />
+    </activity>
+    <activity
+        android:id="@+id/PDFProgressEntryActivity"
+        android:name="com.example.surgeryapptest.ui.activity.patientActivities.PDFProgressEntryActivity"
+        android:label="Share Wound Image in PDF"
+        tools:layout="@layout/activity_pdfprogress_entry" >
+        <argument
+            android:name="wound_image_id"
+            app:argType="integer" />
     </activity>
 </navigation>

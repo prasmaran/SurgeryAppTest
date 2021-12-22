@@ -8,6 +8,7 @@ import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBo
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.pdfGenerationResponse.NetworkPDFGenerateResponse
 import com.example.surgeryapptest.model.network.updateDetails.UpdateDetailResponse
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
 import com.example.surgeryapptest.model.network.utilsResponse.GeneralInfoResponse
@@ -117,11 +118,15 @@ interface ApiInterface {
         @Part("userContact1") userContact1: RequestBody,
         @Part("userContact2") userContact2: RequestBody,
         @Part("userID") userID: RequestBody,
-    ) : Response<UpdateDetailResponse>
+    ): Response<UpdateDetailResponse>
 
     // To receive list of general ideas about surgery
     @GET("/utils/general")
     suspend fun getGeneralInfoList(): Response<GeneralInfoResponse>
 
+    // Generate PDF and share to others
+
+    @GET("/utils/getPdf/{entryID}")
+    suspend fun getWoundImagePDF(@Path("entryID") entryID: String): Response<NetworkPDFGenerateResponse>
 
 }

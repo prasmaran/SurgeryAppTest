@@ -27,11 +27,12 @@ import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
 import com.example.surgeryapptest.view_models.doctor.PatientListViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ResearcherPatientListFragment : Fragment() {
 
 //    private var _binding: FragmentResearcherPatientListBinding? = null

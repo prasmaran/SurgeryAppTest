@@ -7,6 +7,7 @@ import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetwo
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
+import com.example.surgeryapptest.model.network.pdfGenerationResponse.NetworkPDFGenerateResponse
 import com.example.surgeryapptest.model.network.updateDetails.UpdateDetailResponse
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
 import com.example.surgeryapptest.model.network.utilsResponse.GeneralInfoResponse
@@ -117,6 +118,10 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun getGeneralInfoList(): Response<GeneralInfoResponse> {
         return apiInterface.getGeneralInfoList()
+    }
+
+    suspend fun getWoundImagePDF(entryID: String): Response<NetworkPDFGenerateResponse> {
+        return apiInterface.getWoundImagePDF(entryID)
     }
 
 }
