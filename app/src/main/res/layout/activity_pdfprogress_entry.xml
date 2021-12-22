@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGray"
+    tools:context=".ui.activity.patientActivities.PDFProgressEntryActivity">
+
+    <TextView
+        android:id="@+id/pdf_share_download_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:padding="@dimen/margin_5"
+        android:text="@string/download_and_share"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_15sp"
+        app:drawableEndCompat="@drawable/ic_share"
+        android:drawablePadding="@dimen/margin_10"
+        app:layout_constraintBottom_toTopOf="@id/cannot_see_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableTint="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/cannot_see_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="Just download it if you cannot see the file"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_12sp"
+        app:layout_constraintBottom_toTopOf="@id/pdf_web_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pdf_share_download_tv"
+        app:drawableTint="@color/colorPrimary" />
+
+
+    <WebView
+        android:id="@+id/pdf_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cannot_see_tv"/>
+
+    <ProgressBar
+        android:id="@+id/pdf_generate_progress_bar"
+        android:layout_width="@dimen/margin_80"
+        android:layout_height="@dimen/margin_80"
+        android:background="@drawable/circle_shape"
+        android:indeterminateTint="@color/colorPrimary"
+        android:padding="@dimen/margin_10"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

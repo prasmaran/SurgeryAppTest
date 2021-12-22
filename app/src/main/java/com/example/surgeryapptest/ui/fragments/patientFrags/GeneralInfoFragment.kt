@@ -37,10 +37,6 @@ class GeneralInfoFragment : Fragment() {
 
         setupRecyclerView()
 
-        binding.faqTitle.setOnClickListener {
-            AppUtils.showToast(requireContext(), "Title is clicked")
-        }
-
         requestApiData()
 
         return view

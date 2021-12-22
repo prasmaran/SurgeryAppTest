@@ -72,7 +72,7 @@ class MainActivityViewModel @Inject constructor(
     }
 
     // Newly added to search database
-    fun searchDatabase(searchQuery: String) : LiveData<List<ProgressBookEntity>> {
+    fun searchDatabase(searchQuery: String): LiveData<List<ProgressBookEntity>> {
         return repository.local.searchDatabase(searchQuery).asLiveData()
     }
 
@@ -115,7 +115,8 @@ class MainActivityViewModel @Inject constructor(
                 NetworkResult.Error("Timeout Error")
             }
             response.body()!!.message.contains("Invalid Token") || response.body()!!.message.contains(
-                "Session Expired") -> {
+                "Session Expired"
+            ) -> {
                 NetworkResult.Error("Error 1: ${response.body()!!.message}")
             }
             response.body()!!.result.isNullOrEmpty() && response.body()!!.success.contains("true") -> {
@@ -166,7 +167,8 @@ class MainActivityViewModel @Inject constructor(
                 NetworkResult.Error("Timeout Error")
             }
             response.body()!!.message.contains("Invalid Token") || response.body()!!.message.contains(
-                "Session Expired") -> {
+                "Session Expired"
+            ) -> {
                 NetworkResult.Error("Error 1: ${response.body()!!.message}")
             }
             response.body()!!.result.isNullOrEmpty() && response.body()!!.success.contains("true") -> {
