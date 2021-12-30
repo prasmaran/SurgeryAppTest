@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.EnterVerificationDetailsActivity">
+
+    <ImageView
+        android:id="@+id/fill_in_image"
+        android:layout_width="@dimen/margin_150"
+        android:layout_height="@dimen/margin_150"
+        android:layout_marginStart="@dimen/margin_50"
+        android:layout_marginTop="@dimen/margin_50"
+        android:layout_marginEnd="@dimen/margin_50"
+        android:background="@drawable/fill_in_details"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/header1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="Please enter your registration ID"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_15sp"
+        app:layout_constraintTop_toBottomOf="@id/fill_in_image" />
+
+    <EditText
+        android:id="@+id/registration_id_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:digits="@string/alphaNumeric"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="textCapSentences"
+        android:maxLength="15"
+        android:letterSpacing="0.02"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_20sp"
+        android:layout_marginTop="@dimen/margin_30"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginEnd="@dimen/margin_20"
+        app:layout_constraintTop_toBottomOf="@id/header1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/header2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="Please enter current registered phone number"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_15sp"
+        app:layout_constraintTop_toBottomOf="@id/registration_id_et" />
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/countryCodePicker"
+        android:background="@drawable/rounded_bg_primary"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:ccp_countryPreference="60"
+        app:ccp_showNameCode="false"
+        android:gravity="center"
+        app:ccp_defaultPhoneCode="60"
+        app:layout_constraintHorizontal_weight="0.35"
+        tools:ignore="MissingConstraints"/>
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="0dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="@dimen/text_13sp"
+        app:autoSizeMaxTextSize="@dimen/text_15sp"
+        android:layout_height="@dimen/margin_50"
+        android:hint="@string/sample_phone_number"
+        android:padding="@dimen/margin_10"
+        android:maxLength="10"
+        android:letterSpacing="0.02"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="phone"
+        app:layout_constraintHorizontal_weight="0.65"
+        tools:ignore="MissingConstraints"/>
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/phoneNumberLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_50"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header2"
+        app:layout_constraintBottom_toTopOf="@id/verify_details_btn"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginEnd="@dimen/margin_20"
+        app:flow_horizontalGap="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_30"
+        app:constraint_referenced_ids="countryCodePicker,phoneNumber" />
+
+    <Button
+        android:id="@+id/verify_details_btn"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_50"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/ic_arrow_forward"
+        android:drawableTint="@color/white"
+        android:text="@string/verify_to_continue"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="@dimen/text_13sp"
+        android:autoSizeMaxTextSize="@dimen/text_15sp"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phoneNumberLayout" />
+
+    <ProgressBar
+        android:id="@+id/enter_details_progress_bar"
+        android:layout_width="@dimen/margin_80"
+        android:layout_height="@dimen/margin_80"
+        android:background="@drawable/circle_shape"
+        android:indeterminateTint="@color/colorPrimary"
+        android:padding="@dimen/margin_10"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

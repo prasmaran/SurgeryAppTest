@@ -3,14 +3,17 @@ package com.example.surgeryapptest.utils.network
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
 import com.example.surgeryapptest.model.network.doctorResponse.getFeedbackResponse.WoundImageFeedback
 import com.example.surgeryapptest.model.network.doctorResponse.sendFeedbackResponse.SendWoundFeedbackResponse
+import com.example.surgeryapptest.model.network.passwordResetResponse.PasswordResetResponse
 import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
 import com.example.surgeryapptest.model.network.pdfGenerationResponse.NetworkPDFGenerateResponse
+import com.example.surgeryapptest.model.network.sendDetailsForOTP.SendOTPResponse
 import com.example.surgeryapptest.model.network.updateDetails.UpdateDetailResponse
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
 import com.example.surgeryapptest.model.network.utilsResponse.GeneralInfoResponse
+import com.example.surgeryapptest.model.network.verifyOTP.VerifiedOTPResponse
 import com.example.surgeryapptest.utils.network.endpoints.ApiInterface
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -122,6 +125,27 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun getWoundImagePDF(entryID: String): Response<NetworkPDFGenerateResponse> {
         return apiInterface.getWoundImagePDF(entryID)
+    }
+
+    /**
+     * 1. Enter Verification Details
+     * 2. Enter Received OTP
+     * 3. Enter New Password
+     */
+
+    suspend fun sendRegistrationIdPhoneNumber(@Body params: Map<String, String>):
+            Response<SendOTPResponse> {
+        return apiInterface.sendRegistrationIdPhoneNumber(params)
+    }
+
+    suspend fun sendOTPWithPhoneNumber(@Body params: Map<String, String>):
+            Response<VerifiedOTPResponse> {
+        return apiInterface.sendOTPWithPhoneNumber(params)
+    }
+
+    suspend fun resetPassword(@Body params: Map<String, String>):
+            Response<PasswordResetResponse> {
+        return apiInterface.resetPassword(params)
     }
 
 }

@@ -3,15 +3,18 @@ package com.example.surgeryapptest.utils.network.endpoints
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
 import com.example.surgeryapptest.model.network.doctorResponse.getFeedbackResponse.WoundImageFeedback
 import com.example.surgeryapptest.model.network.doctorResponse.sendFeedbackResponse.SendWoundFeedbackResponse
+import com.example.surgeryapptest.model.network.passwordResetResponse.PasswordResetResponse
 import com.example.surgeryapptest.model.network.patientResponse.deleteEntryNetworkResponse.NetworkDeleteEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.model.network.patientResponse.updateWoundImageResponse.NetworkUpdateEntryResponse
 import com.example.surgeryapptest.model.network.patientResponse.uploadNewImageResponse.NetworkUploadNewEntryResponse
 import com.example.surgeryapptest.model.network.pdfGenerationResponse.NetworkPDFGenerateResponse
+import com.example.surgeryapptest.model.network.sendDetailsForOTP.SendOTPResponse
 import com.example.surgeryapptest.model.network.updateDetails.UpdateDetailResponse
 import com.example.surgeryapptest.model.network.userNetworkResponse.UserLoginNetworkResponse
 import com.example.surgeryapptest.model.network.utilsResponse.GeneralInfoResponse
+import com.example.surgeryapptest.model.network.verifyOTP.VerifiedOTPResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -128,5 +131,20 @@ interface ApiInterface {
 
     @GET("/utils/getPdf/{entryID}")
     suspend fun getWoundImagePDF(@Path("entryID") entryID: String): Response<NetworkPDFGenerateResponse>
+
+    /**
+     * 1. Enter Verification Details
+     * 2. Enter Received OTP
+     * 3. Enter New Password
+     */
+
+    @POST("/user/sending_twilio_otp")
+    suspend fun sendRegistrationIdPhoneNumber(@Body params: Map<String, String>): Response<SendOTPResponse>
+
+    @POST("/user/verify_twilio")
+    suspend fun sendOTPWithPhoneNumber(@Body params: Map<String, String>): Response<VerifiedOTPResponse>
+
+    @POST("/user/reset_password")
+    suspend fun resetPassword(@Body params: Map<String, String>): Response<PasswordResetResponse>
 
 }

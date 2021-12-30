@@ -92,6 +92,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+    <!-- Verify Activity Styles -->
+    <style name="NoNavBar.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@android:color/white</item>
+    </style>
+
     <!--     Material Text View/ Edit Text -->
     <!--    <style name="ThemeOverlay.App.TextInputLayout" parent="">-->
     <!--        <item name="colorPrimary">@color/white</item>-->
