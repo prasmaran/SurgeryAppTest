@@ -8,7 +8,9 @@
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/circle_shape.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/colored_border_edit_text.xml" value="0.22135416666666666" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/ic_add.xml" value="0.22135416666666666" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/ic_back_arrow.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/ic_chart.xml" value="0.3828125" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/ic_check.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/ic_confirm.xml" value="0.3769230769230769" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/ic_empty.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/ic_notify.xml" value="0.3828125" />
@@ -22,7 +24,11 @@
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/rounded_bg_extra.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/rounded_bg_extra2.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/rounded_bg_primary.xml" value="0.3828125" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout-v26/activity_enter_otpactivity.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_charting.xml" value="0.25" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_enter_new_password.xml" value="0.35104166666666664" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_enter_otpactivity.xml" value="0.4" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_enter_verification_details.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_general_info_web.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_main_doctor.xml" value="0.36666666666666664" />
@@ -68,6 +74,7 @@
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/sample_testing.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/testing.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/testingggggg.xml" value="0.36666666666666664" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/toolbar_with_two_actions.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/wound_feedback_dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/menu/bottom_nav_menu_doctor.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/menu/bottom_nav_menu_patient.xml" value="0.36666666666666664" />

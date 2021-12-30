@@ -30,6 +30,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.activity.EnterNewPasswordActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.EnterVerificationDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.EnterOTPActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.patientActivities.PDFProgressEntryActivity"
             android:exported="true" />
         <activity

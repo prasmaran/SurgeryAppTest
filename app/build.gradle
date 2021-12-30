@@ -180,6 +180,12 @@ dependencies {
     implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
+    //country code
+    implementation "com.hbb20:ccp:2.4.0"
+
+    //phone utils
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.11'
+
 
 }
 

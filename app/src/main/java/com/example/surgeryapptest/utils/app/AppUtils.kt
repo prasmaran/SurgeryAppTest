@@ -13,8 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.snackbar.Snackbar
+import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.google.i18n.phonenumbers.Phonenumber
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class AppUtils {
 
@@ -66,6 +69,12 @@ class AppUtils {
             return parsedDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))
         }
 
+        fun formatPhoneNumberToE164(userPhoneNo: String, countryCode: String): String {
+            val utils = PhoneNumberUtil.getInstance()
+            val formattedPhoneNo: Phonenumber.PhoneNumber? = utils.parse(userPhoneNo, countryCode.toUpperCase(
+                Locale.getDefault()))
+            return utils.format(formattedPhoneNo, PhoneNumberUtil.PhoneNumberFormat.E164)
+        }
     }
 
 }

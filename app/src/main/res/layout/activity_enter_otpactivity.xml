@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.EnterOTPActivity">
+
+
+    <ImageView
+        android:id="@+id/tacImg"
+        android:layout_width="@dimen/margin_150"
+        android:layout_height="@dimen/margin_150"
+        android:layout_marginStart="@dimen/margin_50"
+        android:layout_marginTop="@dimen/margin_50"
+        android:layout_marginEnd="@dimen/margin_50"
+        android:background="@drawable/password"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/otp_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tacImg"
+        android:layout_marginTop="@dimen/margin_20"
+        android:text="@string/enter_4_digitCode"
+        android:fontFamily="@font/poppins_semibold"
+        android:letterSpacing="0.02"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/phone_number_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/otp_title_tv"
+        android:layout_marginTop="@dimen/margin_10"
+        android:text="@string/sample_phone_number"
+        android:textSize="@dimen/text_20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_bold"
+        android:letterSpacing="0.02"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/n1"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:maxLength="1"
+        android:backgroundTint="@color/colorPrimary"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:imeOptions="actionNext"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="@dimen/text_20sp"
+        app:autoSizeMaxTextSize="@dimen/text_25sp"
+        tools:ignore="MissingConstraints"/>
+
+    <EditText
+        android:id="@+id/n2"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:maxLength="1"
+        android:backgroundTint="@color/colorPrimary"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:imeOptions="actionNext"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="@dimen/text_20sp"
+        app:autoSizeMaxTextSize="@dimen/text_25sp"
+        tools:ignore="MissingConstraints"/>
+
+    <EditText
+        android:id="@+id/n3"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:maxLength="1"
+        android:backgroundTint="@color/colorPrimary"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:imeOptions="actionNext"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="@dimen/text_20sp"
+        app:autoSizeMaxTextSize="@dimen/text_25sp"
+        tools:ignore="MissingConstraints"/>
+
+    <EditText
+        android:id="@+id/n4"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:maxLength="1"
+        android:backgroundTint="@color/colorPrimary"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:imeOptions="actionNext"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="@dimen/text_20sp"
+        app:autoSizeMaxTextSize="@dimen/text_25sp"
+        tools:ignore="MissingConstraints"/>
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/six_digit_tac_field"
+        app:layout_constrainedWidth="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:flow_horizontalGap="@dimen/margin_10"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_30"
+        android:orientation="horizontal"
+        app:flow_maxElementsWrap="4"
+        app:constraint_referenced_ids="n1, n2, n3, n4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_number_tv" />
+
+    <Button
+        android:id="@+id/submit_otp_btn"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_50"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/ic_arrow_forward"
+        android:drawableTint="@color/white"
+        android:text="@string/submit_to_continue"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="@dimen/text_13sp"
+        android:autoSizeMaxTextSize="@dimen/text_15sp"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/six_digit_tac_field" />
+
+    <TextView
+        android:id="@+id/resend_otp_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/submit_otp_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_30"
+        android:text="Did not receive it?"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/timer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/resend_otp_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="@dimen/margin_20"
+        android:text="@string/try_again_in"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center" />
+
+    <ProgressBar
+        android:id="@+id/otp_progress_bar"
+        android:layout_width="@dimen/margin_80"
+        android:layout_height="@dimen/margin_80"
+        android:background="@drawable/circle_shape"
+        android:indeterminateTint="@color/colorPrimary"
+        android:padding="@dimen/margin_10"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

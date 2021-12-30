@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -74,10 +73,21 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        // go to enter otp --> reset password
+        binding.forgotPasswordTv.setOnClickListener {
+            goToEnterDetails()
+        }
+
     }
 
     // TODO: Delete after checking the deleted DS values
     private fun readSavedUserProfileDetails() {
+    }
+
+    private fun goToEnterDetails() {
+        val intent = Intent(this, EnterVerificationDetailsActivity::class.java)
+        //intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
     private fun goToMain(userType: String) {
@@ -105,8 +115,6 @@ class LoginActivity : AppCompatActivity() {
     private fun userLogin(params: Map<String, String>) {
 
         loginViewModel.loginUser(params)
-
-
 
         loginViewModel.loginResponse.observe(this@LoginActivity, { response ->
 
