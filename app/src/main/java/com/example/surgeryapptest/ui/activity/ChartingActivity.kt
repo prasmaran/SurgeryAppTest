@@ -168,7 +168,7 @@ class ChartingActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed();
+        onBackPressed()
         return true
         //return super.onSupportNavigateUp()
     }

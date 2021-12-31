@@ -13,6 +13,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="StreamChat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">#6200EA</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">#6200EA</item>
+        <!-- Customize your theme here. -->
+    </style>
+
     <style name="LoginStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>

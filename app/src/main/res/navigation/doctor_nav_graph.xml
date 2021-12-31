@@ -9,7 +9,11 @@
         android:id="@+id/doctorHomeFragment"
         android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorHomeFragment"
         android:label="Dashboard"
-        tools:layout="@layout/fragment_doctor_home" />
+        tools:layout="@layout/fragment_doctor_home" >
+        <action
+            android:id="@+id/action_doctorHomeFragment_to_streamChatActivity2"
+            app:destination="@id/streamChatActivity2" />
+    </fragment>
     <fragment
         android:id="@+id/doctorPatientListFragment"
         android:name="com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorPatientListFragment"
@@ -70,5 +74,10 @@
             android:name="patientListData"
             app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList" />
     </activity>
+    <activity
+        android:id="@+id/streamChatActivity2"
+        android:name="com.example.surgeryapptest.ui.streamChat.StreamChatActivity"
+        android:label="activity_stream_chat"
+        tools:layout="@layout/activity_stream_chat" />
 
 </navigation>

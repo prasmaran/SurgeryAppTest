@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments.doctorFrags.patientWoundDetails
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,6 +53,7 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
             ViewModelProvider(requireActivity()).get(UserProfileFragmentViewModel::class.java)
     }
 
+    @SuppressLint("LongLogTag", "NewApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -110,6 +112,7 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun swipeToRefresh() {
         binding.swipeToRefresh.setOnRefreshListener {
 
@@ -151,6 +154,7 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun requestFeedbackList(woundImageEntryId: String) {
 
         woundFeedbackListViewModel.getWoundFeedbackList(woundImageEntryId)
@@ -185,6 +189,7 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
         })
     }
 
+    @SuppressLint("NewApi")
     private fun sendFeedback(params: Map<String, String>) {
 
         woundFeedbackListViewModel.postFeedback(params)

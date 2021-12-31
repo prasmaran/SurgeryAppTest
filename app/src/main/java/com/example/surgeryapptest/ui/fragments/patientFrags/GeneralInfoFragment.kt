@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments.patientFrags
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,7 @@ class GeneralInfoFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("NewApi")
     private fun requestApiData() {
         generalListViewModel.generalInfoAPI()
         generalListViewModel.generalListResponse.observe(viewLifecycleOwner, { response ->

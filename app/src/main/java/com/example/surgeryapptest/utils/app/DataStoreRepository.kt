@@ -31,11 +31,31 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         val backOnline = booleanPreferencesKey(Constants.PREFERENCES_BACK_ONLINE)
         val userLoggedIn = booleanPreferencesKey(Constants.USER_LOGGED_IN)
         val patientNumberOfPhotos = intPreferencesKey(Constants.NO_OF_PHOTOS)
+        val patientListName = stringPreferencesKey(Constants.PATIENT_LIST_NAME)
     }
 
     private val dataStore: DataStore<Preferences> = context.dataStore
 
     // Functions to save the preferences
+
+    suspend fun savePatientNameList(nameList : String) {
+        dataStore.edit { preferences ->
+            preferences[PreferenceKeys.patientListName] = nameList
+        }
+    }
+
+    val readPatientNameList: Flow<String> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
+            val patientNameList = preferences[PreferenceKeys.patientListName] ?: ""
+            patientNameList
+        }
 
     suspend fun saveBackOnline(backOnline: Boolean) {
         dataStore.edit { preferences ->

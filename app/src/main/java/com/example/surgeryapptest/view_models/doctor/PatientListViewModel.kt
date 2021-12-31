@@ -4,7 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
@@ -20,6 +22,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
+@RequiresApi(Build.VERSION_CODES.M)
 class PatientListViewModel @Inject constructor(
     private val repository: Repository,
     private val dataStoreRepository: DataStoreRepository,
@@ -31,10 +34,17 @@ class PatientListViewModel @Inject constructor(
     var backOnline: Boolean = false
 
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
+    val readPatientNameList = dataStoreRepository.readPatientNameList
 
     private fun saveBackOnline(backOnline: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveBackOnline(backOnline)
+        }
+    }
+
+    fun savePatientNameList(nameList: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.savePatientNameList(nameList)
         }
     }
 
@@ -94,6 +104,7 @@ class PatientListViewModel @Inject constructor(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private suspend fun getResearcherPatientsListSafeCall() {
         allResearcherPatientsListResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {

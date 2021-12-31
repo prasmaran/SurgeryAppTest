@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -57,6 +58,7 @@ class EnterVerificationDetailsActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("NewApi")
     private fun userRegistrationPhoneNumber(params: Map<String, String>) {
 
         loginViewModel.sendRegistrationAndPhone(params)
@@ -139,7 +141,7 @@ class EnterVerificationDetailsActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed();
+        onBackPressed()
         return true
     }
 }

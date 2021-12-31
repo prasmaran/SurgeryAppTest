@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -82,6 +83,7 @@ class EnterOTPActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun sendOTPAndPhoneNumber(params: Map<String, String>) {
 
         loginViewModel.sendOTPAndPhone(params)
@@ -154,7 +156,7 @@ class EnterOTPActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed();
+        onBackPressed()
         return true
     }
 

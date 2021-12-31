@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments.patientFrags.progressEntryDetails
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -157,6 +158,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         }
     }
 
+    @SuppressLint("NewApi")
     private fun updateSelectedEntry() {
 
         binding.updateEntryProgressBar.visibility = View.VISIBLE
@@ -202,6 +204,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         })
     }
 
+    @SuppressLint("NewApi")
     private fun deleteSelectedEntry() {
 
         updateUploadedEntryViewModel.deleteUploadedEntry(
@@ -254,6 +257,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
         })
     }
 
+    @SuppressLint("NewApi")
     private fun archiveSelectedEntry() {
 
         updateUploadedEntryViewModel.archiveUploadedEntry(

@@ -76,7 +76,7 @@
     <string name="welcome">Welcome back 😁</string>
     <string name="login_to_continue">Login to continue</string>
     <string name="fill_in_all_fields">Fill in all fields</string>
-    <string name="log_out">LOG OUT</string>
+    <string name="log_out">Log Out</string>
     <string name="patients_list">Patients List</string>
     <string name="chats">Chats</string>
     <string name="appointments">Appointments</string>
@@ -121,6 +121,8 @@
     <string name="verify_to_continue">Verify to continue</string>
     <string name="try_again_in">Try again in : </string>
     <string name="get_otp_again"><u>Resend the code</u></string>
+
     <string name="formatted_time">Try again in %02d:%02d seconds</string>
+    <string name="formatted_chat_username">%1$s_%2$s_%3$s</string>
 
 </resources>

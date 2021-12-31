@@ -31,6 +31,7 @@ class Constants {
         const val PREFERENCES_BACK_ONLINE = "backOnline"
         const val USER_LOGGED_IN = "userLoggedIn"
         const val NO_OF_PHOTOS = "patientNumberOfPhotos"
+        const val PATIENT_LIST_NAME = "patientListName"
 
         // User Roles
         const val ADMIN = "ADMIN"

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentDoctorHomeBinding
+import com.example.surgeryapptest.ui.fragments.patientFrags.PatientHomeFragmentDirections
 import com.example.surgeryapptest.utils.app.AppUtils.Companion.showSnackBar
 
 
@@ -40,7 +41,8 @@ class DoctorHomeFragment : Fragment() {
 
     private fun navigateToChats() {
         binding.cardViewChats.setOnClickListener {
-            binding.doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
+            val action = DoctorHomeFragmentDirections.actionDoctorHomeFragmentToStreamChatActivity2()
+            findNavController().navigate(action)
         }
     }
 
