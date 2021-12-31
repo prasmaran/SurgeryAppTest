@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments.patientFrags
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -63,6 +64,7 @@ class PatientProgressBooksFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
     }
 
+    @SuppressLint("LongLogTag", "NewApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -164,6 +166,7 @@ class PatientProgressBooksFragment : Fragment() {
 //        })
 //    }
 
+    @SuppressLint("NewApi")
     private fun requestApiData(userId: String) {
         mainViewModel.getAllProgressEntry(userId)
         mainViewModel.allProgressEntryResponse.observe(viewLifecycleOwner, { response ->
@@ -250,6 +253,7 @@ class PatientProgressBooksFragment : Fragment() {
     }
 
     // To show a dialog to redirect to login page
+    @SuppressLint("NewApi")
     private fun unAuthenticateDialog(errorMessage: String) {
         //val builder = AlertDialog.Builder(requireContext())
         val builder = MaterialAlertDialogBuilder(requireContext())

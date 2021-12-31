@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments.doctorFrags
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -42,6 +43,7 @@ class DoctorPatientListFragment : Fragment() {
     private var doctorId: String = ""
 
     private lateinit var chartDataPatientNameList : AssignedPatientsList
+    private lateinit var patientList : ArrayList<PatientName>
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -52,6 +54,7 @@ class DoctorPatientListFragment : Fragment() {
             ViewModelProvider(requireActivity()).get(PatientListViewModel::class.java)
     }
 
+    @SuppressLint("NewApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,7 +82,7 @@ class DoctorPatientListFragment : Fragment() {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
                 .collect { status ->
-                    Log.d("NetworkListener_PatientListFrag", status.toString())
+                    Log.d("NetworkPatientListFrag", status.toString())
                     patientListViewModel.networkStatus = status
                     patientListViewModel.showNetworkStatus()
                     requestPatientList(doctorId)
@@ -99,6 +102,17 @@ class DoctorPatientListFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NewApi")
+    private fun extractPatientDataForChat(chartData: ArrayList<PatientName>) {
+        val patientArrayList = ArrayList<String>()
+        for (i in chartData) {
+            patientArrayList.add("${i.woundImages[0].mName}_${i.woundImages[0].masterUserIdFk}_P")
+        }
+        val patientList = patientArrayList.joinToString(",")
+        patientListViewModel.savePatientNameList(patientList)
+    }
+
+    @SuppressLint("NewApi")
     private fun requestPatientList(doctorId: String) {
         patientListViewModel.getAssignedPatientsList(doctorId)
         patientListViewModel.allPatientsListResponse.observe(viewLifecycleOwner, { response ->
@@ -118,8 +132,11 @@ class DoctorPatientListFragment : Fragment() {
                         patientListViewModel.setPatientNumber(noOfPatients)
                     }
                     response.data?.let {
+                        binding.summaryChartFAB.visibility = View.VISIBLE
                         chartDataPatientNameList = it
                         mAdapter.setData(it)
+                        patientList = it.result
+                        extractPatientDataForChat(patientList)
                     }
 
                     Log.d("DPListFrag", "requestPatientList: $chartDataPatientNameList")
@@ -156,6 +173,7 @@ class DoctorPatientListFragment : Fragment() {
 
     }
 
+    @SuppressLint("NewApi")
     private fun unAuthenticateDialog(errorMessage: String) {
         //val builder = AlertDialog.Builder(requireContext())
         val builder = MaterialAlertDialogBuilder(requireContext())

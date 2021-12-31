@@ -252,6 +252,7 @@ class UploadNewEntryFragment :
 
     // Upload image to backend
     // Get actual path of the image: App specific temp storage
+    @SuppressLint("NewApi")
     private fun uploadImage() {
         // No need an special permissions
         var contentResolver = requireActivity().contentResolver

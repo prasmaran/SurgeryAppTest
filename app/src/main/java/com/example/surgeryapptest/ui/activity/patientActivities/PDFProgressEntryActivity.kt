@@ -56,6 +56,7 @@ class PDFProgressEntryActivity : AppCompatActivity() {
     *
     * */
 
+    @SuppressLint("NewApi")
     private fun generateWoundPDF(entryID: String) {
 
         binding.pdfGenerateProgressBar.visibility = View.VISIBLE

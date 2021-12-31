@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -66,6 +67,7 @@ class EnterNewPasswordActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun sendResetPassword(params: Map<String, String>) {
 
         loginViewModel.sendResetPassword(params)
@@ -114,7 +116,7 @@ class EnterNewPasswordActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed();
+        onBackPressed()
         return true
     }
 }

@@ -23,4 +23,7 @@
 
     <!-- Widget colours -->
     <color name="mtrl_textinput_default_box_stroke_color">#6200EA</color>
+
+    <color name="toolbarBarColor">@color/white</color>
+    <color name="titleColor">@color/black</color>
 </resources>

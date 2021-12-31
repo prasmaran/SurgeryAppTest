@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -112,6 +113,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun userLogin(params: Map<String, String>) {
 
         loginViewModel.loginUser(params)

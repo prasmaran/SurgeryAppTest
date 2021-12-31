@@ -43,8 +43,8 @@ class PatientHomeFragment : Fragment() {
     // have not implemented yet
     private fun navigateToNotification() {
         binding.cardViewNotification.setOnClickListener {
-            binding.patientHomeFragmentLayout
-                .showSnackBar("This feature has not been implemented yet")
+            val action = PatientHomeFragmentDirections.actionPatientHomeFragmentToStreamChatActivity()
+            findNavController().navigate(action)
         }
     }
 

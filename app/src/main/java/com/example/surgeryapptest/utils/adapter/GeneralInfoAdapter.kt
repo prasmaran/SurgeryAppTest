@@ -45,7 +45,7 @@ class GeneralInfoAdapter : RecyclerView.Adapter<GeneralInfoAdapter.MyViewHolder>
     override fun getItemCount(): Int = generalInfoItem.size
 
     fun setData(newData : GeneralInfoResponse){
-        val diffUtils = CustomDiffUtils(generalInfoItem,newData.result!!)
+        val diffUtils = CustomDiffUtils(generalInfoItem, newData.result)
         val diffUtilsResult = DiffUtil.calculateDiff(diffUtils)
         generalInfoItem = newData.result
         diffUtilsResult.dispatchUpdatesTo(this)

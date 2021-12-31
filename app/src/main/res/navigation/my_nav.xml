@@ -23,6 +23,9 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_patientHomeFragment_to_streamChatActivity"
+            app:destination="@id/streamChatActivity" />
     </fragment>
     <fragment
         android:id="@+id/patientProgressBooksFragment"
@@ -131,4 +134,9 @@
             android:name="wound_image_id"
             app:argType="integer" />
     </activity>
+    <activity
+        android:id="@+id/streamChatActivity"
+        android:name="com.example.surgeryapptest.ui.streamChat.StreamChatActivity"
+        android:label="activity_stream_chat"
+        tools:layout="@layout/activity_stream_chat" />
 </navigation>

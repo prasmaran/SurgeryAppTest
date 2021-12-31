@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments.researcherFrags
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -75,6 +76,7 @@ class ResearcherPatientListFragment : Fragment() {
             ViewModelProvider(requireActivity()).get(PatientListViewModel::class.java)
     }
 
+    @SuppressLint("LongLogTag", "NewApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -115,6 +117,7 @@ class ResearcherPatientListFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun requestResearchPatientList() {
         patientListViewModel.getResearcherPatientsList()
         patientListViewModel.allResearcherPatientsListResponse.observe(
@@ -136,6 +139,7 @@ class ResearcherPatientListFragment : Fragment() {
                             patientListViewModel.setPatientNumber(noOfPatients)
                         }
                         response.data?.let {
+                            binding.summaryChartFAB.visibility = View.VISIBLE
                             chartDataPatientNameList = it
                             mAdapter.setData(it)
                         }
@@ -173,6 +177,7 @@ class ResearcherPatientListFragment : Fragment() {
 
     }
 
+    @SuppressLint("NewApi")
     private fun unAuthenticateDialog(errorMessage: String) {
         val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle(Constants.UNAUTHENTICATED_USER)

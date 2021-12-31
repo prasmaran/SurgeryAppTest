@@ -4,7 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
@@ -24,6 +26,7 @@ import retrofit2.http.Part
 import javax.inject.Inject
 
 @HiltViewModel
+@RequiresApi(Build.VERSION_CODES.M)
 class WoundDetailsFragmentViewModel @Inject constructor(
     private val repository: Repository,
     private val dataStoreRepository: DataStoreRepository,

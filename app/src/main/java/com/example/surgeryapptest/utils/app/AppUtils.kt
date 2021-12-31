@@ -71,8 +71,10 @@ class AppUtils {
 
         fun formatPhoneNumberToE164(userPhoneNo: String, countryCode: String): String {
             val utils = PhoneNumberUtil.getInstance()
-            val formattedPhoneNo: Phonenumber.PhoneNumber? = utils.parse(userPhoneNo, countryCode.toUpperCase(
-                Locale.getDefault()))
+            val formattedPhoneNo: Phonenumber.PhoneNumber? = utils.parse(userPhoneNo, countryCode.uppercase(
+                Locale.getDefault()
+            )
+            )
             return utils.format(formattedPhoneNo, PhoneNumberUtil.PhoneNumberFormat.E164)
         }
     }

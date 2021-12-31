@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -51,6 +52,7 @@ class PatientProfileFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
     }
 
+    @SuppressLint("NewApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -109,6 +111,7 @@ class PatientProfileFragment : Fragment() {
         binding.infoLayout3.isEnabled = set
     }
 
+    @SuppressLint("NewApi")
     private fun updatePhoneNumber(contact1: String, contact2: String) {
 
         userProfileViewModel.updateUserDetails(
@@ -206,6 +209,7 @@ class PatientProfileFragment : Fragment() {
         })
     }
 
+    @SuppressLint("LongLogTag", "NewApi")
     private fun checkNetworkStatus() {
         lifecycleScope.launch {
             networkListener = NetworkListener()
@@ -219,6 +223,7 @@ class PatientProfileFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun createAlertDialogLogOut() {
         //val builder = AlertDialog.Builder(requireContext())
         val builder = MaterialAlertDialogBuilder(requireContext())

@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.surgeryapptest.model.network.pdfGenerationResponse.NetworkPDFGenerateResponse
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
@@ -14,6 +16,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
+@RequiresApi(Build.VERSION_CODES.M)
 class PDFGenerateViewModel @Inject constructor(
     private val repository: Repository,
     application: Application

@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.ui.fragments.patientFrags
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -109,6 +110,7 @@ class PatientArchiveBookFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("LongLogTag", "NewApi")
     private fun reCallAPI(){
         lifecycleScope.launch {
             networkListener = NetworkListener()
@@ -122,6 +124,7 @@ class PatientArchiveBookFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun requestApiData(userId: String) {
         mainViewModel.getAllArchivedEntry(userId)
         progressBarVisible(true)
@@ -163,6 +166,7 @@ class PatientArchiveBookFragment : Fragment() {
         })
     }
 
+    @SuppressLint("NewApi")
     private fun swipeToRefresh(userId: String) {
         binding.archivedFragSwipeToRefresh.setOnRefreshListener {
             mainViewModel.getAllArchivedEntry(userId)
@@ -214,6 +218,7 @@ class PatientArchiveBookFragment : Fragment() {
     }
 
     // To show a dialog to redirect to login page
+    @SuppressLint("NewApi")
     private fun unAuthenticateDialog(errorMessage: String) {
         //val builder = AlertDialog.Builder(requireContext())
         val builder = MaterialAlertDialogBuilder(requireContext())
@@ -271,6 +276,7 @@ class PatientArchiveBookFragment : Fragment() {
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
     }
 
+    @SuppressLint("NewApi")
     private fun deleteArchivedEntry(woundID: String, pos: String) {
 
         updateUploadedEntryViewModel.deleteUploadedEntry(
@@ -327,6 +333,7 @@ class PatientArchiveBookFragment : Fragment() {
         })
     }
 
+    @SuppressLint("NewApi")
     private fun restoreArchivedEntry(woundID: String, pos: String) {
 
         updateUploadedEntryViewModel.archiveUploadedEntry(
