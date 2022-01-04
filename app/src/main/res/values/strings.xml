@@ -116,7 +116,7 @@
     <string name="sample_phone_number">146642285</string>
 
     <!--6 digit alpha numeric TAC-->
-    <string name="alphaNumeric">ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
+    <string name="alphaNumeric">abcdefghijklmnopqrstuvxwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_</string>
     <string name="submit_to_continue">Submit to continue</string>
     <string name="verify_to_continue">Verify to continue</string>
     <string name="try_again_in">Try again in : </string>

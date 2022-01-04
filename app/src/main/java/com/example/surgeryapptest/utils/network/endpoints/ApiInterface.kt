@@ -25,7 +25,7 @@ interface ApiInterface {
     /** ALL USERS ROUTES */
 
     // Authenticate the user
-    @POST("/user/auth")
+    @POST("/testingnodeapp/user/auth")
     suspend fun loginUser(@Body params: Map<String, String>):
             Response<UserLoginNetworkResponse>
 
@@ -33,12 +33,12 @@ interface ApiInterface {
 
     // To receive all the progress entry data
     // Edited: Get progress book by userID
-    @GET("/books/progress/getAll/{userId}")
+    @GET("/testingnodeapp/books/progress/getAll/{userId}")
     suspend fun getAllProgressEntry(@Path("userId") userId: String): Response<AllProgressBookEntry>
 
     // To receive all the archived entries list
     // Edited: Get progress book by userID
-    @GET("/books/progress/getAllArchived/{userId}")
+    @GET("/testingnodeapp/books/progress/getAllArchived/{userId}")
     suspend fun getAllArchivedEntry(@Path("userId") userId: String): Response<AllProgressBookEntry>
 
     // To receive one progress entry by ID
@@ -47,7 +47,7 @@ interface ApiInterface {
 
     // To upload new wound image
     @Multipart
-    @POST("/books/progress/upload")
+    @POST("/testingnodeapp/books/progress/upload")
     suspend fun uploadNewEntry(
         @Part("masterUserId_fk") userID: RequestBody,
         @Part image: MultipartBody.Part,
@@ -63,7 +63,7 @@ interface ApiInterface {
 
     // To edit selected image entry
     @Multipart
-    @PUT("/books/progress/edit")
+    @PUT("/testingnodeapp/books/progress/edit")
     suspend fun updateUploadedEntry(
         @Part("entryID") entryID: RequestBody,
         @Part("title") title: RequestBody,
@@ -82,14 +82,14 @@ interface ApiInterface {
      * Delete only entries without feedback
      */
     @Multipart
-    @PUT("/books/progress/deleteEntryNoFeedback")
+    @PUT("/testingnodeapp/books/progress/deleteEntryNoFeedback")
     suspend fun deleteUploadedEntry(
         @Part("entryID") entryID: RequestBody
     ): Response<NetworkDeleteEntryResponse>
 
     // Archive selected image entry
     @Multipart
-    @PUT("/books/progress/archive")
+    @PUT("/testingnodeapp/books/progress/archive")
     suspend fun archiveUploadedEntry(
         @Part("entryID") entryID: RequestBody,
         @Part("prevFlag") prevFlag: RequestBody,
@@ -98,25 +98,25 @@ interface ApiInterface {
     /** DOCTOR ROUTES */
 
     // Retrieve assigned patients progress books
-    @GET("/doctor/getAllPatients/{doctorId}")
+    @GET("/testingnodeapp/doctor/getAllPatients/{doctorId}")
     suspend fun getAssignedPatientsList(@Path("doctorId") doctorId: String): Response<AssignedPatientsList>
 
     // Retrieve specific wound image feedback
-    @GET("/doctor/getFeedback/{woundImageID}")
+    @GET("/testingnodeapp/doctor/getFeedback/{woundImageID}")
     suspend fun getFeedbackList(@Path("woundImageID") woundImageID: String): Response<WoundImageFeedback>
 
     // Send feedback to specific wound image
-    @POST("/doctor/sendFeedback")
+    @POST("/testingnodeapp/doctor/sendFeedback")
     suspend fun sendFeedback(@Body params: Map<String, String>):
             Response<SendWoundFeedbackResponse>
 
     /** RESEARCHER ROUTES **/
-    @GET("/researcher/getAllPatients")
+    @GET("/testingnodeapp/researcher/getAllPatients")
     suspend fun getAllPatientsList(): Response<AssignedPatientsList>
 
     // Update user phone number
     @Multipart
-    @PUT("/user/update_phone_number")
+    @PUT("/testingnodeapp/user/update_phone_number")
     suspend fun updatePhoneNumber(
         @Part("userContact1") userContact1: RequestBody,
         @Part("userContact2") userContact2: RequestBody,
@@ -124,12 +124,12 @@ interface ApiInterface {
     ): Response<UpdateDetailResponse>
 
     // To receive list of general ideas about surgery
-    @GET("/utils/general")
+    @GET("/testingnodeapp/utils/general")
     suspend fun getGeneralInfoList(): Response<GeneralInfoResponse>
 
     // Generate PDF and share to others
 
-    @GET("/utils/getPdf/{entryID}")
+    @GET("/testingnodeapp/utils/getPdf/{entryID}")
     suspend fun getWoundImagePDF(@Path("entryID") entryID: String): Response<NetworkPDFGenerateResponse>
 
     /**
@@ -138,13 +138,13 @@ interface ApiInterface {
      * 3. Enter New Password
      */
 
-    @POST("/user/sending_twilio_otp")
+    @POST("/testingnodeapp/user/sending_twilio_otp")
     suspend fun sendRegistrationIdPhoneNumber(@Body params: Map<String, String>): Response<SendOTPResponse>
 
-    @POST("/user/verify_twilio")
+    @POST("/testingnodeapp/user/verify_twilio")
     suspend fun sendOTPWithPhoneNumber(@Body params: Map<String, String>): Response<VerifiedOTPResponse>
 
-    @POST("/user/reset_password")
+    @POST("/testingnodeapp/user/reset_password")
     suspend fun resetPassword(@Body params: Map<String, String>): Response<PasswordResetResponse>
 
 }

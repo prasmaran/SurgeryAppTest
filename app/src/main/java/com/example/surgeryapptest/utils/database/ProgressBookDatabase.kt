@@ -7,7 +7,7 @@ import androidx.room.TypeConverters
 @Database(
     entities = [ProgressBookEntity::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 @TypeConverters(ProgressBookTypeConverter::class)
 abstract class ProgressBookDatabase : RoomDatabase(){

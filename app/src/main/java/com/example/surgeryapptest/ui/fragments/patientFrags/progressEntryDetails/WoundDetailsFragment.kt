@@ -123,11 +123,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
                         "$redness, $swelling, $odour, $fever"
             )
 
-            if (isAllFieldFilled) {
-                createAlertDialogUpdate()
-            } else {
-                //AppUtils.showToast(requireContext(), "Please fill all fields !")
-            }
+            if (isAllFieldFilled) createAlertDialogUpdate()
         }
 
         binding.deleteBtn.setOnClickListener {
