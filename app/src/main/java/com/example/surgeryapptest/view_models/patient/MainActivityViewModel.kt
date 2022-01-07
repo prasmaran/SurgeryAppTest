@@ -75,9 +75,9 @@ class MainActivityViewModel @Inject constructor(
     }
 
     // Newly added to search database
-    fun searchDatabase(searchQuery: String): LiveData<List<ProgressBookEntity>> {
-        return repository.local.searchDatabase(searchQuery).asLiveData()
-    }
+//    fun searchDatabase(searchQuery: String): LiveData<List<ProgressBookEntity>> {
+//        return repository.local.searchDatabase(searchQuery).asLiveData()
+//    }
 
     /** RETROFIT */
     var allProgressEntryResponse: MutableLiveData<NetworkResult<AllProgressBookEntry>> =

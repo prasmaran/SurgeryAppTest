@@ -30,6 +30,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.activity.researcherActivities.ToDoActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.EnterNewPasswordActivity"
             android:exported="true" />
         <activity
@@ -52,8 +55,8 @@
             android:exported="true" />
         <activity
             android:name=".ui.streamChat.StreamChatActivity"
-            android:theme="@style/StreamChat"
             android:screenOrientation="portrait"
+            android:theme="@style/StreamChat"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.activity.doctorActivities.PatientWoundDetailsActivity"
@@ -82,6 +85,7 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.activity.SplashScreenActivity"
+            android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

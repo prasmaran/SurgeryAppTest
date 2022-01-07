@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.utils.app
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
@@ -53,6 +54,7 @@ class AppUtils {
             dialogFragment.show(ft, fragTag)
         }
 
+        @SuppressLint("Range")
         fun ContentResolver.getFileName(uri: Uri): String {
             var fileName = ""
             val cursor = query(uri, null, null, null, null)
