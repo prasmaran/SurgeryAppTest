@@ -20,5 +20,19 @@ class ProgressBookTypeConverter {
         return gson.fromJson(data, listType)
     }
 
+    /**
+     * Converter for the To Do Table
+     */
+
+    @TypeConverter
+    fun fromPriority(priority: Priority): String {
+        return priority.name
+    }
+
+    @TypeConverter
+    fun toPriority(priority: String): Priority {
+        return Priority.valueOf(priority)
+    }
+
 
 }

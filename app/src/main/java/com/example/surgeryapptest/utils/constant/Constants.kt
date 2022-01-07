@@ -10,6 +10,7 @@ class Constants {
         // Database
         const val DATABASE = "progressBook_database"
         const val PROGRESS_BOOK_TABLE = "progressBook_table"
+        const val TO_DO_TABLE = "to_do_table"
 
         // Error
         const val NETWORK_ERROR_NO_INTERNET = "Network Error"

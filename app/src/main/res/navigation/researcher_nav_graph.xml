@@ -9,7 +9,15 @@
         android:id="@+id/researcherHomeFragment"
         android:name="com.example.surgeryapptest.ui.fragments.researcherFrags.ResearcherHomeFragment"
         android:label="Researcher Dashboard"
-        tools:layout="@layout/fragment_researcher_home" />
+        tools:layout="@layout/fragment_researcher_home">
+        <action
+            android:id="@+id/action_researcherHomeFragment_to_toDoActivity"
+            app:destination="@id/toDoActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/researcherPatientListFragment"
         android:name="com.example.surgeryapptest.ui.fragments.researcherFrags.ResearcherPatientListFragment"
@@ -71,5 +79,10 @@
             android:name="woundImage"
             app:argType="com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.WoundImage" />
     </activity>
+    <activity
+        android:id="@+id/toDoActivity"
+        android:name="com.example.surgeryapptest.ui.activity.researcherActivities.ToDoActivity"
+        android:label="activity_to_do"
+        tools:layout="@layout/activity_to_do" />
 </navigation>
 

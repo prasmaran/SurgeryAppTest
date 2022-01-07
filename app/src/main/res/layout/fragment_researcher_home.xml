@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:constraint_referenced_ids="cardViewPatientsList_researcher,
-        cardViewProfile_researcher"
+        cardViewNote_researcher"
         app:flow_horizontalGap="@dimen/margin_20"
         app:flow_maxElementsWrap="2"
         app:flow_verticalGap="@dimen/margin_20"
@@ -102,7 +102,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="@dimen/margin_5"/>
+                android:layout_margin="@dimen/margin_10"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewProfile_researcher"
+        android:id="@+id/cardViewNote_researcher"
         android:layout_width="@dimen/margin_130"
         android:layout_height="@dimen/margin_150"
         tools:ignore="MissingConstraints"
@@ -140,13 +140,13 @@
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/margin_80"
                 android:layout_height="@dimen/margin_80"
-                android:src="@drawable/ic_profile_icon"
+                android:src="@drawable/notes"
                 android:scaleType="fitXY"
                 android:padding="@dimen/margin_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="@dimen/margin_5"
+                android:layout_margin="@dimen/margin_10"
                 />
 
             <TextView
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="@string/doctor_profile"
+                android:text="@string/notes"
                 android:textSize="@dimen/text_13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

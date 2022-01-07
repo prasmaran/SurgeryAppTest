@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentResearcherHomeBinding
+import com.example.surgeryapptest.ui.fragments.doctorFrags.DoctorHomeFragmentDirections
 
 class ResearcherHomeFragment : Fragment() {
 
@@ -23,14 +24,15 @@ class ResearcherHomeFragment : Fragment() {
         val view = binding.root
 
         navigateToPatientList()
-        navigateToProfile()
+        navigateToToDoList()
 
         return view
     }
 
-    private fun navigateToProfile() {
-        binding.cardViewProfileResearcher.setOnClickListener {
-            findNavController().navigate(R.id.researcherProfileFragment)
+    private fun navigateToToDoList() {
+        binding.cardViewNoteResearcher.setOnClickListener {
+            val action = ResearcherHomeFragmentDirections.actionResearcherHomeFragmentToToDoActivity()
+            findNavController().navigate(action)
         }
     }
 

@@ -29,4 +29,10 @@ object DatabaseModule {
     @Provides
     fun provideDao(database: ProgressBookDatabase) = database.progressBookDao()
 
+    //TODO: Should I add the singleton here as well?
+    @Singleton
+    @Provides
+    fun provideToDoDao(database: ProgressBookDatabase) = database.toDoDao()
+
+
 }

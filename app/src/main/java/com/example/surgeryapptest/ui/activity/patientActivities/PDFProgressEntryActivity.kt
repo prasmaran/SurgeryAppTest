@@ -100,6 +100,7 @@ class PDFProgressEntryActivity : AppCompatActivity() {
 
     private fun initBroadcastReceiver() {
         receiver = object : BroadcastReceiver() {
+            @SuppressLint("Range")
             override fun onReceive(p0: Context?, p1: Intent?) {
                 toast("On Receive")
                 val action = p1!!.action

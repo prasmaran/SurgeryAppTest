@@ -124,5 +124,22 @@
 
     <string name="formatted_time">Try again in %02d:%02d seconds</string>
     <string name="formatted_chat_username">%1$s_%2$s_%3$s</string>
+    <string name="notes">Notes</string>
+
+    <!-- Note taking module -->
+    <string name="no_data">No Data</string>
+    <string name="sort_by">Sort By</string>
+    <string name="priority_high">Priority High</string>
+    <string name="priority_low">Priority Low</string>
+    <string name="delete_all">Delete All</string>
+    <string name="add">Add</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+
+    <string-array name="priorities">
+        <item>High Priority</item>
+        <item>Medium Priority</item>
+        <item>Low Priority</item>
+    </string-array>
 
 </resources>
