@@ -15,7 +15,6 @@
     <!-- Patient frags -->
     <string name="doctor_dashboard">Home</string>
     <string name="doctor_patient_list">Patients</string>
-    <string name="doctor_patient_progress_book">Patients Record</string>
     <string name="doctor_appointments">Appointments</string>
     <string name="doctor_profile">Profile</string>
 
@@ -29,7 +28,6 @@
     <string name="notification">Notification</string>
     <string name="emergency">Emergency</string>
     <string name="progress_book">Progress Book</string>
-    <string name="patient_appointment">Patient Appointment</string>
     <string name="gallery">Gallery</string>
     <string name="capture">Capture</string>
 
@@ -50,11 +48,8 @@
 
     <!-- General -->
     <string name="cancel">Cancel</string>
-    <string name="okay">Okay</string>
 
     <!-- Details Activity -->
-    <string name="entry_detail">Wound Image Details</string>
-    <string name="edit">Edit</string>
     <string name="no_feedback">No feedback from any doctors</string>
     <string name="no_appointment">No appointments at this moment</string>
     <string name="prasanth_manimaran">Prasanth Manimaran</string>
@@ -63,10 +58,8 @@
     <string name="mers">General Emergency Services</string>
     <string name="ppum_emergency">PPUM Emergency</string>
     <string name="ppum_instruction">For wound emergencies please use the button below to contact PPUM Emergency</string>
-    <string name="mers_instruction">For general emergencies please use the button below to contact 999</string>
     <string name="mers_number">999</string>
     <string name="ppum_emergency_number_ori">03-79494422</string>
-    <string name="ppum_emergency_number">0146642285</string>
 
     <!-- Login/Register -->
     <string name="username">Username</string>
@@ -95,24 +88,20 @@
     <string name="researcher_notice"><u><b>As a researcher, you are only permitted to view all the patients uploaded images and the relevant details</b></u></string>
 
     <!-- Stream Chat -->
-    <string name="go">GO</string>
-    <string name="chat_app">Chat App</string>
+    <string name="go">START CHATTING</string>
+    <string name="chat_app">QuickChat</string>
     <string name="reliable_and_fast">Reliable and Fast</string>
     <string name="first_name">First Name</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="groups">Groups</string>
     <string name="channels">Channels</string>
-    <string name="open">Open</string>
-    <string name="close">Close</string>
-    <string name="click_to_see_archived_files"><u>--- Click to see archived files ---</u></string>
-    <string name="registration_id">Registration ID</string>
+    <string name="click_to_see_archived_files">Click to see Archived Files</string>
     <string name="update_details">Update Details</string>
     <string name="save_details">Save details</string>
     <string name="faq">FAQ</string>
     <string name="download_and_share">Download and Share</string>
     <string name="enter_4_digitCode">Please enter the 4-digit code sent to:-</string>
-    <string name="enter_otp">Enter 4-digit OTP</string>
     <string name="sample_phone_number">146642285</string>
 
     <!--6 digit alpha numeric TAC-->
@@ -123,7 +112,6 @@
     <string name="get_otp_again"><u>Resend the code</u></string>
 
     <string name="formatted_time">Try again in %02d:%02d seconds</string>
-    <string name="formatted_chat_username">%1$s_%2$s_%3$s</string>
     <string name="notes">Notes</string>
 
     <!-- Note taking module -->

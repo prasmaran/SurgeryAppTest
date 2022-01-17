@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -48,6 +49,8 @@ class ChannelFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentChannelBinding.inflate(inflater, container, false)
 
+        binding.channelListHeaderView.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.lightGray))
+
         setupUser()
         setupChannels()
         setupDrawer()
@@ -74,23 +77,12 @@ class ChannelFragment : Fragment() {
 
     private fun setupUser() {
         if (client.getCurrentUser() == null) {
-            user = if (args.chatUser.firstName.contains("Stefan")) {
-                User(
-                    id = args.chatUser.username,
-                    extraData = mutableMapOf(
-                        "name" to args.chatUser.firstName,
-                        "county" to "Serbia",
-                        "image" to "https://yt3.ggpht.com/ytc/AAUvwniNg3lwIeJ-ybvA1xuWBEzLoYA5KPxnKrojub0zhg=s900-c-k-c0x00ffffff-no-rj"
-                    )
+            user = User(
+                id = args.chatUser.username,
+                extraData = mutableMapOf(
+                    "name" to args.chatUser.firstName
                 )
-            } else {
-                User(
-                    id = args.chatUser.username,
-                    extraData = mutableMapOf(
-                        "name" to args.chatUser.firstName
-                    )
-                )
-            }
+            )
             val token = client.devToken(user.id)
             client.connectUser(
                 user = user,

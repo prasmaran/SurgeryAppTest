@@ -35,18 +35,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="android:windowFullscreen">true</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">#6200EA</item>
-        <item name="android:navigationBarColor" tools:targetApi="l">#6200EA</item>
-        <!-- Customize your theme here. -->
-    </style>
-
     <style name="WoundDetailActivityStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -103,12 +91,14 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+
 
     <!-- Verify Activity Styles -->
-    <style name="NoNavBar.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@android:color/white</item>
-    </style>
 
     <!--     Material Text View/ Edit Text -->
     <!--    <style name="ThemeOverlay.App.TextInputLayout" parent="">-->
