@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.utils.network.endpoints
 
+import com.example.surgeryapptest.model.network.appointmentResponse.AppointmentNetworkResponse
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
 import com.example.surgeryapptest.model.network.doctorResponse.getFeedbackResponse.WoundImageFeedback
 import com.example.surgeryapptest.model.network.doctorResponse.sendFeedbackResponse.SendWoundFeedbackResponse
@@ -23,9 +24,13 @@ import retrofit2.http.*
 interface ApiInterface {
 
     /** ALL USERS ROUTES */
+    companion object {
+        const val BASE_URL2 = "/testingnodeapp"
+        const val BASE_URL = ""
+    }
 
     // Authenticate the user
-    @POST("/testingnodeapp/user/auth")
+    @POST("${BASE_URL}/user/auth")
     suspend fun loginUser(@Body params: Map<String, String>):
             Response<UserLoginNetworkResponse>
 
@@ -33,21 +38,21 @@ interface ApiInterface {
 
     // To receive all the progress entry data
     // Edited: Get progress book by userID
-    @GET("/testingnodeapp/books/progress/getAll/{userId}")
+    @GET("${BASE_URL}/books/progress/getAll/{userId}")
     suspend fun getAllProgressEntry(@Path("userId") userId: String): Response<AllProgressBookEntry>
 
     // To receive all the archived entries list
     // Edited: Get progress book by userID
-    @GET("/testingnodeapp/books/progress/getAllArchived/{userId}")
+    @GET("${BASE_URL}/books/progress/getAllArchived/{userId}")
     suspend fun getAllArchivedEntry(@Path("userId") userId: String): Response<AllProgressBookEntry>
 
     // To receive one progress entry by ID
-    @GET("/testingnodeapp/books/progress/{entryid}")
+    @GET("${BASE_URL}/books/progress/{entryid}")
     suspend fun getOneProgressEntry(): Response<AllProgressBookEntryItem>
 
     // To upload new wound image
     @Multipart
-    @POST("/testingnodeapp/books/progress/upload")
+    @POST("${BASE_URL}/books/progress/upload")
     suspend fun uploadNewEntry(
         @Part("masterUserId_fk") userID: RequestBody,
         @Part image: MultipartBody.Part,
@@ -63,7 +68,7 @@ interface ApiInterface {
 
     // To edit selected image entry
     @Multipart
-    @PUT("/testingnodeapp/books/progress/edit")
+    @PUT("${BASE_URL}/books/progress/edit")
     suspend fun updateUploadedEntry(
         @Part("entryID") entryID: RequestBody,
         @Part("title") title: RequestBody,
@@ -82,14 +87,14 @@ interface ApiInterface {
      * Delete only entries without feedback
      */
     @Multipart
-    @PUT("/testingnodeapp/books/progress/deleteEntryNoFeedback")
+    @PUT("${BASE_URL}/books/progress/deleteEntryNoFeedback")
     suspend fun deleteUploadedEntry(
         @Part("entryID") entryID: RequestBody
     ): Response<NetworkDeleteEntryResponse>
 
     // Archive selected image entry
     @Multipart
-    @PUT("/testingnodeapp/books/progress/archive")
+    @PUT("${BASE_URL}/books/progress/archive")
     suspend fun archiveUploadedEntry(
         @Part("entryID") entryID: RequestBody,
         @Part("prevFlag") prevFlag: RequestBody,
@@ -98,25 +103,25 @@ interface ApiInterface {
     /** DOCTOR ROUTES */
 
     // Retrieve assigned patients progress books
-    @GET("/testingnodeapp/doctor/getAllPatients/{doctorId}")
+    @GET("${BASE_URL}/doctor/getAllPatients/{doctorId}")
     suspend fun getAssignedPatientsList(@Path("doctorId") doctorId: String): Response<AssignedPatientsList>
 
     // Retrieve specific wound image feedback
-    @GET("/testingnodeapp/doctor/getFeedback/{woundImageID}")
+    @GET("${BASE_URL}/doctor/getFeedback/{woundImageID}")
     suspend fun getFeedbackList(@Path("woundImageID") woundImageID: String): Response<WoundImageFeedback>
 
     // Send feedback to specific wound image
-    @POST("/testingnodeapp/doctor/sendFeedback")
+    @POST("${BASE_URL}/doctor/sendFeedback")
     suspend fun sendFeedback(@Body params: Map<String, String>):
             Response<SendWoundFeedbackResponse>
 
     /** RESEARCHER ROUTES **/
-    @GET("/testingnodeapp/researcher/getAllPatients")
+    @GET("${BASE_URL}/researcher/getAllPatients")
     suspend fun getAllPatientsList(): Response<AssignedPatientsList>
 
     // Update user phone number
     @Multipart
-    @PUT("/testingnodeapp/user/update_phone_number")
+    @PUT("${BASE_URL}/user/update_phone_number")
     suspend fun updatePhoneNumber(
         @Part("userContact1") userContact1: RequestBody,
         @Part("userContact2") userContact2: RequestBody,
@@ -124,12 +129,12 @@ interface ApiInterface {
     ): Response<UpdateDetailResponse>
 
     // To receive list of general ideas about surgery
-    @GET("/testingnodeapp/utils/general")
+    @GET("${BASE_URL}/utils/general")
     suspend fun getGeneralInfoList(): Response<GeneralInfoResponse>
 
     // Generate PDF and share to others
 
-    @GET("/testingnodeapp/utils/getPdf/{entryID}")
+    @GET("${BASE_URL}/utils/getPdf/{entryID}")
     suspend fun getWoundImagePDF(@Path("entryID") entryID: String): Response<NetworkPDFGenerateResponse>
 
     /**
@@ -138,13 +143,21 @@ interface ApiInterface {
      * 3. Enter New Password
      */
 
-    @POST("/testingnodeapp/user/sending_twilio_otp")
+    @POST("${BASE_URL}/user/sending_twilio_otp")
     suspend fun sendRegistrationIdPhoneNumber(@Body params: Map<String, String>): Response<SendOTPResponse>
 
-    @POST("/testingnodeapp/user/verify_twilio")
+    @POST("${BASE_URL}/user/verify_twilio")
     suspend fun sendOTPWithPhoneNumber(@Body params: Map<String, String>): Response<VerifiedOTPResponse>
 
-    @POST("/testingnodeapp/user/reset_password")
+    @POST("${BASE_URL}/user/reset_password")
     suspend fun resetPassword(@Body params: Map<String, String>): Response<PasswordResetResponse>
+
+    /**
+     * Appointment Routes
+     */
+    @GET("${BASE_URL}/utils/getAppointment/{userType}/{userID}")
+    suspend fun getAppointmentList(@Path("userType") userType: String,
+                                          @Path("userID") userID: String,
+                                          ): Response<AppointmentNetworkResponse>
 
 }

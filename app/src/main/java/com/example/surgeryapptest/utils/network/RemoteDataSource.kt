@@ -1,5 +1,6 @@
 package com.example.surgeryapptest.utils.network
 
+import com.example.surgeryapptest.model.network.appointmentResponse.AppointmentNetworkResponse
 import com.example.surgeryapptest.model.network.doctorResponse.getAssignedPatientList.AssignedPatientsList
 import com.example.surgeryapptest.model.network.doctorResponse.getFeedbackResponse.WoundImageFeedback
 import com.example.surgeryapptest.model.network.doctorResponse.sendFeedbackResponse.SendWoundFeedbackResponse
@@ -146,6 +147,12 @@ class RemoteDataSource @Inject constructor(
     suspend fun resetPassword(@Body params: Map<String, String>):
             Response<PasswordResetResponse> {
         return apiInterface.resetPassword(params)
+    }
+
+    suspend fun getAppointmentList(@Path("userType") userType: String,
+                                   @Path("userID") userID: String,
+    ): Response<AppointmentNetworkResponse> {
+        return apiInterface.getAppointmentList(userType, userID)
     }
 
 }

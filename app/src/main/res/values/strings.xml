@@ -123,6 +123,9 @@
     <string name="add">Add</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="appointment_with">Appointment with:</string>
+    <string name="appointment_description">Appointment description:</string>
+    <string name="appointment_details">Appointment details</string>
 
     <string-array name="priorities">
         <item>High Priority</item>
