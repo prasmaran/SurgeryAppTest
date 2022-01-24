@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentPatientArchiveBookBinding
 import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntry
+import com.example.surgeryapptest.model.network.patientResponse.getAllProgressBook.AllProgressBookEntryItem
 import com.example.surgeryapptest.ui.activity.LoginActivity
 import com.example.surgeryapptest.utils.adapter.ArchivedAdapter
 import com.example.surgeryapptest.utils.app.AppUtils
@@ -54,6 +55,12 @@ class PatientArchiveBookFragment : Fragment() {
             createAlertDialogUnarchive(it)
         }
     }
+
+    private val dummyEmpty = AllProgressBookEntry(
+        "",
+        "",
+        arrayListOf()
+    )
 
     private var userId: String = ""
     private var tokenValid = true
@@ -111,7 +118,7 @@ class PatientArchiveBookFragment : Fragment() {
     }
 
     @SuppressLint("LongLogTag", "NewApi")
-    private fun reCallAPI(){
+    private fun reCallAPI() {
         lifecycleScope.launch {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
@@ -131,6 +138,10 @@ class PatientArchiveBookFragment : Fragment() {
         mainViewModel.allArchivedEntryResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
+
+                    binding.noArchiveFileImageView.visibility = View.GONE
+                    binding.noArchiveFileTv.visibility = View.GONE
+
                     val archivedBookResponse = response.data?.message.toString()
                     hideShimmerEffect()
                     progressBarVisible(false)
@@ -151,9 +162,11 @@ class PatientArchiveBookFragment : Fragment() {
                         unAuthenticateDialog(archivedBookResponse)
                         tokenValid = false
                     }
-//                    if (archivedBookResponse.contains("No archive files")) {
-//                        noProgressBookFound(archivedBookResponse)
-//                    }
+                    if (archivedBookResponse.contains("No archive files")) {
+                        binding.noArchiveFileImageView.visibility = View.VISIBLE
+                        binding.noArchiveFileTv.visibility = View.VISIBLE
+                        mAdapter.setData(dummyEmpty)
+                    }
                     if (archivedBookResponse.contains("No Internet Connection")) {
                         AppUtils.showToast(requireContext(), "No Internet Connection")
                     }
@@ -199,9 +212,9 @@ class PatientArchiveBookFragment : Fragment() {
                             unAuthenticateDialog(archivedBookResponse)
                             tokenValid = false
                         }
-                    //if (archivedBookResponse.contains("No archive files")) {
-                    //    noProgressBookFound(archivedBookResponse)
-                    //}
+                        //if (archivedBookResponse.contains("No archive files")) {
+                        //    noProgressBookFound(archivedBookResponse)
+                        //}
                         if (archivedBookResponse.contains("No Internet Connection")) {
                             AppUtils.showToast(requireContext(), "No Internet Connection")
                         }
@@ -379,7 +392,7 @@ class PatientArchiveBookFragment : Fragment() {
     }
 
     private fun cheapWorkAround() {
-        val temp : AllProgressBookEntry = null!!
+        val temp: AllProgressBookEntry = null!!
         mAdapter.setData(temp)
     }
 

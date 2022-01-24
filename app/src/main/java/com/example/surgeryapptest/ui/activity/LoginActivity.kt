@@ -175,23 +175,23 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is NetworkResult.Error -> {
 
-                    val userString = response.data?.message.toString()
-
                     binding.loginProgressBar.visibility = View.GONE
 
                     setCheckIcon(false)
 
+                    // response.message.toString(),
+
                     MotionToast.darkColorToast(
                         this,
                         "Login Failed!",
-                        "Incorrect Username or Password",
+                        response.message.toString(),
                         MotionToastStyle.ERROR,
                         MotionToast.GRAVITY_BOTTOM,
                         MotionToast.LONG_DURATION,
                         ResourcesCompat.getFont(this,R.font.helvetica_regular))
                 }
                 is NetworkResult.Loading -> {
-                    //binding.loginProgressBar.visibility = View.VISIBLE
+                    binding.loginProgressBar.visibility = View.VISIBLE
                 }
             }
         })

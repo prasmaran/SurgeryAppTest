@@ -208,6 +208,8 @@ class PatientProgressBooksFragment : Fragment() {
                         binding.floatingActionButton.isClickable = false
                     }
                     if (progressBookResponse.contains("No progress book found")) {
+                        binding.noProgressBookImageView.visibility = View.VISIBLE
+                        binding.noProgressBookTv.visibility = View.VISIBLE
                         noProgressBookFound(progressBookResponse)
                     }
                     if (progressBookResponse.contains("No Internet Connection")) {

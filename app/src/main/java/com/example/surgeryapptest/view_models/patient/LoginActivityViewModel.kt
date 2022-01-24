@@ -40,7 +40,15 @@ class LoginActivityViewModel @Inject constructor(
         userContact2: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            dataStoreRepository.saveUserProfileDetails(userName, userID, userIcNumber, userGender, userType, userContact1, userContact2)
+            dataStoreRepository.saveUserProfileDetails(
+                userName,
+                userID,
+                userIcNumber,
+                userGender,
+                userType,
+                userContact1,
+                userContact2
+            )
         }
 
         println("SAVED DATA IN VIEW MODEL: $userName $userID $userIcNumber $userGender $userType")
@@ -62,9 +70,11 @@ class LoginActivityViewModel @Inject constructor(
     val loginResponse: LiveData<NetworkResult<UserLoginNetworkResponse>> get() = userLoginResponse
     private val userLoginResponse = MutableLiveData<NetworkResult<UserLoginNetworkResponse>>()
 
-    var sendRegistrationIdPhoneNumber : MutableLiveData<NetworkResult<SendOTPResponse>> = MutableLiveData()
-    var verifiedOTPResponse : MutableLiveData<NetworkResult<VerifiedOTPResponse>> = MutableLiveData()
-    var passwordResetResponse : MutableLiveData<NetworkResult<PasswordResetResponse>> = MutableLiveData()
+    var sendRegistrationIdPhoneNumber: MutableLiveData<NetworkResult<SendOTPResponse>> =
+        MutableLiveData()
+    var verifiedOTPResponse: MutableLiveData<NetworkResult<VerifiedOTPResponse>> = MutableLiveData()
+    var passwordResetResponse: MutableLiveData<NetworkResult<PasswordResetResponse>> =
+        MutableLiveData()
 
     // invoke safe calls
 
@@ -166,8 +176,11 @@ class LoginActivityViewModel @Inject constructor(
             response.message().toString().contains("timeout") -> {
                 NetworkResult.Error("Timeout")
             }
+            response.body()!!.result.isNullOrEmpty() && response.body()!!.success.toString().contains("false") -> {
+                NetworkResult.Error(response.body()!!.message)
+            }
             response.body()!!.success.toString().contains("false") -> {
-                NetworkResult.Error("Error: ${response.body()!!.message}")
+                NetworkResult.Error(response.body()!!.message)
             }
             response.isSuccessful -> {
                 val data = response.body()

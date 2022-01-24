@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="appointment"
+            type="com.example.surgeryapptest.model.network.appointmentResponse.Result" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5"
+        android:background="@drawable/rounded_bg">
+
+        <TextView
+            android:id="@+id/appointment_details_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/appointment_details"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_12sp"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/appointment_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            appointmentFormatDate="@{appointment.appointmentDate}"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_18sp"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/appointment_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            appointmentFormatTime="@{appointment.appointmentDate}"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_18sp"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/expandArrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ccp_down_arrow"
+            app:tint="@color/black"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/appointment_main_flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_5"
+            app:constraint_referenced_ids="appointment_date, separator, appointment_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appointment_details_tv" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:layout_constraintTop_toBottomOf="@id/appointment_main_flow">
+
+            <TextView
+                android:id="@+id/appointment_with_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/appointment_with"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_12sp"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/appointment_with_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:maxLines="3"
+                android:fontFamily="@font/poppins_bold"
+                convertAppointmentUserIDToString="@{appointment}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_15sp"
+                app:layout_constraintTop_toBottomOf="@id/appointment_with_tv"
+                />
+
+            <TextView
+                android:id="@+id/appointment_desc_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/appointment_description"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_12sp"
+                app:layout_constraintTop_toBottomOf="@id/appointment_with_user"
+                />
+
+            <TextView
+                android:id="@+id/appointment_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@{appointment.description}"
+                android:textColor="@color/black"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:textSize="@dimen/text_15sp"
+                app:layout_constraintTop_toBottomOf="@id/appointment_desc_tv"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

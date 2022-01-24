@@ -1,67 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:ignore="HardcodedText"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/lightGray"
     tools:context=".ui.fragments.doctorFrags.DoctorAppointmentFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/filledTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Enter something">
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:id="@+id/doctor_appointment_recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_recycler_item_count="3"
+        app:shimmer_recycler_layout="@layout/placeholder_row_layout" />
 
-        <!--this is the actual edit text which takes the input-->
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:clickable="false"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:enabled="false"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!--sample button to submit entered data
-        inside from edit text-->
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:text="Submit" />
-
-    <!--text view which previews the entered data by user-->
     <TextView
-        android:id="@+id/text_preview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="You Entered : "
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/open_df"
+        android:id="@+id/no_appointment_doctor_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:text="Open" />
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="@dimen/text_15sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_appointment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/no_appointment_doctor_icon"
+        android:layout_width="@dimen/margin_50"
+        android:layout_height="@dimen/margin_50"
+        android:backgroundTint="@color/lightGray"
+        android:src="@drawable/ic_appointment"
+        android:layout_marginTop="@dimen/margin_20"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_appointment_doctor_tv" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

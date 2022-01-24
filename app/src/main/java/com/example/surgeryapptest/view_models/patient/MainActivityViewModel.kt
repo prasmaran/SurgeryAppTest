@@ -124,10 +124,10 @@ class MainActivityViewModel @Inject constructor(
             }
             response.body()!!.result.isNullOrEmpty() && response.body()!!.success.contains("true") -> {
                 //NetworkResult.Error("Error Special: ${response.body()!!.message}")
-                NetworkResult.Error("Error 2: No progress book found under your name.")
+                NetworkResult.Error("No progress book found under your name.") // Error 2
             }
             response.body()!!.result.isNullOrEmpty() -> {
-                NetworkResult.Error("Error 3: ${response.body()!!.message}")
+                NetworkResult.Error("${response.body()!!.message}")  // Error 3
             }
             response.isSuccessful -> {
                 val data = response.body()
