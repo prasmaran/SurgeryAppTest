@@ -48,13 +48,13 @@ class DoctorHomeFragment : Fragment() {
 
     private fun navigateToAppointments() {
         binding.cardViewAppointments.setOnClickListener {
-            binding.doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
+            findNavController().navigate(R.id.doctorAppointmentFragment)
         }
     }
 
     private fun navigateToProfile() {
         binding.cardViewProfile.setOnClickListener {
-            binding.doctorHomeFragmentLayout.showSnackBar("This feature has not been implemented yet")
+            findNavController().navigate(R.id.doctorProfileFragment)
         }
     }
 

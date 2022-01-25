@@ -4,8 +4,9 @@ class Constants {
 
     companion object{
 
-        const val BASE_URL = "https://surgery-node-app-fyp.herokuapp.com" // 192.168.1.107
-        const val BASE_URL2 = "http://192.168.1.104:5000"
+        const val BASE_URL = "https://surgery-node-app-fyp.herokuapp.com"
+        const val BASE_URL_BACKUP = "https://crucialtechno.educationhost.cloud"
+        const val BASE_URL_LOCALHOST = "http://192.168.1.104:5000"
 
         // Database
         const val DATABASE = "progressBook_database"

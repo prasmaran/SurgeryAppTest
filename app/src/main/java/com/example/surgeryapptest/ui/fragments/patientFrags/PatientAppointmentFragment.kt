@@ -87,7 +87,7 @@ class PatientAppointmentFragment : Fragment() {
                         binding.noAppointmentPatientTv.visibility = View.VISIBLE
                         binding.noAppointmentPatientIcon.visibility = View.VISIBLE
                     }
-                    response.data?.let {
+                    response.data.let {
                         mAdapter.setData(it)
                     }
                 }
