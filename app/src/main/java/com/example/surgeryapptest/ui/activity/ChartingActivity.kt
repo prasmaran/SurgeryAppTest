@@ -44,16 +44,15 @@ class ChartingActivity : AppCompatActivity() {
         binding.loadPieChart.setOnClickListener {
             binding.chartTv.visibility = View.GONE
             binding.pieChart.visibility = View.VISIBLE
-            binding.barChart.visibility = View.GONE
             setupPieChart()
             loadPieChart(names, noOfImages)
         }
 
-        binding.loadBarChart.setOnClickListener {
-            binding.chartTv.visibility = View.GONE
-            binding.pieChart.visibility = View.GONE
-            loadBarChart(patient_ID_barChart, noOfImages)
-        }
+//        binding.loadBarChart.setOnClickListener {
+//            binding.chartTv.visibility = View.GONE
+//            binding.pieChart.visibility = View.GONE
+//            loadBarChart(patient_ID_barChart, noOfImages)
+//        }
 
     }
 
@@ -65,44 +64,44 @@ class ChartingActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadBarChart(names: MutableList<Int>, images: MutableList<Int>) {
-
-        binding.barChart.visibility = View.VISIBLE
-
-        val entries = arrayListOf<BarEntry>()
-        for (i in 0 until names.size) {
-            entries.add(BarEntry(names[i].toFloat(), images[i].toFloat()))
-        }
-
-        val colors = arrayListOf<Int>()
-        for (color in ColorTemplate.MATERIAL_COLORS) {
-            colors.add(color)
-        }
-        for (color in ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(color)
-        }
-
-        val dataSet = BarDataSet(entries, "Patients Summary")
-        dataSet.colors = colors
-
-        val data = BarData(dataSet)
-
-        data.apply {
-            //setValueFormatter(PercentFormatter(binding.pieChart))
-            setValueTextSize(15F)
-            setValueTextColor(Color.BLACK)
-        }
-
-        binding.barChart.apply {
-            setFitBars(true)
-            setData(data)
-            description.text = "EXAMPLE"
-            invalidate()
-        }
-
-        binding.barChart.animateY(1400, Easing.EaseInOutCirc)
-
-    }
+//    private fun loadBarChart(names: MutableList<Int>, images: MutableList<Int>) {
+//
+//        binding.barChart.visibility = View.VISIBLE
+//
+//        val entries = arrayListOf<BarEntry>()
+//        for (i in 0 until names.size) {
+//            entries.add(BarEntry(names[i].toFloat(), images[i].toFloat()))
+//        }
+//
+//        val colors = arrayListOf<Int>()
+//        for (color in ColorTemplate.MATERIAL_COLORS) {
+//            colors.add(color)
+//        }
+//        for (color in ColorTemplate.VORDIPLOM_COLORS) {
+//            colors.add(color)
+//        }
+//
+//        val dataSet = BarDataSet(entries, "Patients Summary")
+//        dataSet.colors = colors
+//
+//        val data = BarData(dataSet)
+//
+//        data.apply {
+//            //setValueFormatter(PercentFormatter(binding.pieChart))
+//            setValueTextSize(15F)
+//            setValueTextColor(Color.BLACK)
+//        }
+//
+//        binding.barChart.apply {
+//            setFitBars(true)
+//            setData(data)
+//            description.text = "EXAMPLE"
+//            invalidate()
+//        }
+//
+//        binding.barChart.animateY(1400, Easing.EaseInOutCirc)
+//
+//    }
 
     private fun setupPieChart() {
 

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Select an option below to load"
+        android:text="Click below to load latest chart"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_18sp"
         app:layout_constraintBottom_toTopOf="@+id/chartFlow"
@@ -33,39 +33,39 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bar_chart"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_10"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/chartFlow"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <com.github.mikephil.charting.charts.BarChart-->
+<!--        android:id="@+id/bar_chart"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_margin="@dimen/margin_10"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/chartFlow"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/load_pie_chart"
         android:text="Pie Chart"
-        android:layout_width="@dimen/margin_0"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/load_bar_chart"
-        android:text="Bar Chart"
-        android:layout_width="@dimen/margin_0"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+<!--    <Button-->
+<!--        android:id="@+id/load_bar_chart"-->
+<!--        android:text="Bar Chart"-->
+<!--        android:layout_width="@dimen/margin_0"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/chartFlow"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:flow_horizontalGap="@dimen/margin_5"
         android:layout_margin="@dimen/margin_5"
-        app:constraint_referenced_ids="load_pie_chart, load_bar_chart"
+        app:constraint_referenced_ids="load_pie_chart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
