@@ -2,7 +2,6 @@ package com.example.surgeryapptest.ui.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -11,6 +10,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.ActivityEnterOtpactivityBinding
@@ -67,6 +67,9 @@ class EnterOTPActivity : AppCompatActivity() {
 
         binding.timerTv.setOnClickListener {
             countDownTimer.start()
+            resendOTP()
+            // Send the OTP again
+            // After 30 seconds
         }
 
         binding.submitOtpBtn.setOnClickListener {
@@ -81,6 +84,17 @@ class EnterOTPActivity : AppCompatActivity() {
                 AppUtils.showToast(this, "Fill in all fields")
             }
         }
+    }
+
+    @SuppressLint("NewApi")
+    private fun resendOTP() {
+        val resendOtpParams: Map<String, String> = mapOf(
+            "userRegistrationID" to userRegistrationID,
+            "toUser" to userPhoneNumber.substring(2)
+        )
+
+        //AppUtils.showToast(this, resendOtpParams.toString())
+        loginViewModel.sendRegistrationAndPhone(resendOtpParams)
     }
 
     @SuppressLint("NewApi")

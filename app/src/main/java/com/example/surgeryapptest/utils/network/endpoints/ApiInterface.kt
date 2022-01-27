@@ -23,10 +23,8 @@ import retrofit2.http.*
 
 interface ApiInterface {
 
-    /** ALL USERS ROUTES */
     companion object {
-        const val BASE_URL2 = "/testingnodeapp"
-        const val BASE_URL = ""
+        const val BASE_URL = "/testingnodeapp" // empty or /testingnodeapp
     }
 
     // Authenticate the user

@@ -50,6 +50,7 @@
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_patient_wound_details.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_pdfprogress_entry.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_researcher_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_stream_chat.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_testing.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/activity_to_do.xml" value="0.36666666666666664" />
@@ -82,7 +83,7 @@
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_researcher_patient_list.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_researcher_selected_patient_progress_book.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_update.xml" value="0.36666666666666664" />
-        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_upload_new_entry.xml" value="0.36666666666666664" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_upload_new_entry.xml" value="0.3272971160295104" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_users.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_wound_details.xml" value="0.4" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_wound_doctor_feedback.xml" value="0.36666666666666664" />

@@ -88,14 +88,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0-alpha03'
 
-    // Testing newly added
-    // Espresso
-    def androidx_test_espresso = "3.1.0"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$androidx_test_espresso"
-    implementation  "androidx.test.espresso:espresso-idling-resource:$androidx_test_espresso"
-    androidTestImplementation "androidx.test.espresso:espresso-intents:$androidx_test_espresso"
-
     // androidx.test
     def androidx_test = "1.1.0"
     androidTestImplementation "androidx.test:runner:$androidx_test"
@@ -105,6 +97,9 @@ dependencies {
     // Newly added for startActivityForResult
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.activity:activity-ktx:1.3.1")
+
+    // Leak canary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 
     // Include listed below:
     // Navigation component/fragment
