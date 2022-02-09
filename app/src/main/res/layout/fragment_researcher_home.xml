@@ -8,6 +8,22 @@
     tools:context=".ui.fragments.researcherFrags.ResearcherHomeFragment">
 
 
+    <TextView
+        android:id="@+id/researcher_welcome_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/welcome_back_user"
+        android:padding="@dimen/margin_10"
+        android:textSize="@dimen/text_20sp"
+        android:textAlignment="center"
+        android:background="@drawable/rounded_bg_extra_home"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/researcher_notice_card"
         android:layout_width="@dimen/margin_350"
@@ -16,10 +32,10 @@
         app:cardElevation="5dp"
         android:backgroundTint="@color/colorAccentLighter2"
         app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/flow2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_10"
+        app:layout_constraintTop_toBottomOf="@id/researcher_welcome_tv"
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,11 +85,11 @@
         app:flow_maxElementsWrap="2"
         app:flow_verticalGap="@dimen/margin_20"
         app:flow_wrapMode="aligned"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/researcher_notice_card"
         app:layout_constraintVertical_bias="0.5" />
 
     <androidx.cardview.widget.CardView

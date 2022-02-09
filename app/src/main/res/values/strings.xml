@@ -90,7 +90,7 @@
     <!-- Stream Chat -->
     <string name="go">START CHATTING</string>
     <string name="chat_app">QuickChat</string>
-    <string name="reliable_and_fast">Reliable and Fast</string>
+    <string name="doctor_patient_chat">Doctor ⇄ Patient</string>
     <string name="first_name">First Name</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
@@ -126,6 +126,7 @@
     <string name="appointment_with">Appointment with:</string>
     <string name="appointment_description">Appointment description:</string>
     <string name="appointment_details">Appointment details</string>
+    <string name="welcome_back_user">Welcome back, \n </string>
 
     <string-array name="priorities">
         <item>High Priority</item>

@@ -55,15 +55,6 @@ class UsersFragment : Fragment() {
 
         loadUserType()
 
-        lifecycleScope.launch {
-            patientListViewModel.readPatientNameList.collect { values ->
-                patientList = values
-                patientNameArrayList = patientList.split(",")
-            }
-        }
-
-        println("FORMATTED PATIENT LIST: $patientNameArrayList")
-
         setupToolbar()
         setupRecyclerView()
         queryAllUsers()
@@ -130,7 +121,8 @@ class UsersFragment : Fragment() {
         if (userType == "D") {
             val chatUser = patientNameArrayList
             val request = QueryUsersRequest(
-                filter = Filters.`in`("id", chatUser), //--> this works well
+                filter = Filters.autocomplete("name", "_p_"),
+                //filter = Filters.`in`("id", chatUser), //--> this works well
                 //filter = Filters.ne("id", client.getCurrentUser()!!.id),
                 offset = 0,
                 limit = 100
@@ -147,7 +139,7 @@ class UsersFragment : Fragment() {
         } else {
             //val chatUser = patientNameArrayList
             val request = QueryUsersRequest(
-                filter = Filters.autocomplete("name", "_D"),  //--> this works well
+                filter = Filters.autocomplete("name", "_d_"),  //--> this works well
                 //filter = Filters.ne("id", client.getCurrentUser()!!.id),
                 offset = 0,
                 limit = 100
