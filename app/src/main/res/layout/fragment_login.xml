@@ -25,7 +25,7 @@
         android:id="@+id/subtitle_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/reliable_and_fast"
+        android:text="@string/doctor_patient_chat"
         android:textSize="@dimen/text_18sp"
         android:textStyle="bold"
         android:textColor="@color/white"

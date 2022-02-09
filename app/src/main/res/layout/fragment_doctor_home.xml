@@ -9,6 +9,23 @@
     android:background="@color/lightGray"
     tools:context=".ui.fragments.doctorFrags.DoctorHomeFragment">
 
+
+    <TextView
+        android:id="@+id/doctor_welcome_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/welcome_back_user"
+        android:padding="@dimen/margin_10"
+        android:textSize="@dimen/text_20sp"
+        android:textAlignment="center"
+        android:background="@drawable/rounded_bg_extra_home"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.constraintlayout.helper.widget.Flow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

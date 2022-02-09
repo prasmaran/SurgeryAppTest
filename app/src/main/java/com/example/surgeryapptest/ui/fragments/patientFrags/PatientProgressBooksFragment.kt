@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -73,9 +74,9 @@ class PatientProgressBooksFragment : Fragment() {
         _binding = FragmentPatientProgressBooksBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        (activity as AppCompatActivity).supportActionBar?.elevation = 0f
+
         setupRecyclerView()
-        // searchProgressBookFilter()
-        // requestApiData()
 
         mainViewModel.readBackOnline.observe(viewLifecycleOwner, {
             mainViewModel.backOnline = it
@@ -129,42 +130,6 @@ class PatientProgressBooksFragment : Fragment() {
 
         return view
     }
-
-    // Search filter testing
-    // Hide this if not working
-//    private fun searchProgressBookFilter() {
-//        binding.patientBookSearchView.setOnQueryTextListener(object :
-//            SearchView.OnQueryTextListener, android.widget.SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//
-//                if (query != null) {
-//                    val searchQuery = "%$query%"
-//                    mainViewModel.searchDatabase(searchQuery)
-//                        .observe(viewLifecycleOwner, { database ->
-//                            if (database.isNotEmpty()) {
-//                                mAdapter.setData(database[0].progressBook)
-//                            }
-//                        })
-//                }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(query: String?): Boolean {
-//
-//                if (query != null) {
-//                    val searchQuery = "%$query%"
-//                    mainViewModel.searchDatabase(searchQuery)
-//                        .observe(viewLifecycleOwner, { database ->
-//                            if (database.isNotEmpty()) {
-//                                mAdapter.setData(database[0].progressBook)
-//                                //database[0].progressBook.result?.get(0)
-//                            }
-//                        })
-//                }
-//                return true
-//            }
-//        })
-//    }
 
     @SuppressLint("NewApi")
     private fun requestApiData(userId: String) {

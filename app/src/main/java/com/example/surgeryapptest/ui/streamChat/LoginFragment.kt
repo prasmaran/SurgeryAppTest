@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.surgeryapptest.R
 import com.example.surgeryapptest.databinding.FragmentLoginBinding
 import com.example.surgeryapptest.model.network.chatUser.ChatUser
+import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.app.SessionManager
 import com.example.surgeryapptest.utils.constant.Constants
 import com.example.surgeryapptest.view_models.patient.UserProfileFragmentViewModel
@@ -80,17 +81,19 @@ class LoginFragment : Fragment() {
 
     private fun readSavedUserProfileDetails() {
 
+        var userName = ""
+
         // TODO: Create API to update user contact details
         /** Listen to the changes and update in Ui
          * Send changes to server and return the updated response */
         viewLifecycleOwner.lifecycleScope.launch {
             userProfileViewModel.readUserProfileDetail.collect { values ->
                 val username = "${values.userName}_${values.userID}_${values.userType}"
-                binding.firstNameInputLayout.editText!!.setText(username)
-                binding.usernameInputLayout.editText!!.setText(username)
+                userName = (username + "_${values.userGender}").lowercase()
+                binding.firstNameInputLayout.editText!!.setText(userName)
+                binding.usernameInputLayout.editText!!.setText(userName)
             }
         }
-
     }
 
     override fun onDestroyView() {

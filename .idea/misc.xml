@@ -37,6 +37,7 @@
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/rounded_bg_border.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/rounded_bg_extra.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/rounded_bg_extra2.xml" value="0.3828125" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/rounded_bg_extra_home.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/drawable/rounded_bg_primary.xml" value="0.3828125" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout-v26/activity_enter_otpactivity.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout-v26/drawer_header.xml" value="0.36666666666666664" />
@@ -78,6 +79,7 @@
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_login.xml" value="0.35260416666666666" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_patient_appointment.xml" value="0.4" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_patient_archive_book.xml" value="0.36666666666666664" />
+        <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_patient_emergency_call.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_patient_home.xml" value="0.36666666666666664" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_patient_profile.xml" value="0.4" />
         <entry key="..\:/01PrasanthCodes/FYP/SurgeryAppTest/app/src/main/res/layout/fragment_patient_progress_books.xml" value="0.36666666666666664" />
@@ -141,7 +143,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15_PREVIEW" project-jdk-name="15" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -106,6 +106,10 @@ class DoctorPatientListFragment : Fragment() {
     private fun extractPatientDataForChat(chartData: ArrayList<PatientName>) {
         val patientArrayList = ArrayList<String>()
         for (i in chartData) {
+            /**
+             * trying new format after stream chat error
+             */
+            //var newFormat = "${i.woundImages[0].mName}_${i.woundImages[0].masterUserIdFk}_p_${i.woundImages[0].gen}"
             patientArrayList.add("${i.woundImages[0].mName}_${i.woundImages[0].masterUserIdFk}_P")
         }
         val patientList = patientArrayList.joinToString(",")
@@ -136,7 +140,7 @@ class DoctorPatientListFragment : Fragment() {
                         chartDataPatientNameList = it
                         mAdapter.setData(it)
                         patientList = it.result
-                        extractPatientDataForChat(patientList)
+                        //extractPatientDataForChat(patientList)
                     }
 
                     Log.d("DPListFrag", "requestPatientList: $chartDataPatientNameList")
