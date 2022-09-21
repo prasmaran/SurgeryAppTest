@@ -120,7 +120,7 @@ class PatientProfileFragment : Fragment() {
             userID.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         )
 
-        userProfileViewModel.updatedUserDetailResponse.observe(viewLifecycleOwner, { response ->
+        userProfileViewModel.updatedUserDetailResponse.observe(viewLifecycleOwner) { response ->
 
             when (response) {
 
@@ -133,7 +133,8 @@ class PatientProfileFragment : Fragment() {
                         MotionToastStyle.SUCCESS,
                         MotionToast.GRAVITY_BOTTOM,
                         MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireContext(),R.font.helvetica_regular))
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                    )
 
                     toggleButtons(false)
                     textInputLayout(false)
@@ -148,7 +149,8 @@ class PatientProfileFragment : Fragment() {
                         MotionToastStyle.SUCCESS,
                         MotionToast.GRAVITY_BOTTOM,
                         MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireContext(),R.font.helvetica_regular))
+                        ResourcesCompat.getFont(requireContext(), R.font.helvetica_regular)
+                    )
 
                     toggleButtons(false)
                     textInputLayout(false)
@@ -158,7 +160,7 @@ class PatientProfileFragment : Fragment() {
                     //TODO: Add loading fragment here
                 }
             }
-        })
+        }
 
     }
 
@@ -204,9 +206,9 @@ class PatientProfileFragment : Fragment() {
             }
         }
 
-        userProfileViewModel.readNumberOfPhotos.observe(viewLifecycleOwner, {
+        userProfileViewModel.readNumberOfPhotos.observe(viewLifecycleOwner) {
             binding.noOfPhotosTv.text = it.toString()
-        })
+        }
     }
 
     @SuppressLint("LongLogTag", "NewApi")

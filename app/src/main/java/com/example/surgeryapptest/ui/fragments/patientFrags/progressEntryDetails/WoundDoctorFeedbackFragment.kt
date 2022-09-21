@@ -60,9 +60,9 @@ class WoundDoctorFeedbackFragment : Fragment() {
         setupRecyclerView()
         swipeToRefresh()
 
-        updateUploadedEntryViewModel.readBackOnline.observe(viewLifecycleOwner, {
+        updateUploadedEntryViewModel.readBackOnline.observe(viewLifecycleOwner) {
             updateUploadedEntryViewModel.backOnline = it
-        })
+        }
 
         lifecycleScope.launch {
             networkListener = NetworkListener()
@@ -83,39 +83,39 @@ class WoundDoctorFeedbackFragment : Fragment() {
         binding.pfSwipeToRefresh.setOnRefreshListener {
             updateUploadedEntryViewModel.getWoundFeedbackList(woundID)
             updateUploadedEntryViewModel.feedbackListResponse.observe(
-                viewLifecycleOwner,
-                { response ->
-                    when (response) {
-                        is NetworkResult.Success -> {
-                            setErrorAttributesVisible(true)
-                            val feedbackListResponse = response.data?.message.toString()
+                viewLifecycleOwner
+            ) { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+                        setErrorAttributesVisible(true)
+                        val feedbackListResponse = response.data?.message.toString()
 //                        Toast.makeText(
 //                            requireContext(),
 //                            feedbackListResponse,
 //                            Toast.LENGTH_SHORT
 //                        ).show()
-                            binding.pfSwipeToRefresh.isRefreshing = false
-                            hideShimmerEffect()
-                            response.data?.let { feedbackAdapter.setData(it) }
-                        }
-                        is NetworkResult.Error -> {
-                            setErrorAttributesVisible(false)
-                            val feedbackListResponse = response.message.toString()
-                            Toast.makeText(
-                                requireContext(),
-                                feedbackListResponse,
-                                //response.message.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            hideShimmerEffect()
-                            binding.pfSwipeToRefresh.isRefreshing = false
-                        }
-                        is NetworkResult.Loading -> {
-                            showShimmerEffect()
-                            binding.pfSwipeToRefresh.isRefreshing = true
-                        }
+                        binding.pfSwipeToRefresh.isRefreshing = false
+                        hideShimmerEffect()
+                        response.data?.let { feedbackAdapter.setData(it) }
                     }
-                })
+                    is NetworkResult.Error -> {
+                        setErrorAttributesVisible(false)
+                        val feedbackListResponse = response.message.toString()
+                        Toast.makeText(
+                            requireContext(),
+                            feedbackListResponse,
+                            //response.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        hideShimmerEffect()
+                        binding.pfSwipeToRefresh.isRefreshing = false
+                    }
+                    is NetworkResult.Loading -> {
+                        showShimmerEffect()
+                        binding.pfSwipeToRefresh.isRefreshing = true
+                    }
+                }
+            }
         }
     }
 
@@ -123,7 +123,7 @@ class WoundDoctorFeedbackFragment : Fragment() {
     private fun requestFeedbackList(woundImageEntryId: String) {
 
         updateUploadedEntryViewModel.getWoundFeedbackList(woundImageEntryId)
-        updateUploadedEntryViewModel.feedbackListResponse.observe(viewLifecycleOwner, { response ->
+        updateUploadedEntryViewModel.feedbackListResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     setErrorAttributesVisible(true)
@@ -151,7 +151,7 @@ class WoundDoctorFeedbackFragment : Fragment() {
                     showShimmerEffect()
                 }
             }
-        })
+        }
     }
 
 

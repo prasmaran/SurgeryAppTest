@@ -173,7 +173,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
             //RequestBody.create(MediaType.parse("multipart/form-data"), fever)
         )
 
-        updateUploadedEntryViewModel.updatedEntryResponse.observe(viewLifecycleOwner, { response ->
+        updateUploadedEntryViewModel.updatedEntryResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     binding.updateEntryProgressBar.visibility = View.GONE
@@ -197,7 +197,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
                     //TODO: Add loading fragment here
                 }
             }
-        })
+        }
     }
 
     @SuppressLint("NewApi")
@@ -207,7 +207,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
             woundID.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         )
 
-        updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner, { response ->
+        updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     //binding.woundDetailsFragmentLayout.showSnackBar("${response.data?.message}")
@@ -250,7 +250,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
                     //TODO: Add loading fragment here
                 }
             }
-        })
+        }
     }
 
     @SuppressLint("NewApi")
@@ -261,7 +261,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
             prevFlag.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         )
 
-        updateUploadedEntryViewModel.archivedEntryResponse.observe(viewLifecycleOwner, { response ->
+        updateUploadedEntryViewModel.archivedEntryResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     binding.woundDetailsFragmentLayout.showSnackBar("${response.data?.message}")
@@ -277,7 +277,7 @@ class WoundDetailsFragment : Fragment(), SmileRating.OnSmileySelectionListener,
                     //TODO: Add loading fragment here
                 }
             }
-        })
+        }
     }
 
     // Input listeners

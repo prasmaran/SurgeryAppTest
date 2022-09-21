@@ -79,7 +79,7 @@ class PatientAppointmentFragment : Fragment() {
     @SuppressLint("NewApi")
     private fun requestApiData(userType: String, userId: String) {
         appointmentViewModel.getAppointmentList(userType, userId)
-        appointmentViewModel.appointmentNetworkResponse.observe(viewLifecycleOwner, { response ->
+        appointmentViewModel.appointmentNetworkResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
@@ -97,7 +97,7 @@ class PatientAppointmentFragment : Fragment() {
                     binding.noAppointmentPatientTv.visibility = View.VISIBLE
                     binding.noAppointmentPatientIcon.visibility = View.VISIBLE
 
-                    if(response.message.toString().contains("No appointment")) {
+                    if (response.message.toString().contains("No appointment")) {
                         MotionToast.darkColorToast(
                             requireActivity(),
                             "Nothing found!",
@@ -124,7 +124,7 @@ class PatientAppointmentFragment : Fragment() {
                     showShimmerEffect()
                 }
             }
-        })
+        }
     }
 
     private fun setupMockData() {

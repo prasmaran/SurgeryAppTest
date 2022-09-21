@@ -78,9 +78,9 @@ class PatientProgressBooksFragment : Fragment() {
 
         setupRecyclerView()
 
-        mainViewModel.readBackOnline.observe(viewLifecycleOwner, {
+        mainViewModel.readBackOnline.observe(viewLifecycleOwner) {
             mainViewModel.backOnline = it
-        })
+        }
 
         // Read userId to get specific progress book data
         lifecycleScope.launch {
@@ -134,7 +134,7 @@ class PatientProgressBooksFragment : Fragment() {
     @SuppressLint("NewApi")
     private fun requestApiData(userId: String) {
         mainViewModel.getAllProgressEntry(userId)
-        mainViewModel.allProgressEntryResponse.observe(viewLifecycleOwner, { response ->
+        mainViewModel.allProgressEntryResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     val progressBookResponse = response.data?.message.toString()
@@ -186,18 +186,18 @@ class PatientProgressBooksFragment : Fragment() {
                     showShimmerEffect()
                 }
             }
-        })
+        }
     }
 
     // Use this function whenever there is no Internet connection
     private fun readDatabase() {
         lifecycleScope.launch {
-            mainViewModel.readDatabase.observe(viewLifecycleOwner, { database ->
+            mainViewModel.readDatabase.observe(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {
                     mAdapter.setData(database[0].progressBook)
                     hideShimmerEffect()
                 }
-            })
+            }
         }
     }
 

@@ -87,9 +87,9 @@ class ResearcherPatientListFragment : Fragment() {
 
         setupRecyclerView()
 
-        patientListViewModel.readBackOnline.observe(viewLifecycleOwner, {
+        patientListViewModel.readBackOnline.observe(viewLifecycleOwner) {
             patientListViewModel.backOnline = it
-        })
+        }
 
         // Listen to network connection
         lifecycleScope.launch {
@@ -121,59 +121,59 @@ class ResearcherPatientListFragment : Fragment() {
     private fun requestResearchPatientList() {
         patientListViewModel.getResearcherPatientsList()
         patientListViewModel.allResearcherPatientsListResponse.observe(
-            viewLifecycleOwner,
-            { response ->
-                when (response) {
-                    is NetworkResult.Success -> {
-                        setErrorAttributesVisible(true)
-                        val patientListResponse = response.data?.message.toString()
-                        Toast.makeText(
-                            requireContext(),
-                            patientListResponse,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        hideShimmerEffect()
+            viewLifecycleOwner
+        ) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    setErrorAttributesVisible(true)
+                    val patientListResponse = response.data?.message.toString()
+                    Toast.makeText(
+                        requireContext(),
+                        patientListResponse,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    hideShimmerEffect()
 
-                        val noOfPatients = response.data?.result?.size
-                        if (noOfPatients != null) {
-                            patientListViewModel.setPatientNumber(noOfPatients)
-                        }
-                        response.data?.let {
-                            binding.summaryChartFAB.visibility = View.VISIBLE
-                            chartDataPatientNameList = it
-                            mAdapter.setData(it)
-                        }
-
-                        //Log.d("RPListFrag", "requestPatientList: $chartDataPatientNameList")
+                    val noOfPatients = response.data?.result?.size
+                    if (noOfPatients != null) {
+                        patientListViewModel.setPatientNumber(noOfPatients)
                     }
-                    is NetworkResult.Error -> {
-                        val patientListResponse = response.message.toString()
-
-                        Toast.makeText(
-                            requireContext(),
-                            patientListResponse,
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        if (patientListResponse.contains("No patient list")) {
-                            setErrorAttributesVisible(false)
-                        }
-
-                        if (patientListResponse.contains("Unauthorized User") || patientListResponse.contains(
-                                "Invalid Token"
-                            )
-                        ) {
-                            unAuthenticateDialog(patientListResponse)
-                        }
-
-                        hideShimmerEffect()
-
+                    response.data?.let {
+                        binding.summaryChartFAB.visibility = View.VISIBLE
+                        chartDataPatientNameList = it
+                        mAdapter.setData(it)
                     }
-                    is NetworkResult.Loading -> {
-                        showShimmerEffect()
-                    }
+
+                    //Log.d("RPListFrag", "requestPatientList: $chartDataPatientNameList")
                 }
-            })
+                is NetworkResult.Error -> {
+                    val patientListResponse = response.message.toString()
+
+                    Toast.makeText(
+                        requireContext(),
+                        patientListResponse,
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    if (patientListResponse.contains("No patient list")) {
+                        setErrorAttributesVisible(false)
+                    }
+
+                    if (patientListResponse.contains("Unauthorized User") || patientListResponse.contains(
+                            "Invalid Token"
+                        )
+                    ) {
+                        unAuthenticateDialog(patientListResponse)
+                    }
+
+                    hideShimmerEffect()
+
+                }
+                is NetworkResult.Loading -> {
+                    showShimmerEffect()
+                }
+            }
+        }
 
     }
 

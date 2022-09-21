@@ -102,7 +102,7 @@ class EnterOTPActivity : AppCompatActivity() {
 
         loginViewModel.sendOTPAndPhone(params)
 
-        loginViewModel.verifiedOTPResponse.observe(this@EnterOTPActivity, { response ->
+        loginViewModel.verifiedOTPResponse.observe(this@EnterOTPActivity) { response ->
             binding.otpProgressBar.visibility = View.VISIBLE
             when (response) {
                 is NetworkResult.Success -> {
@@ -138,7 +138,7 @@ class EnterOTPActivity : AppCompatActivity() {
                     //binding.enterDetailsProgressBar.visibility = View.VISIBLE
                 }
             }
-        })
+        }
 
     }
 

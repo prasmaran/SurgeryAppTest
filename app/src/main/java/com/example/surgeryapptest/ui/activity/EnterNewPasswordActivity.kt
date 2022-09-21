@@ -72,7 +72,7 @@ class EnterNewPasswordActivity : AppCompatActivity() {
 
         loginViewModel.sendResetPassword(params)
 
-        loginViewModel.passwordResetResponse.observe(this@EnterNewPasswordActivity, { response ->
+        loginViewModel.passwordResetResponse.observe(this@EnterNewPasswordActivity) { response ->
             binding.resetProgressBar.visibility = View.VISIBLE
             when (response) {
                 is NetworkResult.Success -> {
@@ -106,7 +106,7 @@ class EnterNewPasswordActivity : AppCompatActivity() {
                     //binding.enterDetailsProgressBar.visibility = View.VISIBLE
                 }
             }
-        })
+        }
     }
 
     private fun goToLoginPage() {
