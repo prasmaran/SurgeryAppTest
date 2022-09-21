@@ -46,7 +46,7 @@ class GeneralInfoFragment : Fragment() {
     @SuppressLint("NewApi")
     private fun requestApiData() {
         generalListViewModel.generalInfoAPI()
-        generalListViewModel.generalListResponse.observe(viewLifecycleOwner, { response ->
+        generalListViewModel.generalListResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     val generalInfoResponse = response.data?.message.toString()
@@ -71,7 +71,7 @@ class GeneralInfoFragment : Fragment() {
                     showShimmerEffect()
                 }
             }
-        })
+        }
     }
 
     private fun setupRecyclerView() {

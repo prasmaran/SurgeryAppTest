@@ -290,7 +290,7 @@ class UploadNewEntryFragment :
             fever.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
             //RequestBody.create(MediaType.parse("multipart/form-data"), fever),
         )
-        uploadNewEntryViewModel.uploadedNewEntryResponse.observe(viewLifecycleOwner, { response ->
+        uploadNewEntryViewModel.uploadedNewEntryResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     binding.progressBar.progress = 100
@@ -312,7 +312,7 @@ class UploadNewEntryFragment :
                     //TODO: Add loading fragment here
                 }
             }
-        })
+        }
     }
 
     // Capture new image

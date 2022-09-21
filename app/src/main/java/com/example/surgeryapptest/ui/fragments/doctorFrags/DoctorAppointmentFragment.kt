@@ -61,9 +61,9 @@ class DoctorAppointmentFragment : Fragment() {
         setupRecyclerView()
         //setupMockData()
 
-        appointmentViewModel.readBackOnline.observe(viewLifecycleOwner, {
+        appointmentViewModel.readBackOnline.observe(viewLifecycleOwner) {
             appointmentViewModel.backOnline = it
-        })
+        }
 
         // Read userId to get specific progress book data
         lifecycleScope.launch {
@@ -89,7 +89,7 @@ class DoctorAppointmentFragment : Fragment() {
     @SuppressLint("NewApi")
     private fun requestApiData(userType: String, userId: String) {
         appointmentViewModel.getAppointmentList(userType, userId)
-        appointmentViewModel.appointmentNetworkResponse.observe(viewLifecycleOwner, { response ->
+        appointmentViewModel.appointmentNetworkResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
@@ -107,7 +107,7 @@ class DoctorAppointmentFragment : Fragment() {
                     binding.noAppointmentDoctorTv.visibility = View.VISIBLE
                     binding.noAppointmentDoctorIcon.visibility = View.VISIBLE
 
-                    if(response.message.toString().contains("No appointment")) {
+                    if (response.message.toString().contains("No appointment")) {
                         MotionToast.darkColorToast(
                             requireActivity(),
                             "Nothing found!",
@@ -134,7 +134,7 @@ class DoctorAppointmentFragment : Fragment() {
                     showShimmerEffect()
                 }
             }
-        })
+        }
     }
 
     private fun setupRecyclerView() {

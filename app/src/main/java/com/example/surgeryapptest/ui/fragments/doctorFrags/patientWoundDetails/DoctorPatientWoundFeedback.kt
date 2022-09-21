@@ -118,39 +118,39 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
 
             woundFeedbackListViewModel.getWoundFeedbackList(woundImageEntryId)
             woundFeedbackListViewModel.feedbackListResponse.observe(
-                viewLifecycleOwner,
-                { response ->
-                    when (response) {
-                        is NetworkResult.Success -> {
-                            setErrorAttributesVisible(true)
-                            val feedbackListResponse = response.data?.message.toString()
+                viewLifecycleOwner
+            ) { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+                        setErrorAttributesVisible(true)
+                        val feedbackListResponse = response.data?.message.toString()
 //                        Toast.makeText(
 //                            requireContext(),
 //                            feedbackListResponse,
 //                            Toast.LENGTH_SHORT
 //                        ).show()
-                            binding.swipeToRefresh.isRefreshing = false
-                            hideShimmerEffect()
-                            response.data?.let { feedbackAdapter.setData(it) }
-                        }
-                        is NetworkResult.Error -> {
-                            setErrorAttributesVisible(false)
-                            val feedbackListResponse = response.message.toString()
-                            Toast.makeText(
-                                requireContext(),
-                                feedbackListResponse,
-                                //response.message.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            hideShimmerEffect()
-                            binding.swipeToRefresh.isRefreshing = false
-                        }
-                        is NetworkResult.Loading -> {
-                            showShimmerEffect()
-                            binding.swipeToRefresh.isRefreshing = true
-                        }
+                        binding.swipeToRefresh.isRefreshing = false
+                        hideShimmerEffect()
+                        response.data?.let { feedbackAdapter.setData(it) }
                     }
-                })
+                    is NetworkResult.Error -> {
+                        setErrorAttributesVisible(false)
+                        val feedbackListResponse = response.message.toString()
+                        Toast.makeText(
+                            requireContext(),
+                            feedbackListResponse,
+                            //response.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        hideShimmerEffect()
+                        binding.swipeToRefresh.isRefreshing = false
+                    }
+                    is NetworkResult.Loading -> {
+                        showShimmerEffect()
+                        binding.swipeToRefresh.isRefreshing = true
+                    }
+                }
+            }
         }
     }
 
@@ -158,7 +158,7 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
     private fun requestFeedbackList(woundImageEntryId: String) {
 
         woundFeedbackListViewModel.getWoundFeedbackList(woundImageEntryId)
-        woundFeedbackListViewModel.feedbackListResponse.observe(viewLifecycleOwner, { response ->
+        woundFeedbackListViewModel.feedbackListResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     setErrorAttributesVisible(true)
@@ -186,14 +186,14 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
                     showShimmerEffect()
                 }
             }
-        })
+        }
     }
 
     @SuppressLint("NewApi")
     private fun sendFeedback(params: Map<String, String>) {
 
         woundFeedbackListViewModel.postFeedback(params)
-        woundFeedbackListViewModel.sendFeedbackResponse.observe(viewLifecycleOwner, { response ->
+        woundFeedbackListViewModel.sendFeedbackResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     val sendFeedbackResponse = response.data?.message.toString()
@@ -213,7 +213,7 @@ class DoctorPatientWoundFeedback : Fragment(), SendFeedback {
                     ).show()
                 }
             }
-        })
+        }
     }
 
     private fun showFeedbackDialogFrag(patientDetail: PatientDetailFeedback) {

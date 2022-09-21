@@ -135,7 +135,7 @@ class PatientArchiveBookFragment : Fragment() {
     private fun requestApiData(userId: String) {
         mainViewModel.getAllArchivedEntry(userId)
         progressBarVisible(true)
-        mainViewModel.allArchivedEntryResponse.observe(viewLifecycleOwner, { response ->
+        mainViewModel.allArchivedEntryResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
 
@@ -176,17 +176,17 @@ class PatientArchiveBookFragment : Fragment() {
                     progressBarVisible(true)
                 }
             }
-        })
+        }
     }
 
     @SuppressLint("NewApi")
     private fun swipeToRefresh(userId: String) {
         binding.archivedFragSwipeToRefresh.setOnRefreshListener {
             mainViewModel.getAllArchivedEntry(userId)
-            mainViewModel.allArchivedEntryResponse.observe(viewLifecycleOwner, { response ->
+            mainViewModel.allArchivedEntryResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is NetworkResult.Success -> {
-                        val archivedBookResponse = response.data?.message.toString()
+                        response.data?.message.toString()
 //                        Toast.makeText(
 //                            requireContext(),
 //                            archivedBookResponse,
@@ -223,7 +223,7 @@ class PatientArchiveBookFragment : Fragment() {
                         showShimmerEffect()
                     }
                 }
-            })
+            }
 
         }
 
@@ -298,7 +298,7 @@ class PatientArchiveBookFragment : Fragment() {
 
         progressBarVisible(true)
 
-        updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner, { response ->
+        updateUploadedEntryViewModel.deletedEntryResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     //binding.woundDetailsFragmentLayout.showSnackBar("${response.data?.message}")
@@ -343,7 +343,7 @@ class PatientArchiveBookFragment : Fragment() {
                     //TODO: Add loading fragment here
                 }
             }
-        })
+        }
     }
 
     @SuppressLint("NewApi")
@@ -356,7 +356,7 @@ class PatientArchiveBookFragment : Fragment() {
 
         progressBarVisible(true)
 
-        updateUploadedEntryViewModel.archivedEntryResponse.observe(viewLifecycleOwner, { response ->
+        updateUploadedEntryViewModel.archivedEntryResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     MotionToast.createColorToast(
@@ -388,7 +388,7 @@ class PatientArchiveBookFragment : Fragment() {
                     //TODO: Add loading fragment here
                 }
             }
-        })
+        }
     }
 
     private fun cheapWorkAround() {

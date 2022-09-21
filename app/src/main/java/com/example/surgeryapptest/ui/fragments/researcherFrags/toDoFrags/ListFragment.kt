@@ -55,11 +55,11 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         setupRecyclerview()
 
         // Observe LiveData
-        mToDoViewModel.getAllData.observe(viewLifecycleOwner, { data ->
+        mToDoViewModel.getAllData.observe(viewLifecycleOwner) { data ->
             mSharedViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
             binding.recyclerView.scheduleLayoutAnimation()
-        })
+        }
 
 //        mToDoViewModel.getNewPatientData.observe(viewLifecycleOwner, { data ->
 //            println("NewPatientData: $data")
@@ -144,12 +144,12 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchThroughDatabase(query: String) {
         val searchQuery = "%$query%"
 
-        mToDoViewModel.searchDatabase(searchQuery).observeOnce(viewLifecycleOwner, { list ->
+        mToDoViewModel.searchDatabase(searchQuery).observeOnce(viewLifecycleOwner) { list ->
             list?.let {
                 Log.d("ListFragment", "searchThroughDatabase")
                 adapter.setData(it)
             }
-        })
+        }
     }
 
     // Show AlertDialog to Confirm Removal of All Items from Database Table

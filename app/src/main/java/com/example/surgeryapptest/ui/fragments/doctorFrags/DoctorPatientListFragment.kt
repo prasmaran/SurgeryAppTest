@@ -66,9 +66,9 @@ class DoctorPatientListFragment : Fragment() {
 
         setupRecyclerView()
 
-        patientListViewModel.readBackOnline.observe(viewLifecycleOwner, {
+        patientListViewModel.readBackOnline.observe(viewLifecycleOwner) {
             patientListViewModel.backOnline = it
-        })
+        }
 
         // Read doctorId to get assigned patients list
         lifecycleScope.launch {
@@ -119,7 +119,7 @@ class DoctorPatientListFragment : Fragment() {
     @SuppressLint("NewApi")
     private fun requestPatientList(doctorId: String) {
         patientListViewModel.getAssignedPatientsList(doctorId)
-        patientListViewModel.allPatientsListResponse.observe(viewLifecycleOwner, { response ->
+        patientListViewModel.allPatientsListResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     setErrorAttributesVisible(true)
@@ -173,7 +173,7 @@ class DoctorPatientListFragment : Fragment() {
                     showShimmerEffect()
                 }
             }
-        })
+        }
 
     }
 

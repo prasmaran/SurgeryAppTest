@@ -118,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.loginUser(params)
 
-        loginViewModel.loginResponse.observe(this@LoginActivity, { response ->
+        loginViewModel.loginResponse.observe(this@LoginActivity) { response ->
 
             binding.loginProgressBar.visibility = View.VISIBLE
 
@@ -151,7 +151,13 @@ class LoginActivity : AppCompatActivity() {
                     loginViewModel.setUserLoggedIn(true)
                     // save user profile details to data store
                     loginViewModel.saveUserProfileDetails(
-                        userName, userID, userIcNumber, userGender, userType, userContact1, userContact2
+                        userName,
+                        userID,
+                        userIcNumber,
+                        userGender,
+                        userType,
+                        userContact1,
+                        userContact2
                     )
                     // save access token to data store
                     loginViewModel.saveUserAccessToken(response.data?.accessToken.toString())
@@ -160,7 +166,7 @@ class LoginActivity : AppCompatActivity() {
                     // println("Access Token: " + sessionManager.fetchAuthToken())
 
                     val userString = response.data?.message.toString()
-                        //"${response.data?.result?.get(0)?.mName} = ${response.data?.result?.get(0)?.mType}"
+                    //"${response.data?.result?.get(0)?.mName} = ${response.data?.result?.get(0)?.mType}"
 
                     MotionToast.darkColorToast(
                         this,
@@ -169,7 +175,8 @@ class LoginActivity : AppCompatActivity() {
                         MotionToastStyle.SUCCESS,
                         MotionToast.GRAVITY_BOTTOM,
                         MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(this,R.font.helvetica_regular))
+                        ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                    )
 
                     goToMain(userType)
                 }
@@ -188,13 +195,14 @@ class LoginActivity : AppCompatActivity() {
                         MotionToastStyle.ERROR,
                         MotionToast.GRAVITY_BOTTOM,
                         MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(this,R.font.helvetica_regular))
+                        ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                    )
                 }
                 is NetworkResult.Loading -> {
                     binding.loginProgressBar.visibility = View.VISIBLE
                 }
             }
-        })
+        }
 
     }
 

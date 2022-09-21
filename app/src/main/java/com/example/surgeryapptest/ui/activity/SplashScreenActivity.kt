@@ -34,7 +34,7 @@ class SplashScreenActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_splash_screen)
 
-        splashAScreenViewModel.readUserLoggedIn.observe(this, { userLoggedIn ->
+        splashAScreenViewModel.readUserLoggedIn.observe(this) { userLoggedIn ->
             when (userLoggedIn) {
                 true -> {
                     readSUserTypeToNavigate()
@@ -50,7 +50,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     }, time)
                 }
             }
-        })
+        }
     }
 
     private fun goToTargetActivity(navToActivity: Class<*>) {

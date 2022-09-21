@@ -2,14 +2,13 @@ package com.example.surgeryapptest.ui.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import com.example.surgeryapptest.R
-import com.example.surgeryapptest.databinding.ActivityEnterOtpactivityBinding
 import com.example.surgeryapptest.databinding.ActivityEnterVerificationDetailsBinding
 import com.example.surgeryapptest.utils.app.AppUtils
 import com.example.surgeryapptest.utils.network.responses.NetworkResult
@@ -63,7 +62,7 @@ class EnterVerificationDetailsActivity : AppCompatActivity() {
 
         loginViewModel.sendRegistrationAndPhone(params)
 
-        loginViewModel.sendRegistrationIdPhoneNumber.observe(this@EnterVerificationDetailsActivity, { response ->
+        loginViewModel.sendRegistrationIdPhoneNumber.observe(this@EnterVerificationDetailsActivity) { response ->
             binding.enterDetailsProgressBar.visibility = View.VISIBLE
             when (response) {
                 is NetworkResult.Success -> {
@@ -99,7 +98,7 @@ class EnterVerificationDetailsActivity : AppCompatActivity() {
                     //binding.enterDetailsProgressBar.visibility = View.VISIBLE
                 }
             }
-        })
+        }
 
     }
 
