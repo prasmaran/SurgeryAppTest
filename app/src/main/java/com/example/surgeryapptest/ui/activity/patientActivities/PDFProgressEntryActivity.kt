@@ -62,7 +62,7 @@ class PDFProgressEntryActivity : AppCompatActivity() {
         binding.pdfGenerateProgressBar.visibility = View.VISIBLE
 
         pdfGenerateViewModel.generateWoundPDF(entryID)
-        pdfGenerateViewModel.pdfGenerateResponse.observe(this@PDFProgressEntryActivity, { response ->
+        pdfGenerateViewModel.pdfGenerateResponse.observe(this@PDFProgressEntryActivity) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     binding.pdfGenerateProgressBar.visibility = View.GONE
@@ -81,7 +81,10 @@ class PDFProgressEntryActivity : AppCompatActivity() {
                     initWebView()
                     initShare()
                     initBroadcastReceiver()
-                    registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+                    registerReceiver(
+                        receiver,
+                        IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                    )
                 }
                 is NetworkResult.Error -> {
                     binding.pdfGenerateProgressBar.visibility = View.GONE
@@ -95,7 +98,7 @@ class PDFProgressEntryActivity : AppCompatActivity() {
                     // TODO
                 }
             }
-        })
+        }
     }
 
     private fun initBroadcastReceiver() {
