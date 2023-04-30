@@ -32,11 +32,11 @@ class ResearcherPatientProgressBookListAdapter : RecyclerView.Adapter<Researcher
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResearcherPatientProgressBookListAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: ResearcherPatientProgressBookListAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentPatientProgressBookItem = patientProgressBookItems[position]
         holder.bind(currentPatientProgressBookItem)
     }

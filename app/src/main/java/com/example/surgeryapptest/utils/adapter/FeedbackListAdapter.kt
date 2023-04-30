@@ -34,11 +34,11 @@ class FeedbackListAdapter : RecyclerView.Adapter<FeedbackListAdapter.MyViewHolde
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedbackListAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: FeedbackListAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentFeedback = feedbackList[position]
         holder.bind(currentFeedback)
     }

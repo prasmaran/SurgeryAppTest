@@ -137,7 +137,7 @@ class UploadNewEntryFragment :
                     createAlertDialog()
                     it.hideKeyboard()
                 } else {
-                    AppUtils.showToast(requireContext(), "Please upload an image!")
+                    showToast(requireContext(), "Please upload an image!")
                 }
             }
         }

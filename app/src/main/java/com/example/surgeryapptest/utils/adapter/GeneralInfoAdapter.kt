@@ -33,11 +33,11 @@ class GeneralInfoAdapter : RecyclerView.Adapter<GeneralInfoAdapter.MyViewHolder>
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GeneralInfoAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: GeneralInfoAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentInfoItem = generalInfoItem[position]
         holder.bind(currentInfoItem)
     }
